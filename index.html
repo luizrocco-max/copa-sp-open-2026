@@ -130,12 +130,19 @@
      (o site na tela continua preto; só a exportação do painel individual sai em branco)  */
   @media print{
     @page{ margin:12mm; }
+    /* vira TODAS as variaveis do tema para claro (pega o fundo do .modal, etc.) */
+    :root{
+      --bg:#fff; --panel:#fff; --panel2:#f4f4f4; --line:#cccccc;
+      --txt:#111; --muted:#555; --accent:#c0102e; --accent2:#9a6b00;
+      --yellow:#ffe69a; --yellow-strong:#f1c40f; --good:#1a8f4a;
+    }
     *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; box-shadow:none !important; }
-    body{ background:#fff !important; }
+    html,body{ background:#fff !important; color:#111 !important; }
     .wrap{ display:none !important; }                 /* esconde a página (tela preta) */
     .overlay:not(.open){ display:none !important; }
     .overlay.open{ position:static !important; display:block !important; background:#fff !important; padding:0 !important; backdrop-filter:none !important; overflow:visible !important; }
-    .modal{ max-width:100% !important; width:100% !important; border:none !important; animation:none !important; }
+    .modal{ max-width:100% !important; width:100% !important; background:#fff !important; border:none !important; animation:none !important; }
+    .mbody{ background:#fff !important; }
     .mhead,.pkpi,.chartwrap,.rankbubble{ background:#fff !important; border-color:#bbb !important; }
     .mhead h2,.mhead .sub,.pkpi .v,.pkpi .l,.estable td,.estable th,.charttitle,.chartlegend,.rankbubble .pos,.rankbubble .of{ color:#111 !important; }
     .mhead .sub b,.rankbubble .pos{ color:#b3001b !important; }
