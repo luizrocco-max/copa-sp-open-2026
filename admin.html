@@ -357,11 +357,11 @@
       </div>
       <div class="adminstatus" id="admStatus"></div>
       <div class="adminactions" id="admActions" style="display:none">
-        
+        <button class="abtn publish" id="pubBtn">🚀 Publicar para todos</button>
         <button class="abtn primary" id="applyBtn">✓ Aplicar (só nesta tela)</button>
         <button class="abtn" id="dlBtn">⬇ Baixar dataset.json</button>
       </div>
-      <div class="adminnote">⚠️ Esta atualização vale apenas nesta tela (pré-visualização). Para publicar no site para todos, baixe o <b>dataset.json</b> (ou a própria planilha) e me envie no chat — eu republico em ~1 min.</div>
+      <div class="adminnote">🚀 <b>Publicar para todos</b> grava no site oficial (atualiza para todos os visitantes em ~1 min). <b>Aplicar</b> mostra só nesta tela, sem publicar.</div>
       <div style="text-align:right;margin-top:14px"><button class="abtn ghost" onclick="logoutAdmin()">Sair</button></div>
     </div>
   </div>
@@ -738,7 +738,7 @@ async function boot(){
 boot();
 
 (function(){
-  const ADMIN_USER="vanessabressane", ADMIN_HASH="09fa87f8021d0c7b30287a07699d9912fa3b3a79592af21ad0c75ec70e3bfe3b", PUBLISH_URL="";
+  const ADMIN_USER="vanessabressane", ADMIN_HASH="09fa87f8021d0c7b30287a07699d9912fa3b3a79592af21ad0c75ec70e3bfe3b", PUBLISH_URL="https://copa-publish.luiz-rocco.workers.dev";
   const ico=document.getElementById('adminIco'), loginOv=document.getElementById('loginOverlay'), adminOv=document.getElementById('adminOverlay');
   let parsed=null, worker=null, adminPass='';
   const authed=()=>sessionStorage.getItem('copa_admin')==='1';
