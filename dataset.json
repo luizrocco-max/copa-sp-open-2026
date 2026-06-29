@@ -70,7 +70,7 @@
   89,
   91,
   68,
-  2
+  1
  ],
  "athletes": [
   {
@@ -681,7 +681,8 @@
      "score": 14
     },
     {
-     "score": 66
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -719,7 +720,8 @@
      "presencial": true
     },
     {
-     "score": 88
+     "score": 16,
+     "presencial": true
     }
    ]
   },
