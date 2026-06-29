@@ -151,6 +151,10 @@
   .pkpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:center}
   .pkpi .v{font-size:20px;font-weight:700}
   .pkpi .l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+  .pkpi.accent{border-color:var(--yellow-strong);background:linear-gradient(180deg,rgba(245,197,24,.14),var(--panel2))}
+  .pkpi.accent .v{color:var(--yellow-strong)}
+  .majnote{font-size:12px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--yellow-strong);border-radius:8px;padding:8px 12px;margin:-6px 0 16px}
+  .majnote b{color:var(--txt)}
   .charttitle{font-size:13px;font-weight:600;margin:6px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
   .chartwrap{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
   .chartlegend{display:flex;gap:18px;font-size:11px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
@@ -252,7 +256,7 @@
         <option value="total">Total de pontos</option>
         <option value="avg">Média por etapa</option>
         <option value="count">Nº de participações</option>
-        <option value="pres">Nº de presenciais</option>
+        <option value="major">Majorança (4 melhores)</option>
         <option value="best">Melhor nota</option>
       </select>
     </div>
@@ -303,6 +307,10 @@ D.athletes.forEach(a=>{
   a.avg = a.count? a.total/a.count : 0;
   a.best = sc.length? Math.max(...sc) : 0;
   a.presCount = a.etapas.filter(e=>e.presencial).length;
+  // Majorança: soma das 4 melhores notas presenciais
+  a.presScores = a.etapas.filter(e=>e.presencial && e.score!==null).map(e=>e.score).sort((x,y)=>y-x);
+  a.majorTop = a.presScores.slice(0,4);
+  a.major = a.majorTop.reduce((x,y)=>x+y,0);
 });
 
 // final classification by total points (sequential placement; ties broken by best nota, then nome)
@@ -382,7 +390,7 @@ function render(){
     const head = '<thead><tr><th class="pos">#</th><th class="name">Atirador</th>'+
       (single? '<th>Nota '+D.stages[state.stage].n+'</th>' :
         '<th>Total</th><th>Média</th><th>Particip.</th>')+
-      '<th>Presenciais</th><th style="min-width:160px">Desempenho</th></tr></thead>';
+      '<th title="Soma das 4 melhores notas presenciais">Majorança</th><th style="min-width:160px">Desempenho</th></tr></thead>';
     const maxv = single? 18 : Math.max(...rows.map(r=>r.total),1);
     const body = rows.map((a,i)=>{
       // colocação geral real (por pontos); por etapa, usa a ordem da lista
@@ -390,7 +398,7 @@ function render(){
       const medal = pos===1?'🥇':pos===2?'🥈':pos===3?'🥉':'';
       const val = single? (a.etapas[state.stage].score??'—') : a.total;
       const barv = single? ((a.etapas[state.stage].score??0)/maxv*100) : (a.total/maxv*100);
-      const presBadge = single? (a.etapas[state.stage].presencial?'<span style="color:var(--yellow-strong)">● sim</span>':'—') : a.presCount;
+      const presBadge = a.presCount? '<b style="color:var(--yellow-strong)">'+a.major+'</b>' : '—';
       return '<tr data-name="'+a.name.replace(/"/g,'&quot;')+'"><td class="pos">'+(medal||pos)+'</td><td class="name">'+a.name+'</td>'+
         (single? '<td class="tot">'+val+'</td>' : '<td class="tot">'+val+'</td><td>'+a.avg.toFixed(1)+'</td><td>'+a.count+'</td>')+
         '<td>'+presBadge+'</td>'+
@@ -402,7 +410,7 @@ function render(){
     const showStages = state.stage>=0? [state.stage] : D.stages.map((_,i)=>i);
     const head = '<thead><tr><th class="name">Atirador</th>'+
       showStages.map(i=>'<th>'+D.stages[i].n+'<span class="sub">'+(D.stages[i].local||'')+'<br>'+D.stages[i].date+'</span></th>').join('')+
-      '<th class="tot">Total</th><th>Part.</th><th>Pres.</th></tr></thead>';
+      '<th class="tot">Total</th><th>Part.</th><th title="Soma das 4 melhores notas presenciais">Majorança</th></tr></thead>';
     const body = rows.map(a=>{
       const cells = showStages.map(i=>{
         const e=a.etapas[i];
@@ -410,7 +418,8 @@ function render(){
         const cls = e.presencial? 'sc pres' : 'sc';
         return '<td class="'+cls+'">'+(e.score===null?'':e.score)+'</td>';
       }).join('');
-      return '<tr data-name="'+a.name.replace(/"/g,'&quot;')+'"><td class="name">'+a.name+'</td>'+cells+'<td class="tot">'+a.total+'</td><td>'+a.count+'</td><td>'+a.presCount+'</td></tr>';
+      const majTd = a.presCount? '<b style="color:var(--yellow-strong)">'+a.major+'</b>' : '—';
+      return '<tr data-name="'+a.name.replace(/"/g,'&quot;')+'"><td class="name">'+a.name+'</td>'+cells+'<td class="tot">'+a.total+'</td><td>'+a.count+'</td><td>'+majTd+'</td></tr>';
     }).join('');
     grid.innerHTML = head + '<tbody>'+body+'</tbody>';
   }
@@ -484,6 +493,7 @@ function openDetail(name){
     {l:'Melhor nota', v:a.best},
     {l:'Participações', v:a.count+' / '+D.stages.length},
     {l:'Presenciais', v:a.presCount},
+    {l:'Majorança (4 melhores)', v: a.presCount? a.major : '—', accent:true},
   ];
   const rows=a.etapas.map((e,i)=>{
     const part = e.score!==null||e.presencial;
@@ -501,7 +511,8 @@ function openDetail(name){
       '<button class="close" onclick="closeDetail()">✕</button>'+
     '</div>'+
     '<div class="mbody">'+
-      '<div class="pkpis">'+pkpis.map(k=>'<div class="pkpi"><div class="v">'+k.v+'</div><div class="l">'+k.l+'</div></div>').join('')+'</div>'+
+      '<div class="pkpis">'+pkpis.map(k=>'<div class="pkpi'+(k.accent?' accent':'')+'"><div class="v">'+k.v+'</div><div class="l">'+k.l+'</div></div>').join('')+'</div>'+
+      (a.presCount? '<div class="majnote">Majorança = soma das 4 melhores notas presenciais'+(a.presScores.length>4?' (de '+a.presScores.length+' presenciais)':'')+': <b>'+a.majorTop.join(' + ')+' = '+a.major+'</b></div>' : '')+
       '<div class="charttitle">Evolução por etapa</div>'+
       '<div class="chartwrap">'+chartSVG(a)+
         '<div class="chartlegend"><span><i style="background:#f5c518;border:2px solid #d51e2b"></i>Presencial</span>'+
