@@ -243,6 +243,7 @@
   .adminactions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
   .abtn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer}
   .abtn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .abtn.publish{background:var(--good);border-color:var(--good);color:#06231a}
   .abtn.ghost{background:transparent;color:var(--muted)}
   .abtn:hover{filter:brightness(1.08)}
   .adminnote{background:rgba(245,197,24,.08);border:1px solid var(--line);border-left:3px solid var(--yellow-strong);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--muted)}
@@ -356,8 +357,9 @@
       </div>
       <div class="adminstatus" id="admStatus"></div>
       <div class="adminactions" id="admActions" style="display:none">
-        <button class="abtn primary" id="applyBtn">✓ Aplicar na visualização</button>
-        <button class="abtn" id="dlBtn">⬇ Baixar dados processados (dataset.json)</button>
+        
+        <button class="abtn primary" id="applyBtn">✓ Aplicar (só nesta tela)</button>
+        <button class="abtn" id="dlBtn">⬇ Baixar dataset.json</button>
       </div>
       <div class="adminnote">⚠️ Esta atualização vale apenas nesta tela (pré-visualização). Para publicar no site para todos, baixe o <b>dataset.json</b> (ou a própria planilha) e me envie no chat — eu republico em ~1 min.</div>
       <div style="text-align:right;margin-top:14px"><button class="abtn ghost" onclick="logoutAdmin()">Sair</button></div>
@@ -716,13 +718,29 @@ document.getElementById('grid').addEventListener('click',e=>{ const tr=e.target.
 document.getElementById('overlay').addEventListener('click',e=>{ if(e.target.id==='overlay') closeDetail(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeDetail(); closeReg(); } });
 
-loadDataset();
-render();
+// Carrega dados de dataset.json (publicado pelo painel admin); cai no embutido se falhar.
+async function boot(){
+  try{
+    const r = await fetch('dataset.json?ts='+(new Date().getTime()), {cache:'no-store'});
+    if(r.ok){
+      const nd = await r.json();
+      if(nd && Array.isArray(nd.athletes) && nd.athletes.length){
+        if(!nd.calendario) nd.calendario=D.calendario;
+        if(!nd.regras) nd.regras=D.regras;
+        if(!nd.titulo) nd.titulo=D.titulo;
+        D = nd;
+      }
+    }
+  }catch(e){ /* offline/local: usa o dataset embutido */ }
+  loadDataset();
+  render();
+}
+boot();
 
 (function(){
-  const ADMIN_USER="vanessabressane", ADMIN_HASH="09fa87f8021d0c7b30287a07699d9912fa3b3a79592af21ad0c75ec70e3bfe3b";
+  const ADMIN_USER="vanessabressane", ADMIN_HASH="09fa87f8021d0c7b30287a07699d9912fa3b3a79592af21ad0c75ec70e3bfe3b", PUBLISH_URL="";
   const ico=document.getElementById('adminIco'), loginOv=document.getElementById('loginOverlay'), adminOv=document.getElementById('adminOverlay');
-  let parsed=null, worker=null;
+  let parsed=null, worker=null, adminPass='';
   const authed=()=>sessionStorage.getItem('copa_admin')==='1';
   function openLogin(){ if(authed()){ openAdmin(); return; } loginOv.classList.add('open'); setTimeout(()=>{var u=document.getElementById('admUser'); if(u)u.focus();},50); }
   function openAdmin(){ loginOv.classList.remove('open'); adminOv.classList.add('open'); }
@@ -735,7 +753,7 @@ render();
     const u=document.getElementById('admUser').value.trim(), p=document.getElementById('admPass').value;
     if(!(window.crypto&&crypto.subtle)){ errEl().textContent='Login exige a versão online (https) do site.'; return; }
     const h=await sha256hex(p);
-    if(u===ADMIN_USER && h===ADMIN_HASH){ sessionStorage.setItem('copa_admin','1'); errEl().textContent=''; document.getElementById('admPass').value=''; openAdmin(); }
+    if(u===ADMIN_USER && h===ADMIN_HASH){ sessionStorage.setItem('copa_admin','1'); adminPass=p; errEl().textContent=''; document.getElementById('admPass').value=''; openAdmin(); }
     else errEl().textContent='Usuário ou senha incorretos.';
   }
   document.getElementById('loginBtn').addEventListener('click', doLogin);
@@ -788,6 +806,23 @@ render();
     const url=URL.createObjectURL(blob), a=document.createElement('a');
     a.href=url; a.download='dataset.json'; a.click();
     setTimeout(()=>URL.revokeObjectURL(url),2000);
+  });
+  const pubBtn=document.getElementById('pubBtn');
+  if(pubBtn) pubBtn.addEventListener('click', async ()=>{
+    if(!parsed) return;
+    if(!PUBLISH_URL){ statusEl().className='adminstatus err'; statusEl().innerHTML='Publicação automática ainda não configurada.'; return; }
+    if(!confirm('Publicar estes dados no site oficial, para TODOS os visitantes?')) return;
+    let pass=adminPass; if(!pass){ pass=prompt('Confirme a senha de admin para publicar:')||''; }
+    if(!pass) return;
+    pubBtn.disabled=true; const old=pubBtn.innerHTML; pubBtn.innerHTML='<span class="spin"></span> Publicando…';
+    try{
+      const r=await fetch(PUBLISH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pass, dataset:parsed})});
+      const j=await r.json().catch(()=>({}));
+      if(!r.ok || !j.ok) throw new Error(j.error||('HTTP '+r.status));
+      statusEl().className='adminstatus ok';
+      statusEl().innerHTML='🚀 Publicado com sucesso! O site atualiza para todos em ~1 minuto (GitHub reconstruindo). Recarregue a página depois para confirmar.';
+    }catch(err){ statusEl().className='adminstatus err'; statusEl().innerHTML='❌ Falha ao publicar: '+(err&&err.message?err.message:err); }
+    finally{ pubBtn.disabled=false; pubBtn.innerHTML=old; }
   });
   openLogin();
 })();

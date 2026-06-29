@@ -243,6 +243,7 @@
   .adminactions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
   .abtn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer}
   .abtn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .abtn.publish{background:var(--good);border-color:var(--good);color:#06231a}
   .abtn.ghost{background:transparent;color:var(--muted)}
   .abtn:hover{filter:brightness(1.08)}
   .adminnote{background:rgba(245,197,24,.08);border:1px solid var(--line);border-left:3px solid var(--yellow-strong);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--muted)}
@@ -596,8 +597,24 @@ document.getElementById('grid').addEventListener('click',e=>{ const tr=e.target.
 document.getElementById('overlay').addEventListener('click',e=>{ if(e.target.id==='overlay') closeDetail(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeDetail(); closeReg(); } });
 
-loadDataset();
-render();
+// Carrega dados de dataset.json (publicado pelo painel admin); cai no embutido se falhar.
+async function boot(){
+  try{
+    const r = await fetch('dataset.json?ts='+(new Date().getTime()), {cache:'no-store'});
+    if(r.ok){
+      const nd = await r.json();
+      if(nd && Array.isArray(nd.athletes) && nd.athletes.length){
+        if(!nd.calendario) nd.calendario=D.calendario;
+        if(!nd.regras) nd.regras=D.regras;
+        if(!nd.titulo) nd.titulo=D.titulo;
+        D = nd;
+      }
+    }
+  }catch(e){ /* offline/local: usa o dataset embutido */ }
+  loadDataset();
+  render();
+}
+boot();
 
 </script>
 </body>
