@@ -371,7 +371,7 @@ function loadDataset(){
     {l:'Patrocínio', v: money(D.patrocinio)},
     {l:'Participantes', v: fmtBR(D.athletes.length)},
     {l:'Etapas', v: D.stages.length},
-    {l:'Presenças presenciais', v: fmtBR(totalPres), accent:true},
+    {l:'Participações presenciais', v: fmtBR(totalPres), accent:true},
   ];
   document.getElementById('kpis').innerHTML = kpis.map(k=>
     '<div class="kpi '+(k.accent?'accent':'')+'"><div class="v">'+k.v+'</div><div class="l">'+k.l+'</div></div>').join('');
