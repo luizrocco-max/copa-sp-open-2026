@@ -1,5 +1,5 @@
 {
- "fundoAcumulado": 263100,
+ "fundoAcumulado": 263250,
  "patrocinio": 135000,
  "totalParticipantes": 217,
  "etapasComResultado": 8,
@@ -51,7 +51,7 @@
   19800,
   16800,
   15600,
-  13350,
+  13500,
   13650,
   10200
  ],
@@ -61,7 +61,7 @@
   132,
   112,
   104,
-  89,
+  90,
   91,
   68
  ],
@@ -4443,8 +4443,8 @@
      "score": 17
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 13,
+     "presencial": true
     },
     {
      "score": 17
