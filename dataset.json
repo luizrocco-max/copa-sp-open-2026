@@ -1,5 +1,5 @@
 {
- "fundoAcumulado": 271950,
+ "fundoAcumulado": 272400,
  "patrocinio": 135000,
  "totalParticipantes": 217,
  "etapasComResultado": 9,
@@ -59,7 +59,7 @@
   13500,
   13800,
   10500,
-  8250
+  8700
  ],
  "stageParticipants": [
   133,
@@ -70,7 +70,7 @@
   90,
   92,
   70,
-  55
+  58
  ],
  "athletes": [
   {
@@ -715,8 +715,7 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17
     }
    ]
   },
@@ -6756,8 +6755,7 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17
     }
    ]
   },
@@ -8030,8 +8028,7 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18
     }
    ]
   },
