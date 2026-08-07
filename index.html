@@ -525,7 +525,7 @@ function buildLineChart(opts){
   let bands='<line class="cx-cross" x1="0" x2="0" y1="'+padT+'" y2="'+(padT+plotH)+'" style="display:none"/>';
   for(let i=0;i<n;i++){ bands += '<rect class="cx-band" data-i="'+i+'" x="'+(X(i)-stepX/2).toFixed(1)+'" y="'+padT+'" width="'+stepX+'" height="'+plotH+'" fill="transparent"/>'; }
   const meta = { padL, stepX, n, xLabels, fmt, series: series.map(s=>({name:s.name,color:s.color,vals:s.pts})) };
-  const svg = '<svg class="chart" viewBox="0 0 '+vbW+' '+vbH+'" preserveAspectRatio="xMidYMid meet" data-chart=\''+JSON.stringify(meta).replace(/'/g,'&#39;')+'\'>'+grid+xax+paths+marks+bands+'</svg>';
+  const svg = '<svg class="chart" role="img" aria-label="'+(title||'Gráfico').replace(/"/g,'&quot;')+'" viewBox="0 0 '+vbW+' '+vbH+'" preserveAspectRatio="xMidYMid meet" data-chart=\''+JSON.stringify(meta).replace(/'/g,'&#39;')+'\'>'+grid+xax+paths+marks+bands+'</svg>';
   const leg = (legend && series.length>1) ? '<div class="clegend">'+series.map(s=>'<span><span class="cdot'+(s.shape==='square'?' sq':'')+'" style="background:'+s.color+'"></span>'+s.name+'</span>').join('')+'</div>' : '';
   return '<div class="rcard">'+(title?'<h3>'+title+'</h3>':'')+(desc?'<p class="desc">'+desc+'</p>':'')+
     '<div class="charthold"><div class="lc-wrap">'+svg+'</div><div class="charttip"></div></div>'+leg+'</div>';
@@ -547,10 +547,10 @@ function wireCharts(root){
       tip.style.left=Math.max(4,left)+'px'; tip.style.top='6px';
     };
     svg.querySelectorAll('.cx-band').forEach(b=>{
-      b.addEventListener('mousemove', ev=>show(+b.dataset.i, ev));
-      b.addEventListener('mouseenter', ev=>show(+b.dataset.i, ev));
+      b.addEventListener('pointermove', ev=>show(+b.dataset.i, ev));
+      b.addEventListener('pointerenter', ev=>show(+b.dataset.i, ev));
     });
-    hold.addEventListener('mouseleave', ()=>{ tip.style.display='none'; cross.style.display='none'; });
+    hold.addEventListener('pointerleave', ev=>{ if(ev.pointerType && ev.pointerType!=='mouse') return; tip.style.display='none'; cross.style.display='none'; });
   });
 }
 
@@ -708,7 +708,7 @@ function renderComparativo(){
     xLabels:D.stages.map((s,i)=>(i+1)+'ª'),
     yMin, yMax, yTicks, fmt:'score',
     title:'Evolução das notas por etapa',
-    desc:'Passe o mouse sobre o gráfico para ver as notas de cada etapa.', legend:true
+    desc:'Passe o mouse ou toque no gráfico para ver as notas de cada etapa.', legend:true
   });
 
   cv.innerHTML=selHtml+scoreHtml+statHtml+chartHtml+stageHtml;
