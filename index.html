@@ -20,6 +20,10 @@
   .htext p{margin:4px 0 0;color:#444;font-size:13px}
   .badge{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:11px;padding:3px 9px;border-radius:5px;letter-spacing:1px}
 
+  .finalnote{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(245,197,24,.12),var(--panel));border:1px solid var(--line);border-left:4px solid var(--yellow-strong);border-radius:12px;padding:13px 16px;margin:18px 0;font-size:14px;line-height:1.45;color:var(--txt)}
+  .finalnote .ico{font-size:20px;flex:0 0 auto}
+  .finalnote b{color:var(--accent2)}
+
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:18px 0}
   .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
   .kpi .v{font-size:24px;font-weight:700}
@@ -327,6 +331,11 @@
     <button class="regbtn" onclick="openReg()" title="Ver regulamento oficial e calendário 2026">📋 Regulamento &amp; Calendário</button>
     <a class="adminico" href="admin.html" title="Área administrativa (upload de planilha)">🔒</a>
   </header>
+
+  <div class="finalnote">
+    <span class="ico">🏁</span>
+    <span><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.</span>
+  </div>
 
   <div class="kpis" id="kpis"></div>
   <div class="stages" id="stages"></div>
