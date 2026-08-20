@@ -31,6 +31,12 @@
   .kpi.accent .v{color:var(--accent2)}
   .kpi.lead .v{font-size:16px;line-height:1.25;overflow-wrap:anywhere}
   .finalnote #qualNote{color:var(--accent2);white-space:nowrap}
+  .kpi.clk{cursor:pointer;transition:border-color .15s}
+  .kpi.clk:hover{border-color:var(--accent2)}
+  th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+  th.sortable:hover{color:var(--txt)}
+  .mhead .cmpbtn{background:transparent;color:#fff;border:1px solid var(--accent);height:34px;padding:0 14px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;flex:0 0 auto}
+  .mhead .cmpbtn:hover{background:var(--accent)}
 
   .stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
   .stage{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;position:relative;overflow:hidden}
@@ -40,6 +46,10 @@
   .stage .pr{margin-top:8px;display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
   .stage .bar{height:5px;background:var(--panel2);border-radius:3px;margin-top:5px;overflow:hidden}
   .stage .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+  .stage{cursor:pointer;transition:border-color .15s}
+  .stage:hover{border-color:var(--accent2)}
+  .stage.sel{border-color:var(--accent2);box-shadow:0 0 0 1px var(--accent2)}
+  .stage.sel::after{content:"filtrando";position:absolute;top:6px;right:8px;font-size:9px;color:var(--accent2);text-transform:uppercase;letter-spacing:.5px}
 
   .controls{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px;position:sticky;top:8px;z-index:30}
   .ctl{display:flex;flex-direction:column;gap:5px}
@@ -182,6 +192,7 @@
     .mhead h2{font-size:17px}
     .mhead .close{position:absolute;top:12px;right:14px;margin:0;width:32px;height:32px;font-size:16px}
     .mhead .printbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
+    .mhead .cmpbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
     .mhead .dlbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
     .mbody{padding:14px 16px}
     .pkpis{grid-template-columns:repeat(2,1fr)}
@@ -463,19 +474,19 @@ function loadDataset(){
     {l:'Fundo acumulado', v: money(D.fundoAcumulado), accent:true},
     {l:'Patrocínio', v: money(D.patrocinio)},
     {l:'Participantes', v: fmtBR(D.athletes.length)},
-    {l:'Classificados p/ Final', v: fmtBR(qualified), flag:true},
+    {l:'Classificados p/ Final', v: fmtBR(qualified), flag:true, action:'final'},
     {l:'Etapas', v: D.stages.length},
     {l:'Participações presenciais', v: fmtBR(totalPres), accent:true},
-    {l:'Líder atual', v: leader? leader.name : '—', lead:true},
+    {l:'Líder atual', v: leader? leader.name : '—', lead:true, action:(leader?'leader':''), aname:(leader?leader.name:'')},
   ];
   document.getElementById('kpis').innerHTML = kpis.map(k=>
-    '<div class="kpi '+(k.accent?'accent':'')+(k.lead?' lead':'')+'"><div class="v">'+(k.flag?'🏁 ':'')+k.v+'</div><div class="l">'+k.l+'</div></div>').join('');
+    '<div class="kpi '+(k.accent?'accent':'')+(k.lead?' lead':'')+(k.action?' clk':'')+'"'+(k.action?' data-action="'+k.action+'"':'')+(k.aname?' data-name="'+k.aname.replace(/"/g,'&quot;')+'"':'')+' title="'+(k.action==='final'?'Ver só os classificados':(k.action==='leader'?'Abrir painel do líder':''))+'"><div class="v">'+(k.flag?'🏁 ':'')+k.v+'</div><div class="l">'+k.l+'</div></div>').join('');
   const qn=document.getElementById('qualNote'); if(qn) qn.textContent=' Hoje, '+fmtBR(qualified)+' já classificados.';
   // stage cards
   const maxPart = Math.max(...D.stageParticipants,1);
   document.getElementById('stages').innerHTML = D.stages.map((s,i)=>{
     const part = D.stageParticipants[i] ?? 0;
-    return '<div class="stage"><div class="n">'+s.n+'</div><div class="loc">'+(s.local||'—')+'</div><div class="dt">'+s.date+'</div>'+
+    return '<div class="stage'+(state.stage===i?' sel':'')+'" data-si="'+i+'"><div class="n">'+s.n+'</div><div class="loc">'+(s.local||'—')+'</div><div class="dt">'+s.date+'</div>'+
       '<div class="pr"><span>'+part+' atiradores</span><span>'+money(D.fundoEtapa[i])+'</span></div>'+
       '<div class="bar"><i style="width:'+(part/maxPart*100)+'%"></i></div></div>';
   }).join('');
@@ -485,7 +496,7 @@ function loadDataset(){
 }
 
 // state
-let state = {q:'', stage:-1, pres:'all', sort:'name', view:'table', cmpA:'', cmpB:'', finalOnly:false};
+let state = {q:'', stage:-1, pres:'all', sort:'name', sortDir:1, view:'table', cmpA:'', cmpB:'', finalOnly:false};
 
 function filtered(){
   let rows = D.athletes.filter(a=>{
@@ -502,9 +513,9 @@ function filtered(){
     }
     return true;
   });
-  const dir = state.sort==='name'?1:-1;
+  const sdir = state.sortDir!=null?state.sortDir:(state.sort==='name'?1:-1);
   rows.sort((a,b)=>{
-    if(state.sort==='name') return a.name.localeCompare(b.name,'pt-BR');
+    if(state.sort==='name') return sdir*a.name.localeCompare(b.name,'pt-BR');
     let av,bv;
     if(state.stage>=0 && (state.sort==='total'||state.sort==='best'||state.sort==='avg')){
       av=a.etapas[state.stage].score??-1; bv=b.etapas[state.stage].score??-1;
@@ -514,7 +525,7 @@ function filtered(){
     } else {
       av=a[state.sort]; bv=b[state.sort];
     }
-    return (bv-av)*1 || a.name.localeCompare(b.name,'pt-BR');
+    return sdir*(av-bv) || a.name.localeCompare(b.name,'pt-BR');
   });
   return rows;
 }
@@ -762,13 +773,16 @@ function render(){
   document.getElementById('count').textContent = rows.length + ' atirador(es) · ' +
     (state.stage>=0? D.stages[state.stage].n : 'todas as etapas');
 
+  const sdir = state.sortDir!=null?state.sortDir:(state.sort==='name'?1:-1);
+  const arr = key => state.sort===key ? (sdir>0?' ▲':' ▼') : '';
+
   if(state.view==='rank'){
     grid.className='rank';
     const single = state.stage>=0;
-    const head = '<thead><tr><th class="pos">#</th><th class="name">Atirador</th>'+
-      (single? '<th>Nota '+D.stages[state.stage].n+'</th>' :
-        '<th>Total</th><th>Média</th><th>Particip.</th>')+
-      '<th title="Soma das 4 melhores notas presenciais">Majorança</th><th style="min-width:160px">Desempenho</th></tr></thead>';
+    const head = '<thead><tr><th class="pos">#</th><th class="name sortable" data-sort="name">Atirador'+arr('name')+'</th>'+
+      (single? '<th class="sortable" data-sort="total">Nota '+D.stages[state.stage].n+arr('total')+'</th>' :
+        '<th class="sortable" data-sort="total">Total'+arr('total')+'</th><th class="sortable" data-sort="avg">Média'+arr('avg')+'</th><th class="sortable" data-sort="count">Particip.'+arr('count')+'</th>')+
+      '<th class="sortable" data-sort="major" title="Soma das 4 melhores notas presenciais">Majorança'+arr('major')+'</th><th style="min-width:160px">Desempenho</th></tr></thead>';
     const maxv = single? 18 : Math.max(...rows.map(r=>r.total),1);
     const body = rows.map((a,i)=>{
       // colocação geral real (por pontos); por etapa, usa a ordem da lista
@@ -786,9 +800,9 @@ function render(){
   } else {
     grid.className='';
     const showStages = state.stage>=0? [state.stage] : D.stages.map((_,i)=>i);
-    const head = '<thead><tr><th class="name">Atirador</th>'+
+    const head = '<thead><tr><th class="name sortable" data-sort="name">Atirador'+arr('name')+'</th>'+
       showStages.map(i=>'<th>'+D.stages[i].n+'<span class="sub">'+(D.stages[i].local||'')+'<br>'+D.stages[i].date+'</span></th>').join('')+
-      '<th class="tot">Total</th><th>Part.</th><th title="Soma das 4 melhores notas presenciais">Majorança</th></tr></thead>';
+      '<th class="tot sortable" data-sort="total">Total'+arr('total')+'</th><th class="sortable" data-sort="count">Part.'+arr('count')+'</th><th class="sortable" data-sort="major" title="Soma das 4 melhores notas presenciais">Majorança'+arr('major')+'</th></tr></thead>';
     const body = rows.map(a=>{
       const cells = showStages.map(i=>{
         const e=a.etapas[i];
@@ -809,8 +823,8 @@ function render(){
 
 // events
 document.getElementById('q').addEventListener('input',e=>{state.q=e.target.value;render();});
-stageSel.addEventListener('change',e=>{state.stage=+e.target.value;render();});
-document.getElementById('sortSel').addEventListener('change',e=>{state.sort=e.target.value;render();});
+stageSel.addEventListener('change',e=>{ setStage(+e.target.value); });
+document.getElementById('sortSel').addEventListener('change',e=>{ state.sort=e.target.value; state.sortDir = state.sort==='name'?1:-1; render(); });
 document.getElementById('presFilter').addEventListener('click',e=>{
   if(!e.target.classList.contains('pill'))return;
   document.querySelectorAll('#presFilter .pill').forEach(p=>p.classList.remove('active'));
@@ -819,20 +833,53 @@ document.getElementById('presFilter').addEventListener('click',e=>{
 document.getElementById('finalPill').addEventListener('click',e=>{
   state.finalOnly=!state.finalOnly; e.target.classList.toggle('active', state.finalOnly); render();
 });
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  t.classList.add('active'); state.view=t.dataset.view;
+function switchView(v){
+  state.view=v;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active', x.dataset.view===v));
   // Ranking abre ordenado pela colocação (pontos); Tabela volta para Nome
-  state.sort = state.view==='rank' ? 'total' : 'name';
-  document.getElementById('sortSel').value = state.sort;
+  if(v==='rank'||v==='table'){ state.sort = v==='rank'?'total':'name'; state.sortDir = v==='rank'?-1:1; document.getElementById('sortSel').value = state.sort; }
   render();
-}));
+}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>switchView(t.dataset.view)));
+
+// clicar num card de etapa filtra por ela (clicar de novo tira o filtro)
+function setStage(i){
+  state.stage=i;
+  const ss=document.getElementById('stageSel'); if(ss) ss.value=i;
+  document.querySelectorAll('#stages .stage').forEach(c=>c.classList.toggle('sel', +c.dataset.si===i));
+  if(state.view!=='table' && state.view!=='rank') switchView('table'); else render();
+}
+document.getElementById('stages').addEventListener('click',e=>{
+  const card=e.target.closest('.stage'); if(!card) return;
+  const i=+card.dataset.si; setStage(state.stage===i ? -1 : i);
+});
+
+// KPIs clicáveis: "Classificados" liga o filtro; "Líder atual" abre o painel dele
+document.getElementById('kpis').addEventListener('click',e=>{
+  const card=e.target.closest('.kpi[data-action]'); if(!card) return;
+  const act=card.dataset.action;
+  if(act==='final'){
+    state.finalOnly=!state.finalOnly;
+    const fp=document.getElementById('finalPill'); if(fp) fp.classList.toggle('active', state.finalOnly);
+    if(state.view!=='table' && state.view!=='rank') switchView('table'); else render();
+  } else if(act==='leader' && card.dataset.name){ openDetail(card.dataset.name); }
+});
+
+// abre o Comparativo já com este atirador selecionado
+function compareAthlete(name){
+  state.cmpA=name;
+  if(!state.cmpB || state.cmpB===name){ const o=D.athletes.find(a=>a.name!==name && a.rankTotal===1) || D.athletes.find(a=>a.name!==name); state.cmpB=o?o.name:''; }
+  closeDetail();
+  switchView('comparativo');
+}
+document.addEventListener('click',e=>{ const btn=e.target.closest('.cmpbtn'); if(btn && btn.dataset.name) compareAthlete(btn.dataset.name); });
 document.getElementById('clearBtn').addEventListener('click',()=>{
-  state={q:'',stage:-1,pres:'all',sort:'name',view:state.view,cmpA:state.cmpA,cmpB:state.cmpB,finalOnly:false};
+  state={q:'',stage:-1,pres:'all',sort:'name',sortDir:1,view:state.view,cmpA:state.cmpA,cmpB:state.cmpB,finalOnly:false};
   document.getElementById('q').value=''; stageSel.value='-1'; document.getElementById('sortSel').value='name';
   document.querySelectorAll('#presFilter .pill').forEach(p=>p.classList.remove('active'));
   document.querySelector('#presFilter .pill[data-v=all]').classList.add('active');
   document.getElementById('finalPill').classList.remove('active');
+  document.querySelectorAll('#stages .stage.sel').forEach(c=>c.classList.remove('sel'));
   render();
 });
 
@@ -890,6 +937,7 @@ function openDetail(name){
       '<div class="rankbubble '+(gold?'gold':'')+'">'+(gold?'<div style="font-size:22px">🥇</div>':'<div class="pos">#'+a.rankTotal+'</div>')+'<div class="of">de '+D.athletes.length+'</div></div>'+
       '<div class="mtitle"><h2>'+finalFlag(a)+a.name+'</h2><div class="sub">Classificação final (por pontos): <b style="color:var(--accent2)">'+(gold?'1º lugar 🥇':a.rankTotal+'º lugar')+'</b> · '+a.total+' pontos · '+a.count+' de '+D.stages.length+' etapas</div></div>'+
       '<button class="printbtn" onclick="printPanel()" title="Imprimir ou salvar em PDF">🖨️ Salvar PDF</button>'+
+      '<button class="cmpbtn" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Comparar este atirador no gráfico">🆚 Comparar</button>'+
       '<button class="close" onclick="closeDetail()">✕</button>'+
     '</div>'+
     '<div class="mbody">'+
@@ -931,7 +979,14 @@ function openReg(){
 }
 function closeReg(){ document.getElementById('regOverlay').classList.remove('open'); }
 document.getElementById('regOverlay').addEventListener('click',e=>{ if(e.target.id==='regOverlay') closeReg(); });
-document.getElementById('grid').addEventListener('click',e=>{ const tr=e.target.closest('tr[data-name]'); if(tr) openDetail(tr.dataset.name); });
+document.getElementById('grid').addEventListener('click',e=>{
+  const th=e.target.closest('th.sortable');
+  if(th){ const key=th.dataset.sort;
+    if(state.sort===key) state.sortDir=-state.sortDir; else { state.sort=key; state.sortDir=(key==='name'?1:-1); }
+    const ss=document.getElementById('sortSel'); if(ss) ss.value=key;
+    render(); return; }
+  const tr=e.target.closest('tr[data-name]'); if(tr) openDetail(tr.dataset.name);
+});
 document.getElementById('overlay').addEventListener('click',e=>{ if(e.target.id==='overlay') closeDetail(); });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeDetail(); closeReg(); } });
 
