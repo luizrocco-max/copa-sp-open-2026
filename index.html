@@ -30,7 +30,8 @@
   .kpi .l{color:var(--muted);font-size:12px;margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
   .kpi.accent .v{color:var(--accent2)}
   .kpi.lead .v{font-size:16px;line-height:1.25;overflow-wrap:anywhere}
-  .finalnote #qualNote{color:var(--accent2);white-space:nowrap}
+  .finalnote #qualNote{color:var(--accent2)}
+  .finalnote .qcav{color:var(--muted);font-weight:400}
   .kpi.clk{cursor:pointer;transition:border-color .15s}
   .kpi.clk:hover{border-color:var(--accent2)}
   th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
@@ -348,7 +349,7 @@
 
   <div class="finalnote">
     <span class="ico">🏁</span>
-    <span><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.<b id="qualNote"></b></span>
+    <span><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.<span id="qualNote"></span></span>
   </div>
 
   <div class="kpis" id="kpis"></div>
@@ -409,7 +410,7 @@
     <div class="legend">
       <span><span class="swatch"></span> Participação presencial</span>
       <span>● indica etapa disputada presencialmente</span>
-      <span>🏁 = classificado para a Final (6+ etapas)</span>
+      <span>🏁 = classificado para a Final (6+ etapas já publicadas)</span>
       <span id="presStat"></span>
     </div>
   </div>
@@ -436,7 +437,7 @@ let D = {"titulo":"V Copa São Paulo Open de Tiro às Hélices — 2026","fundoA
 const fmtBR = n => n.toLocaleString('pt-BR');
 const money = n => 'R$ ' + n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 // bandeirinha para quem já tem 6+ etapas (classificado para a Final)
-const finalFlag = a => (a.count>=6) ? '<span class="qflag" title="Classificado para a Final (6+ etapas)">🏁</span>' : '';
+const finalFlag = a => (a.count>=6) ? '<span class="qflag" title="Classificado para a Final — '+a.count+' etapas nas provas já publicadas">🏁</span>' : '';
 
 // per-stage average (recomputed on every loadDataset)
 let stageAvg = [];
@@ -474,14 +475,16 @@ function loadDataset(){
     {l:'Fundo acumulado', v: money(D.fundoAcumulado), accent:true},
     {l:'Patrocínio', v: money(D.patrocinio)},
     {l:'Participantes', v: fmtBR(D.athletes.length)},
-    {l:'Classificados p/ Final', v: fmtBR(qualified), flag:true, action:'final'},
+    {l:'Classificados até a '+D.stages.length+'ª', v: fmtBR(qualified), flag:true, action:'final'},
     {l:'Etapas', v: D.stages.length},
     {l:'Participações presenciais', v: fmtBR(totalPres), accent:true},
     {l:'Líder atual', v: leader? leader.name : '—', lead:true, action:(leader?'leader':''), aname:(leader?leader.name:'')},
   ];
   document.getElementById('kpis').innerHTML = kpis.map(k=>
     '<div class="kpi '+(k.accent?'accent':'')+(k.lead?' lead':'')+(k.action?' clk':'')+'"'+(k.action?' data-action="'+k.action+'"':'')+(k.aname?' data-name="'+k.aname.replace(/"/g,'&quot;')+'"':'')+' title="'+(k.action==='final'?'Ver só os classificados':(k.action==='leader'?'Abrir painel do líder':''))+'"><div class="v">'+(k.flag?'🏁 ':'')+k.v+'</div><div class="l">'+k.l+'</div></div>').join('');
-  const qn=document.getElementById('qualNote'); if(qn) qn.textContent=' Hoje, '+fmtBR(qualified)+' já classificados.';
+  const qn=document.getElementById('qualNote');
+  if(qn) qn.innerHTML=' <b>'+fmtBR(qualified)+' já classificados</b> com base nas '+D.stages.length+' etapas publicadas'+
+    '<span class="qcav"> — etapas recém-disputadas podem ainda não constar aqui.</span>';
   // stage cards
   const maxPart = Math.max(...D.stageParticipants,1);
   document.getElementById('stages').innerHTML = D.stages.map((s,i)=>{
