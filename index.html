@@ -7,7 +7,11 @@
 <meta name="description" content="Resultados, ranking e fundo de premiação da V Copa São Paulo Open de Tiro às Hélices 2026. Acompanhe as notas de cada etapa e a classificação para a Final.">
 <meta name="theme-color" content="#0f1115">
 <link rel="icon" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Copa SP Open"><!-- nome sob o ícone no iPhone -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Copa São Paulo Open 2026">
@@ -181,6 +185,9 @@
     .htext h1{font-size:18px}
     .htext p{font-size:12px}
     .regbtn{margin-left:0;width:100%;justify-content:center;text-align:center;display:flex}
+    .hbtns{width:100%;margin-left:0;flex-direction:column;align-items:stretch;gap:8px}
+    .instbtn{width:100%;justify-content:center;text-align:center}
+    .instbtn[hidden]{display:none}
     .kpis{grid-template-columns:repeat(2,1fr);gap:8px;margin:12px 0}
     .kpi{padding:11px 12px}
     .kpi .v{font-size:19px}
@@ -274,6 +281,11 @@
   .tag.x{background:#2a2f3a;color:var(--muted)}
   .regbtn{margin-left:auto;align-self:flex-start;background:#1b2433;color:#fff;border:1px solid var(--accent);padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap}
   .regbtn:hover{background:var(--accent)}
+  .hbtns{margin-left:auto;align-self:flex-start;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .hbtns .regbtn{margin-left:0}
+  .instbtn{align-self:flex-start;background:var(--accent);color:#fff;border:1px solid var(--accent);padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:700;font-size:13px;white-space:nowrap}
+  .instbtn:hover{filter:brightness(1.1)}
+  .instbtn[hidden]{display:none}
   .calt{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;margin-bottom:6px}
   .calt th,.calt td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
   .calt th{color:var(--muted);text-transform:uppercase;font-size:10px;letter-spacing:.4px;position:sticky;top:0;background:var(--panel2)}
@@ -309,7 +321,7 @@
     .mlogo{ filter:none !important; }                 /* logo preto no papel branco */
     .chartwrap svg text{ fill:#111 !important; }
     .chartwrap svg line{ stroke:#ccc !important; }
-    .printbtn,.close,.dlbtn,.cmpbtn,.shbtn,.toast{ display:none !important; }
+    .printbtn,.close,.dlbtn,.cmpbtn,.shbtn,.toast,.instbtn{ display:none !important; }
     .tag.y{ background:#ffe69a !important; color:#3a2f00 !important; }
     .tag.b{ background:#e7eefb !important; color:#234 !important; border:1px solid #b9cdf0; }
     .tag.x{ background:#eee !important; color:#555 !important; border:1px solid #ccc; }
@@ -365,7 +377,10 @@
       <h1 id="mainTitle">Resultado &amp; Fundo de Premiação — até a 8ª Etapa</h1>
       <p>Dashboard interativo · células <span style="background:var(--yellow);color:#3a2f00;padding:1px 6px;border-radius:4px;font-weight:700">amarelas</span> = participação presencial</p>
     </div>
-    <button class="regbtn" onclick="openReg()" title="Ver regulamento oficial e calendário 2026">📋 Regulamento &amp; Calendário</button>
+    <div class="hbtns">
+      <button class="regbtn" onclick="openReg()" title="Ver regulamento oficial e calendário 2026">📋 Regulamento &amp; Calendário</button>
+      <button class="instbtn" id="instBtn" hidden title="Adicionar o site à tela inicial do celular">📱 Instalar app</button>
+    </div>
     <a class="adminico" href="admin.html" title="Área administrativa (upload de planilha)">🔒</a>
   </header>
 
@@ -975,13 +990,34 @@ function applyUrl(){
 }
 window.addEventListener('popstate', applyUrl);
 
-function toast(msg){
+function toast(msg, ms){
   let t=document.querySelector('.toast');
   if(!t){ t=document.createElement('div'); t.className='toast'; document.body.appendChild(t); }
   t.textContent=msg;
   requestAnimationFrame(()=>t.classList.add('on'));
-  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'), 2600);
+  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'), ms||2600);
 }
+
+// ---------- instalar como app (tela inicial do celular) ----------
+(function(){
+  const btn=document.getElementById('instBtn');
+  if(!btn) return;
+  let prompt=null;
+  const iOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const jaInstalado = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone===true;
+  window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); prompt=e; if(!jaInstalado) btn.hidden=false; });
+  window.addEventListener('appinstalled', ()=>{ btn.hidden=true; prompt=null; toast('📱 App instalado na tela inicial!'); });
+  // iPhone não dispara o evento acima: mostra o botão com a instrução
+  if(iOS && !jaInstalado) btn.hidden=false;
+  btn.addEventListener('click', async ()=>{
+    if(prompt){ prompt.prompt(); try{ await prompt.userChoice; }catch(e){} prompt=null; btn.hidden=true; return; }
+    if(iOS){ toast('No Safari: toque em Compartilhar ⬆️ e escolha "Adicionar à Tela de Início"', 7000); return; }
+    toast('No menu do navegador (⋮), escolha "Instalar aplicativo"', 6000);
+  });
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', ()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+  }
+})();
 // desenha o card do atirador (1080x1080) para mandar no WhatsApp
 function drawCard(a){
   return new Promise(resolve=>{
