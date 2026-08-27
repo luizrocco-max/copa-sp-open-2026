@@ -982,15 +982,114 @@ function toast(msg){
   requestAnimationFrame(()=>t.classList.add('on'));
   clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'), 2600);
 }
-function shareAthlete(name){
+// desenha o card do atirador (1080x1080) para mandar no WhatsApp
+function drawCard(a){
+  return new Promise(resolve=>{
+    const S=1080, c=document.createElement('canvas'); c.width=S; c.height=S;
+    const x=c.getContext('2d');
+    const F='"Segoe UI",system-ui,Arial,sans-serif';
+    // fundo
+    const bg=x.createLinearGradient(0,0,S,S); bg.addColorStop(0,'#161a22'); bg.addColorStop(1,'#0f1115');
+    x.fillStyle=bg; x.fillRect(0,0,S,S);
+    // faixas
+    const st=x.createLinearGradient(0,0,S,0); st.addColorStop(0,'#d51e2b'); st.addColorStop(1,'#ffd24a');
+    x.fillStyle=st; x.fillRect(0,0,S,10); x.fillRect(0,S-10,S,10);
+    const rr=(px,py,w,h,r)=>{x.beginPath();x.moveTo(px+r,py);x.arcTo(px+w,py,px+w,py+h,r);x.arcTo(px+w,py+h,px,py+h,r);x.arcTo(px,py+h,px,py,r);x.arcTo(px,py,px+w,py,r);x.closePath();};
+    const draw=logo=>{
+      // logo em cartao branco
+      if(logo){ const lw=300, lh=lw*logo.height/logo.width;
+        x.fillStyle='#fff'; rr(S/2-lw/2-18, 44, lw+36, lh+28, 14); x.fill();
+        x.drawImage(logo, S/2-lw/2, 58, lw, lh); }
+      // selo
+      x.fillStyle='#d51e2b'; rr(S/2-92, 252, 184, 40, 8); x.fill();
+      x.fillStyle='#fff'; x.font='700 20px '+F; x.textAlign='center';
+      x.fillText('EDIÇÃO 2026', S/2, 279);
+      // nome (quebra em 2 linhas se precisar)
+      x.fillStyle='#e8eaed'; x.font='800 54px '+F;
+      const flag=a.count>=6?'🏁 ':'';
+      let nm=flag+a.name, lines=[];
+      if(x.measureText(nm).width>S-100){
+        const w=nm.split(' '); let cur='';
+        w.forEach(p=>{ const t=cur?cur+' '+p:p; if(x.measureText(t).width>S-100 && cur){lines.push(cur);cur=p;} else cur=t; });
+        lines.push(cur);
+      } else lines=[nm];
+      if(lines.length>2) lines=[lines[0], lines.slice(1).join(' ')];
+      lines.forEach((l,i)=>{ let f=54; while(x.measureText(l).width>S-100 && f>30){ f-=2; x.font='800 '+f+'px '+F; } x.fillText(l, S/2, 352+i*60); x.font='800 54px '+F; });
+      const yb=352+lines.length*60;
+      // colocacao (medalha ao lado, sem invadir a linha de baixo)
+      const medal=a.rankTotal===1?'🥇':a.rankTotal===2?'🥈':a.rankTotal===3?'🥉':'';
+      const pos=a.rankTotal+'º';
+      x.fillStyle='#ffd24a'; x.font='800 92px '+F;
+      if(medal){
+        const wn=x.measureText(pos).width;
+        x.font='400 54px '+F; const wm=x.measureText(medal+' ').width;
+        x.textAlign='left';
+        x.fillText(medal, S/2-(wm+wn)/2, yb+80);
+        x.fillStyle='#ffd24a'; x.font='800 92px '+F;
+        x.fillText(pos, S/2-(wm+wn)/2+wm, yb+90);
+        x.textAlign='center';
+      } else x.fillText(pos, S/2, yb+90);
+      x.fillStyle='#9aa3b2'; x.font='400 26px '+F;
+      x.fillText('lugar entre '+D.athletes.length+' atiradores', S/2, yb+134);
+      // grade de numeros
+      const cells=[['Pontos',a.total],['Média',a.avg.toFixed(1)],['Etapas',a.count],
+                   ['Melhor nota',a.best],['Presenciais',a.presCount],['Majorança',a.presCount>=4?a.major:'—']];
+      const gx=70, gy=yb+180, cw=(S-140)/3, ch=118;
+      cells.forEach((cel,i)=>{
+        const px=gx+(i%3)*cw, py=gy+Math.floor(i/3)*(ch+14);
+        x.fillStyle='#1e222c'; rr(px+6, py, cw-12, ch, 12); x.fill();
+        x.strokeStyle='#2a2f3a'; x.lineWidth=1; rr(px+6, py, cw-12, ch, 12); x.stroke();
+        x.fillStyle='#ffd24a'; x.font='800 42px '+F; x.fillText(cel[1], px+cw/2, py+62);
+        x.fillStyle='#9aa3b2'; x.font='600 19px '+F; x.fillText(String(cel[0]).toUpperCase(), px+cw/2, py+94);
+      });
+      // selo de classificado
+      const yf=gy+2*(ch+14)+26;
+      if(a.count>=6){
+        x.fillStyle='rgba(245,197,24,.13)'; rr(S/2-250, yf, 500, 52, 12); x.fill();
+        x.strokeStyle='#f5c518'; rr(S/2-250, yf, 500, 52, 12); x.stroke();
+        x.fillStyle='#ffd24a'; x.font='700 24px '+F;
+        x.fillText('🏁 Classificado para a Final', S/2, yf+34);
+      }
+      // rodape
+      x.fillStyle='#6a7180'; x.font='600 24px '+F;
+      x.fillText('copasaopaulodetiroahelice.com.br', S/2, S-42);
+      c.toBlob(b=>resolve(b), 'image/png');
+    };
+    const src=document.querySelector('header.top img');
+    if(src && src.src){ const im=new Image(); im.onload=()=>draw(im); im.onerror=()=>draw(null); im.src=src.src; }
+    else draw(null);
+  });
+}
+
+async function shareAthlete(name){
   const a=D.athletes.find(x=>x.name===name);
   const url=location.origin+location.pathname+'?a='+encodeURIComponent(name);
   const text=a ? (a.name+' — '+a.rankTotal+'º lugar · '+a.total+' pontos · '+a.count+' etapas — V Copa São Paulo Open 2026')
                : 'V Copa São Paulo Open 2026';
+  // 1) celular: manda a imagem do card junto com o texto e o link
+  if(a){
+    try{
+      const blob=await drawCard(a);
+      if(blob){
+        const file=new File([blob], 'copa-sp-open-'+a.name.replace(/\s+/g,'-').toLowerCase()+'.png', {type:'image/png'});
+        if(navigator.canShare && navigator.canShare({files:[file]})){
+          await navigator.share({files:[file], text, title:'Copa São Paulo Open 2026'});
+          return;
+        }
+        // 2) computador: baixa a imagem e copia o link
+        const u=URL.createObjectURL(blob), el=document.createElement('a');
+        el.href=u; el.download=file.name; el.click();
+        setTimeout(()=>URL.revokeObjectURL(u), 3000);
+        if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).catch(()=>{});
+        toast('📸 Card baixado · link copiado!');
+        return;
+      }
+    }catch(e){ /* cai para o compartilhamento simples */ }
+  }
+  // 3) ultimo caso: so texto e link
   if(navigator.share){ navigator.share({title:'Copa São Paulo Open 2026', text, url}).catch(()=>{}); return; }
-  const done=()=>toast('🔗 Link copiado!');
   if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(url).then(done).catch(()=>window.prompt('Copie o link:', url));
+    navigator.clipboard.writeText(url).then(()=>toast('🔗 Link copiado!')).catch(()=>window.prompt('Copie o link:', url));
   } else window.prompt('Copie o link:', url);
 }
 document.addEventListener('click',e=>{ const b=e.target.closest('.shbtn'); if(b && b.dataset.name) shareAthlete(b.dataset.name); });
@@ -1021,7 +1120,7 @@ function openDetail(name, fromUrl){
       '<div class="mtitle"><h2>'+finalFlag(a)+a.name+'</h2><div class="sub">Classificação final (por pontos): <b style="color:var(--accent2)">'+(gold?'1º lugar 🥇':a.rankTotal+'º lugar')+'</b> · '+a.total+' pontos · '+a.count+' de '+D.stages.length+' etapas</div></div>'+
       '<button class="printbtn" onclick="printPanel()" title="Imprimir ou salvar em PDF">🖨️ Salvar PDF</button>'+
       '<button class="cmpbtn" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Comparar este atirador no gráfico">🆚 Comparar</button>'+
-      '<button class="shbtn" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Compartilhar o link deste painel">🔗 Compartilhar</button>'+
+      '<button class="shbtn" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Compartilhar o card deste atirador no WhatsApp">📸 Compartilhar</button>'+
       '<button class="close" onclick="closeDetail()">✕</button>'+
     '</div>'+
     '<div class="mbody">'+
