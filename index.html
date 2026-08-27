@@ -4,6 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Copa São Paulo Open 2026 — Resultados & Fundo de Premiação</title>
+<meta name="description" content="Resultados, ranking e fundo de premiação da V Copa São Paulo Open de Tiro às Hélices 2026. Acompanhe as notas de cada etapa e a classificação para a Final.">
+<meta name="theme-color" content="#0f1115">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Copa São Paulo Open 2026">
+<meta property="og:url" content="https://copasaopaulodetiroahelice.com.br/">
+<meta property="og:title" content="Copa São Paulo Open de Tiro às Hélices — 2026">
+<meta property="og:description" content="Resultados, ranking e fundo de premiação da V Copa São Paulo Open. Veja as notas de cada etapa e quem já está classificado para a Final.">
+<meta property="og:image" content="https://copasaopaulodetiroahelice.com.br/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Copa São Paulo Open de Tiro às Hélices — Edição 2026">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Copa São Paulo Open de Tiro às Hélices — 2026">
+<meta name="twitter:description" content="Resultados, ranking e fundo de premiação da V Copa São Paulo Open.">
+<meta name="twitter:image" content="https://copasaopaulodetiroahelice.com.br/og.png">
 <style>
   :root{
     --bg:#0f1115; --panel:#171a21; --panel2:#1e222c; --line:#2a2f3a;
@@ -37,6 +55,9 @@
   th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
   th.sortable:hover{color:var(--txt)}
   .mhead .cmpbtn{background:transparent;color:#fff;border:1px solid var(--accent);height:34px;padding:0 14px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;flex:0 0 auto}
+  .mhead .shbtn{background:transparent;color:#fff;border:1px solid var(--accent);height:34px;padding:0 14px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;flex:0 0 auto;margin-left:8px}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(12px);background:var(--panel2);color:var(--txt);border:1px solid var(--line);border-left:4px solid var(--good);border-radius:10px;padding:12px 18px;font-size:14px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.5);z-index:9999;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
   .mhead .cmpbtn:hover{background:var(--accent)}
 
   .stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
@@ -194,6 +215,7 @@
     .mhead .close{position:absolute;top:12px;right:14px;margin:0;width:32px;height:32px;font-size:16px}
     .mhead .printbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
     .mhead .cmpbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
+    .mhead .shbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
     .mhead .dlbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
     .mbody{padding:14px 16px}
     .pkpis{grid-template-columns:repeat(2,1fr)}
@@ -287,7 +309,7 @@
     .mlogo{ filter:none !important; }                 /* logo preto no papel branco */
     .chartwrap svg text{ fill:#111 !important; }
     .chartwrap svg line{ stroke:#ccc !important; }
-    .printbtn,.close,.dlbtn{ display:none !important; }
+    .printbtn,.close,.dlbtn,.cmpbtn,.shbtn,.toast{ display:none !important; }
     .tag.y{ background:#ffe69a !important; color:#3a2f00 !important; }
     .tag.b{ background:#e7eefb !important; color:#234 !important; border:1px solid #b9cdf0; }
     .tag.x{ background:#eee !important; color:#555 !important; border:1px solid #ccc; }
@@ -666,8 +688,8 @@ function renderReceitas(){
 // ---------- aba Comparativo (duelo entre dois atiradores) ----------
 function attachCmp(){
   const sa=document.getElementById('cmpSelA'), sb=document.getElementById('cmpSelB');
-  if(sa) sa.onchange=e=>{ state.cmpA=e.target.value; renderComparativo(); };
-  if(sb) sb.onchange=e=>{ state.cmpB=e.target.value; renderComparativo(); };
+  if(sa) sa.onchange=e=>{ state.cmpA=e.target.value; renderComparativo(); syncUrl(false); };
+  if(sb) sb.onchange=e=>{ state.cmpB=e.target.value; renderComparativo(); syncUrl(false); };
 }
 function renderComparativo(){
   const esc = s => (''+s).replace(/"/g,'&quot;');
@@ -842,6 +864,7 @@ function switchView(v){
   // Ranking abre ordenado pela colocação (pontos); Tabela volta para Nome
   if(v==='rank'||v==='table'){ state.sort = v==='rank'?'total':'name'; state.sortDir = v==='rank'?-1:1; document.getElementById('sortSel').value = state.sort; }
   render();
+  syncUrl(false);
 }
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>switchView(t.dataset.view)));
 
@@ -915,7 +938,64 @@ function chartSVG(a){
   return '<svg viewBox="0 0 '+W+' '+H+'" width="100%" preserveAspectRatio="xMidYMid meet" font-family="Segoe UI,Arial">'+g+'</svg>';
 }
 
-function openDetail(name){
+// ---------- link direto: a URL guarda a aba / o atirador aberto ----------
+let openAthlete='', pushedDetail=false;
+function buildUrl(){
+  const q=new URLSearchParams();
+  if(state.view && state.view!=='table') q.set('v', state.view);
+  if(state.view==='comparativo'){
+    if(state.cmpA) q.set('a', state.cmpA);
+    if(state.cmpB) q.set('b', state.cmpB);
+  } else if(openAthlete) q.set('a', openAthlete);
+  const s=q.toString();
+  return location.pathname + (s?'?'+s:'');
+}
+function syncUrl(push){
+  const u=buildUrl();
+  if(u === location.pathname+location.search) return;
+  try{ push ? history.pushState({},'',u) : history.replaceState({},'',u); }catch(e){}
+}
+function applyUrl(){
+  const q=new URLSearchParams(location.search);
+  const v=q.get('v'), a=q.get('a'), b=q.get('b');
+  const views=['table','rank','receitas','comparativo'];
+  state.view = views.includes(v) ? v : 'table';
+  if(state.view==='comparativo'){
+    if(a && D.athletes.some(x=>x.name===a)) state.cmpA=a;
+    if(b && D.athletes.some(x=>x.name===b)) state.cmpB=b;
+  }
+  state.sort = state.view==='rank' ? 'total' : 'name';
+  const ss=document.getElementById('sortSel'); if(ss) ss.value=state.sort;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.view===state.view));
+  render();
+  // painel individual (link compartilhado)
+  const wanted = (state.view!=='comparativo' && a && D.athletes.some(x=>x.name===a)) ? a : '';
+  if(wanted && wanted!==openAthlete) openDetail(wanted, true);
+  else if(!wanted && openAthlete) closeDetail(true);
+}
+window.addEventListener('popstate', applyUrl);
+
+function toast(msg){
+  let t=document.querySelector('.toast');
+  if(!t){ t=document.createElement('div'); t.className='toast'; document.body.appendChild(t); }
+  t.textContent=msg;
+  requestAnimationFrame(()=>t.classList.add('on'));
+  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('on'), 2600);
+}
+function shareAthlete(name){
+  const a=D.athletes.find(x=>x.name===name);
+  const url=location.origin+location.pathname+'?a='+encodeURIComponent(name);
+  const text=a ? (a.name+' — '+a.rankTotal+'º lugar · '+a.total+' pontos · '+a.count+' etapas — V Copa São Paulo Open 2026')
+               : 'V Copa São Paulo Open 2026';
+  if(navigator.share){ navigator.share({title:'Copa São Paulo Open 2026', text, url}).catch(()=>{}); return; }
+  const done=()=>toast('🔗 Link copiado!');
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(done).catch(()=>window.prompt('Copie o link:', url));
+  } else window.prompt('Copie o link:', url);
+}
+document.addEventListener('click',e=>{ const b=e.target.closest('.shbtn'); if(b && b.dataset.name) shareAthlete(b.dataset.name); });
+
+function openDetail(name, fromUrl){
   const a=D.athletes.find(x=>x.name===name); if(!a) return;
   const gold = a.rankTotal===1;
   const pkpis=[
@@ -941,6 +1021,7 @@ function openDetail(name){
       '<div class="mtitle"><h2>'+finalFlag(a)+a.name+'</h2><div class="sub">Classificação final (por pontos): <b style="color:var(--accent2)">'+(gold?'1º lugar 🥇':a.rankTotal+'º lugar')+'</b> · '+a.total+' pontos · '+a.count+' de '+D.stages.length+' etapas</div></div>'+
       '<button class="printbtn" onclick="printPanel()" title="Imprimir ou salvar em PDF">🖨️ Salvar PDF</button>'+
       '<button class="cmpbtn" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Comparar este atirador no gráfico">🆚 Comparar</button>'+
+      '<button class="shbtn" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Compartilhar o link deste painel">🔗 Compartilhar</button>'+
       '<button class="close" onclick="closeDetail()">✕</button>'+
     '</div>'+
     '<div class="mbody">'+
@@ -955,8 +1036,17 @@ function openDetail(name){
       '<div class="estable-wrap"><table class="estable"><thead><tr><th>Etapa / Local</th><th>Data</th><th style="text-align:center">Nota</th><th style="text-align:center">vs. média</th><th>Participação</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
     '</div>';
   document.getElementById('overlay').classList.add('open');
+  openAthlete=name;
+  if(!fromUrl){ pushedDetail=true; syncUrl(true); }
 }
-function closeDetail(){ document.getElementById('overlay').classList.remove('open'); }
+function closeDetail(fromPop){
+  document.getElementById('overlay').classList.remove('open');
+  if(!openAthlete) return;
+  openAthlete='';
+  if(fromPop===true) return;
+  if(pushedDetail){ pushedDetail=false; history.back(); }
+  else syncUrl(false);
+}
 function printPanel(){ document.body.classList.add('print-modal'); window.print(); }
 window.addEventListener('afterprint',()=>document.body.classList.remove('print-modal'));
 
@@ -1008,7 +1098,7 @@ async function boot(){
     }
   }catch(e){ /* offline/local: usa o dataset embutido */ }
   loadDataset();
-  render();
+  applyUrl();   // aplica aba/atirador vindos do link compartilhado (cai em render())
 }
 boot();
 
