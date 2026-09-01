@@ -1,423 +1,92 @@
 {
  "fundoAcumulado": 283200,
  "patrocinio": 135000,
- "totalParticipantes": 219,
- "etapasComResultado": 10,
+ "totalParticipantes": 212,
+ "etapasComResultado": 11,
  "stages": [
   {
-   "n": "1ª Etapa",
-   "local": "CCTSP",
-   "date": "24/01/2026"
+   "n": "17",
+   "local": "",
+   "date": "17/2026"
   },
   {
-   "n": "2ª Etapa",
-   "local": "Ponta Grossa",
-   "date": "3 a 8/02/2026"
+   "n": "18",
+   "local": "",
+   "date": ""
   },
   {
-   "n": "3ª Etapa",
-   "local": "Boituva",
-   "date": "24 a 1/03/2026"
+   "n": "17",
+   "local": "",
+   "date": ""
   },
   {
-   "n": "4ª Etapa",
-   "local": "CCTSP",
-   "date": "24 a 29/03/2026"
+   "n": "",
+   "local": "",
+   "date": ""
   },
   {
-   "n": "5ª Etapa",
-   "local": "Pato Branco",
-   "date": "7 a 12/04/2026"
+   "n": "",
+   "local": "",
+   "date": ""
   },
   {
-   "n": "6ª Etapa",
-   "local": "CCTSP",
-   "date": "12 a 17/05/2026"
+   "n": "",
+   "local": "",
+   "date": "14/2026"
   },
   {
-   "n": "7ª Etapa",
-   "local": "CCTSP",
-   "date": "26 a 31/05/2026"
+   "n": "",
+   "local": "",
+   "date": "17/2026"
   },
   {
-   "n": "8ª Etapa",
-   "local": "Maringá",
-   "date": "16 a 21/06/2026"
+   "n": "",
+   "local": "",
+   "date": ""
   },
   {
-   "n": "9ª Etapa",
-   "local": "CCTSP",
-   "date": "7 a 12/07/2026"
+   "n": "15",
+   "local": "",
+   "date": ""
   },
   {
-   "n": "10ª Etapa",
-   "local": "BH",
-   "date": "28/07 a 2/08/2026"
+   "n": "",
+   "local": "",
+   "date": ""
+  },
+  {
+   "n": "17",
+   "local": "",
+   "date": "14/2026"
   }
  ],
  "fundoEtapa": [
-  19950,
-  18750,
-  19800,
-  16800,
-  15600,
-  13500,
-  13800,
-  10500,
-  9000,
-  10500
+  15,
+  15,
+  13,
+  9,
+  14,
+  15,
+  16,
+  16,
+  15,
+  15,
+  12
  ],
  "stageParticipants": [
-  133,
+  128,
+  121,
   125,
-  132,
-  112,
-  104,
-  90,
-  92,
-  70,
-  60,
-  70
+  109,
+  101,
+  87,
+  89,
+  67,
+  55,
+  68,
+  63
  ],
  "athletes": [
-  {
-   "name": "Anamaria Marcondes M V Maciela Lima",
-   "etapas": [
-    {
-     "score": 15,
-     "presencial": true
-    },
-    {
-     "score": 15
-    },
-    {
-     "score": 13,
-     "presencial": true
-    },
-    {
-     "score": 9,
-     "presencial": true
-    },
-    {
-     "score": 14
-    },
-    {
-     "score": 15
-    },
-    {
-     "score": 16,
-     "presencial": true
-    },
-    {
-     "score": 16
-    },
-    {
-     "score": 15
-    },
-    {
-     "score": 15
-    }
-   ]
-  },
-  {
-   "name": "Adriano Sacon",
-   "etapas": [
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": 12,
-     "presencial": true
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    }
-   ]
-  },
-  {
-   "name": "Alan Pai",
-   "etapas": [
-    {
-     "score": 13
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": 13
-    },
-    {
-     "score": 9,
-     "presencial": true
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": 17
-    },
-    {
-     "score": 9,
-     "presencial": true
-    },
-    {
-     "score": null,
-     "presencial": false
-    }
-   ]
-  },
-  {
-   "name": "Alex Atala",
-   "etapas": [
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": 16
-    },
-    {
-     "score": 12
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": 16
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": 15
-    },
-    {
-     "score": null,
-     "presencial": false
-    }
-   ]
-  },
-  {
-   "name": "Alexandre P. Scachetti",
-   "etapas": [
-    {
-     "score": 17,
-     "presencial": true
-    },
-    {
-     "score": 18
-    },
-    {
-     "score": 17,
-     "presencial": true
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": 15
-    },
-    {
-     "score": null,
-     "presencial": false
-    }
-   ]
-  },
-  {
-   "name": "Alexandre Shunn Vianna",
-   "etapas": [
-    {
-     "score": 17,
-     "presencial": true
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": 14,
-     "presencial": true
-    },
-    {
-     "score": 17,
-     "presencial": true
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    }
-   ]
-  },
-  {
-   "name": "Allan Kaio Mano",
-   "etapas": [
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": 16
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    },
-    {
-     "score": null,
-     "presencial": false
-    }
-   ]
-  },
-  {
-   "name": "Andre Bizzio",
-   "etapas": [
-    {
-     "score": 15,
-     "presencial": true
-    },
-    {
-     "score": 16
-    },
-    {
-     "score": 12,
-     "presencial": true
-    },
-    {
-     "score": 15,
-     "presencial": true
-    },
-    {
-     "score": 17
-    },
-    {
-     "score": 15
-    },
-    {
-     "score": 16,
-     "presencial": true
-    },
-    {
-     "score": 10
-    },
-    {
-     "score": 15
-    },
-    {
-     "score": 14
-    }
-   ]
-  },
   {
    "name": "André Geo",
    "etapas": [
@@ -455,6 +124,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -477,6 +150,10 @@
     },
     {
      "score": 2
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -535,6 +212,10 @@
     },
     {
      "score": 18
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -576,6 +257,10 @@
     },
     {
      "score": 13
+    },
+    {
+     "score": 11,
+     "presencial": true
     }
    ]
   },
@@ -584,6 +269,10 @@
    "etapas": [
     {
      "score": 10
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -660,6 +349,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -699,6 +392,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 17,
+     "presencial": true
     },
     {
      "score": 17,
@@ -745,6 +442,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 17,
+     "presencial": true
     }
    ]
   },
@@ -783,6 +484,10 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -831,6 +536,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -843,6 +552,10 @@
     },
     {
      "score": 11
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -918,6 +631,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -938,6 +655,10 @@
     {
      "score": 9,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -1002,6 +723,9 @@
     {
      "score": 18,
      "presencial": true
+    },
+    {
+     "score": 15
     }
    ]
   },
@@ -1045,6 +769,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -1089,6 +817,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1110,6 +842,10 @@
     {
      "score": 5,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -1174,6 +910,10 @@
     },
     {
      "score": 14
+    },
+    {
+     "score": 14,
+     "presencial": true
     }
    ]
   },
@@ -1188,6 +928,10 @@
     },
     {
      "score": 15
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -1260,6 +1004,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1268,6 +1016,10 @@
    "etapas": [
     {
      "score": 15
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -1348,6 +1100,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1365,6 +1121,10 @@
     {
      "score": 14,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -1436,6 +1196,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1479,6 +1243,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1490,6 +1258,10 @@
     },
     {
      "score": 15
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -1563,6 +1335,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 14,
+     "presencial": true
     }
    ]
   },
@@ -1600,6 +1376,10 @@
     {
      "score": 17,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1639,6 +1419,10 @@
     },
     {
      "score": 14
+    },
+    {
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -1678,6 +1462,10 @@
     },
     {
      "score": 14
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1701,6 +1489,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -1764,6 +1556,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1805,6 +1601,9 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 13
     }
    ]
   },
@@ -1848,6 +1647,10 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1888,6 +1691,10 @@
     },
     {
      "score": 13
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -1929,6 +1736,9 @@
     },
     {
      "score": 18
+    },
+    {
+     "score": 16
     }
    ]
   },
@@ -1973,6 +1783,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 13,
+     "presencial": true
     }
    ]
   },
@@ -2006,6 +1820,10 @@
     {
      "score": 9,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -2061,6 +1879,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -2073,6 +1895,10 @@
     },
     {
      "score": 11
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -2150,6 +1976,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -2190,6 +2020,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -2207,6 +2041,10 @@
     {
      "score": 12,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -2280,6 +2118,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -2321,6 +2163,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -2363,6 +2209,9 @@
     },
     {
      "score": 18
+    },
+    {
+     "score": 18
     }
    ]
   },
@@ -2393,6 +2242,10 @@
     },
     {
      "score": 15
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -2443,6 +2296,9 @@
     },
     {
      "score": 11
+    },
+    {
+     "score": 14
     }
    ]
   },
@@ -2488,6 +2344,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -2511,6 +2371,10 @@
     },
     {
      "score": 12
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -2576,6 +2440,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -2584,6 +2452,10 @@
    "etapas": [
     {
      "score": 5
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -2662,6 +2534,10 @@
     {
      "score": 17,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -2689,6 +2565,10 @@
     {
      "score": 14,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -2744,6 +2624,10 @@
     },
     {
      "score": 15
+    },
+    {
+     "score": 13,
+     "presencial": true
     }
    ]
   },
@@ -2787,6 +2671,10 @@
     },
     {
      "score": 7
+    },
+    {
+     "score": 10,
+     "presencial": true
     }
    ]
   },
@@ -2827,6 +2715,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -2835,6 +2727,10 @@
    "etapas": [
     {
      "score": 11
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -2915,6 +2811,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -2933,6 +2833,10 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -3001,6 +2905,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -3038,6 +2946,9 @@
     {
      "score": 18,
      "presencial": true
+    },
+    {
+     "score": 16
     }
    ]
   },
@@ -3080,6 +2991,9 @@
     },
     {
      "score": 9
+    },
+    {
+     "score": 12
     }
    ]
   },
@@ -3122,6 +3036,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -3142,6 +3060,10 @@
     {
      "score": 7,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -3211,6 +3133,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -3240,6 +3166,10 @@
     {
      "score": 13,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -3295,6 +3225,9 @@
     {
      "score": 18,
      "presencial": true
+    },
+    {
+     "score": 17
     }
    ]
   },
@@ -3314,6 +3247,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -3377,6 +3314,9 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 14
     }
    ]
   },
@@ -3393,6 +3333,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -3463,6 +3407,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -3508,6 +3456,10 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 17,
+     "presencial": true
     }
    ]
   },
@@ -3548,6 +3500,9 @@
     },
     {
      "score": 18
+    },
+    {
+     "score": 17
     }
    ]
   },
@@ -3565,6 +3520,10 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -3637,6 +3596,10 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -3645,6 +3608,10 @@
    "etapas": [
     {
      "score": 15
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -3724,6 +3691,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -3765,11 +3736,14 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 11
     }
    ]
   },
   {
-   "name": "Joao Paulo Pimentel",
+   "name": "João Paulo Pimentel",
    "etapas": [
     {
      "score": null,
@@ -3782,6 +3756,10 @@
     {
      "score": 13,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -3849,6 +3827,10 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": 14,
+     "presencial": true
     }
    ]
   },
@@ -3888,6 +3870,10 @@
     {
      "score": 17,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -3927,6 +3913,10 @@
     {
      "score": 12,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -3976,6 +3966,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -3984,6 +3978,10 @@
    "etapas": [
     {
      "score": 14
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -4063,6 +4061,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4085,6 +4087,10 @@
     },
     {
      "score": 13
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -4148,6 +4154,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4186,6 +4196,9 @@
     },
     {
      "score": 14
+    },
+    {
+     "score": 10
     }
    ]
   },
@@ -4199,6 +4212,10 @@
     {
      "score": 18,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -4271,6 +4288,10 @@
     },
     {
      "score": 11
+    },
+    {
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -4299,6 +4320,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -4360,6 +4385,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4405,6 +4434,10 @@
     {
      "score": 14,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4444,6 +4477,10 @@
     },
     {
      "score": 15
+    },
+    {
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -4487,6 +4524,10 @@
     },
     {
      "score": 18,
+     "presencial": true
+    },
+    {
+     "score": 17,
      "presencial": true
     }
    ]
@@ -4533,6 +4574,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4561,6 +4606,10 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -4622,6 +4671,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4635,6 +4688,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -4711,6 +4768,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4754,6 +4815,9 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 14
     }
    ]
   },
@@ -4799,6 +4863,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4807,6 +4875,10 @@
    "etapas": [
     {
      "score": 18
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -4888,6 +4960,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4925,6 +5001,10 @@
     {
      "score": 7,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -4939,6 +5019,10 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -5012,6 +5096,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -5055,6 +5143,9 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 17
     }
    ]
   },
@@ -5098,6 +5189,9 @@
     {
      "score": 17,
      "presencial": true
+    },
+    {
+     "score": 13
     }
    ]
   },
@@ -5137,6 +5231,10 @@
     {
      "score": 6,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -5184,6 +5282,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -5225,6 +5327,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": 14,
+     "presencial": true
     }
    ]
   },
@@ -5266,6 +5372,9 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": 17
     }
    ]
   },
@@ -5302,6 +5411,10 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": 17,
+     "presencial": true
     }
    ]
   },
@@ -5344,6 +5457,9 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 13
     }
    ]
   },
@@ -5364,6 +5480,10 @@
     {
      "score": 12,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -5426,6 +5546,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -5467,6 +5591,10 @@
     },
     {
      "score": 12
+    },
+    {
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -5487,6 +5615,10 @@
     {
      "score": 12,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -5553,6 +5685,10 @@
     {
      "score": 17,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -5589,6 +5725,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -5632,6 +5772,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -5644,6 +5788,10 @@
     },
     {
      "score": 8
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -5717,6 +5865,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -5761,6 +5913,10 @@
     },
     {
      "score": 7
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -5769,6 +5925,10 @@
    "etapas": [
     {
      "score": 10
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -5850,6 +6010,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 9,
+     "presencial": true
     }
    ]
   },
@@ -5871,6 +6035,10 @@
     {
      "score": 14,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -5936,6 +6104,9 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": 16
     }
    ]
   },
@@ -5963,6 +6134,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6018,6 +6193,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6055,6 +6234,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6097,6 +6280,10 @@
     },
     {
      "score": 12
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6145,6 +6332,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6161,6 +6352,10 @@
     },
     {
      "score": 9
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6231,6 +6426,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6273,6 +6472,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6281,6 +6484,10 @@
    "etapas": [
     {
      "score": 16
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6361,6 +6568,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6401,6 +6612,9 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 18
     }
    ]
   },
@@ -6427,6 +6641,10 @@
     {
      "score": 12,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6488,6 +6706,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6532,6 +6754,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6541,6 +6767,10 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6618,6 +6848,9 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 16
     }
    ]
   },
@@ -6633,6 +6866,10 @@
     },
     {
      "score": 18
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6702,6 +6939,9 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 17
     }
    ]
   },
@@ -6743,6 +6983,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6752,6 +6996,10 @@
     {
      "score": 14,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6831,6 +7079,10 @@
     },
     {
      "score": 15
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6874,6 +7126,9 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 12
     }
    ]
   },
@@ -6882,6 +7137,10 @@
    "etapas": [
     {
      "score": 14
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -6957,6 +7216,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -6996,6 +7259,9 @@
     },
     {
      "score": 15
+    },
+    {
+     "score": 17
     }
    ]
   },
@@ -7004,6 +7270,10 @@
    "etapas": [
     {
      "score": 13
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -7084,6 +7354,10 @@
     {
      "score": 17,
      "presencial": true
+    },
+    {
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -7129,6 +7403,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -7147,6 +7425,10 @@
     },
     {
      "score": 10
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -7215,6 +7497,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -7259,6 +7545,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -7301,6 +7591,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -7344,6 +7638,10 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -7352,6 +7650,10 @@
    "etapas": [
     {
      "score": 16
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -7428,6 +7730,9 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 14
     }
    ]
   },
@@ -7466,6 +7771,9 @@
     },
     {
      "score": 18
+    },
+    {
+     "score": 16
     }
    ]
   },
@@ -7497,6 +7805,10 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -7551,6 +7863,9 @@
     {
      "score": 14,
      "presencial": true
+    },
+    {
+     "score": 14
     }
    ]
   },
@@ -7560,6 +7875,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -7635,6 +7954,9 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": 18
     }
    ]
   },
@@ -7651,6 +7973,10 @@
     },
     {
      "score": 6
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -7721,6 +8047,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -7741,6 +8071,10 @@
     {
      "score": 13,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -7808,6 +8142,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -7849,6 +8187,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -7888,6 +8230,10 @@
     },
     {
      "score": 11
+    },
+    {
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -7927,6 +8273,10 @@
     },
     {
      "score": 14
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -7975,6 +8325,9 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 7
     }
    ]
   },
@@ -8016,6 +8369,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8032,6 +8389,10 @@
     },
     {
      "score": 18
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -8105,6 +8466,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8144,6 +8509,10 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8188,6 +8557,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8197,6 +8570,10 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -8275,6 +8652,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8317,6 +8698,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8325,6 +8710,10 @@
    "etapas": [
     {
      "score": 13
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -8400,6 +8789,9 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": 17
     }
    ]
   },
@@ -8442,6 +8834,9 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 17
     }
    ]
   },
@@ -8486,6 +8881,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8494,6 +8893,10 @@
    "etapas": [
     {
      "score": 14
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -8575,6 +8978,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8619,6 +9026,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8638,6 +9049,10 @@
     },
     {
      "score": 13
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -8701,6 +9116,9 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": 18
     }
    ]
   },
@@ -8727,6 +9145,10 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -8786,6 +9208,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -8798,6 +9224,10 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -8874,6 +9304,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8912,6 +9346,9 @@
     },
     {
      "score": 17
+    },
+    {
+     "score": 18
     }
    ]
   },
@@ -8954,6 +9391,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -8966,6 +9407,10 @@
     },
     {
      "score": 12
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -9039,6 +9484,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -9083,6 +9532,10 @@
     {
      "score": 16,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -9119,6 +9572,10 @@
     },
     {
      "score": 15
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -9164,6 +9621,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -9173,6 +9634,10 @@
     {
      "score": 14,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
@@ -9254,6 +9719,10 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
     }
    ]
   },
@@ -9295,6 +9764,9 @@
     },
     {
      "score": 16
+    },
+    {
+     "score": 15
     }
    ]
   },
@@ -9335,6 +9807,58 @@
     {
      "score": null,
      "presencial": false
+    },
+    {
+     "score": 15
+    }
+   ]
+  },
+  {
+   "name": "Gilherme Levy",
+   "etapas": [
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": null,
+     "presencial": false
+    },
+    {
+     "score": 18,
+     "presencial": true
     }
    ]
   },
@@ -9348,6 +9872,10 @@
     {
      "score": 15,
      "presencial": true
+    },
+    {
+     "score": null,
+     "presencial": false
     },
     {
      "score": null,
