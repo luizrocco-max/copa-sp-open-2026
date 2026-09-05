@@ -79,6 +79,40 @@
   .pod.p1 .m{font-size:38px}
   .pod.p2{order:1}
   .pod.p3{order:3}
+  .podhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 6px}
+  .podhead .podttl{margin:0}
+  .top10btn{background:transparent;border:1px solid var(--accent);color:#fff;padding:6px 12px;border-radius:9px;cursor:pointer;font-size:12px;font-weight:700;white-space:nowrap}
+  .top10btn:hover{background:var(--accent)}
+  .top10btn:disabled{opacity:.6;cursor:default}
+  /* cartões por atirador (celular) */
+  .cards{display:none;flex-direction:column;gap:8px;padding:10px}
+  .acard{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}
+  .acard.qual{border-left:3px solid var(--yellow-strong)}
+  .acard.fav{border-color:var(--accent2);background:linear-gradient(90deg,rgba(255,210,74,.10),var(--panel2))}
+  .acard .ah{display:flex;align-items:center;gap:8px}
+  .acard .apos{font-weight:800;color:var(--muted);min-width:34px;font-size:13px}
+  .acard .anm{font-weight:700;flex:1;min-width:0;overflow-wrap:anywhere}
+  .acard .atot{font-weight:800;color:var(--accent2);font-size:16px;white-space:nowrap}
+  .acard .atot small{color:var(--muted);font-weight:500;font-size:11px}
+  .acard .as{color:var(--muted);font-size:11px;margin-top:3px}
+  .acard .as .mj{color:var(--yellow-strong)}
+  .achips{display:flex;flex-wrap:wrap;gap:3px;margin-top:8px}
+  .chip{min-width:25px;height:24px;padding:0 5px;border-radius:6px;background:var(--panel);border:1px solid var(--line);font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+  .chip.pres{background:var(--yellow);color:#3a2f00;border-color:var(--yellow-strong)}
+  .chip.off{color:#4a5060;font-weight:400}
+  .panelbox.cardsmode .tablewrap{display:none}
+  .panelbox.cardsmode .cards{display:flex}
+  /* meu atirador */
+  .favcard{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(255,210,74,.14),var(--panel));border:1px solid rgba(255,210,74,.45);border-radius:12px;padding:10px 14px;margin:10px 0 0;cursor:pointer;flex-wrap:wrap}
+  .favcard .fico{font-size:22px}
+  .favcard .ftx{display:flex;flex-direction:column;min-width:0}
+  .favcard .fl{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px}
+  .favcard .fn{font-weight:800;font-size:15px}
+  .favcard .fst{color:var(--muted);font-size:12px;margin-left:auto}
+  .favcard .fst b{color:var(--accent2)}
+  .favcard .fgo{color:var(--accent2);font-size:12px;font-weight:700}
+  .mhead .favbtn{background:transparent;color:#fff;border:1px solid var(--accent2);height:34px;padding:0 14px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;flex:0 0 auto}
+  .mhead .favbtn.on{background:var(--accent2);color:#111}
   th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
   th.sortable:hover{color:var(--txt)}
   .mhead .cmpbtn{background:transparent;color:#fff;border:1px solid var(--accent);height:34px;padding:0 14px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;flex:0 0 auto}
@@ -127,6 +161,9 @@
   thead th.name{z-index:15;background:var(--panel2)}
   tbody tr.qual td:not(.pres){background:rgba(245,197,24,.05)}
   tbody tr.qual td.name{background:#1d2023}
+  tbody tr.fav td:not(.pres){background:rgba(255,210,74,.10)}
+  tbody tr.fav td.name{background:#26241a}
+  tbody tr.fav td.name::before{content:"⭐";margin-right:6px}
   tbody tr:hover td{background:#222732}
   tbody tr:hover td.name{background:#262c38}
   tbody tr:hover td.pres{background:#ffdf7a;color:#3a2f00}
@@ -259,6 +296,9 @@
     .mhead .printbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
     .mhead .cmpbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
     .mhead .shbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
+    .mhead .favbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
+    .favcard .fst{margin-left:0;width:100%}
+    .podhead{flex-wrap:wrap}
     .mhead .dlbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
     .mbody{padding:14px 16px}
     .pkpis{grid-template-columns:repeat(2,1fr)}
@@ -357,7 +397,7 @@
     .mlogo{ filter:none !important; }                 /* logo preto no papel branco */
     .chartwrap svg text{ fill:#111 !important; }
     .chartwrap svg line{ stroke:#ccc !important; }
-    .printbtn,.close,.dlbtn,.cmpbtn,.shbtn,.toast,.instbtn{ display:none !important; }
+    .printbtn,.close,.dlbtn,.cmpbtn,.shbtn,.toast,.instbtn,.favbtn,.top10btn{ display:none !important; }
     .tag.y{ background:#ffe69a !important; color:#3a2f00 !important; }
     .tag.b{ background:#e7eefb !important; color:#234 !important; border:1px solid #b9cdf0; }
     .tag.x{ background:#eee !important; color:#555 !important; border:1px solid #ccc; }
@@ -476,12 +516,14 @@
   </div>
 
   <span class="count" id="count"></span>
+  <div id="favbar" style="display:none"></div>
   <div id="podium" style="display:none"></div>
 
   <div class="panelbox" style="margin-top:10px">
     <div class="tablewrap">
       <table id="grid"></table>
     </div>
+    <div class="cards" id="cards"></div>
     <div class="legend">
       <span><span class="swatch"></span> Participação presencial</span>
       <span>● indica etapa disputada presencialmente</span>
@@ -559,6 +601,103 @@ function renderInfoCards(){
 }
 // bandeirinha para quem já tem 6+ etapas (classificado para a Final)
 const finalFlag = a => (a.count>=6) ? '<span class="qflag" title="Classificado para a Final — '+a.count+' etapas nas provas já publicadas">🏁</span>' : '';
+
+// ---------- celular: cartões no lugar da tabela larga ----------
+const escAttr = v => (''+v).replace(/"/g,'&quot;');
+const isMobile = () => window.matchMedia('(max-width:820px)').matches;
+function renderCards(rows){
+  const box=document.getElementById('cards'); if(!box) return;
+  const single=state.stage>=0, fav=getFav();
+  const show = single ? [state.stage] : D.stages.map((_,i)=>i);
+  box.innerHTML = rows.map((a,i)=>{
+    const pos = (state.view==='rank' && single) ? (i+1) : a.rankTotal;
+    const medal = pos===1?'🥇':pos===2?'🥈':pos===3?'🥉':'';
+    const chips = show.map(si=>{ const e=a.etapas[si], has=e.score!==null;
+      return '<span class="chip'+(has&&e.presencial?' pres':'')+(has?'':' off')+'" title="'+D.stages[si].n+(has&&e.presencial?' · presencial':'')+'">'+(has?e.score:'·')+'</span>'; }).join('');
+    const maj = a.presCount>=4 ? ' · <b class="mj">Maj. '+a.major+'</b>' : '';
+    const main = single ? ((a.etapas[state.stage].score??'—')+' <small>'+D.stages[state.stage].n+'</small>') : (a.total+' <small>pts</small>');
+    return '<div class="acard'+(a.count>=6?' qual':'')+(a.name===fav?' fav':'')+'" data-name="'+escAttr(a.name)+'">'+
+      '<div class="ah"><span class="apos">'+(medal||'#'+pos)+'</span><span class="anm">'+(a.name===fav?'⭐ ':'')+finalFlag(a)+a.name+'</span><span class="atot">'+main+'</span></div>'+
+      '<div class="as">média '+a.avg.toFixed(1)+' · '+a.count+' etapa'+(a.count===1?'':'s')+' · '+a.presCount+' presencia'+(a.presCount===1?'l':'is')+maj+'</div>'+
+      '<div class="achips">'+chips+'</div></div>';
+  }).join('');
+}
+try{ window.matchMedia('(max-width:820px)').addEventListener('change', ()=>{ if(typeof render==='function') render(); }); }catch(e){}
+
+// ---------- meu atirador (salvo só neste aparelho) ----------
+const FAV_KEY='copa_fav';
+function getFav(){ try{ return localStorage.getItem(FAV_KEY)||''; }catch(e){ return ''; } }
+function setFav(n){ try{ if(n) localStorage.setItem(FAV_KEY,n); else localStorage.removeItem(FAV_KEY); }catch(e){} }
+function renderFavbar(){
+  const bar=document.getElementById('favbar'); if(!bar) return;
+  const n=getFav(), a=n && D.athletes.find(x=>x.name===n);
+  if(!a || (state.view!=='table' && state.view!=='rank')){ bar.style.display='none'; return; }
+  bar.innerHTML='<div class="favcard" data-name="'+escAttr(a.name)+'" title="Abrir meu painel">'+
+    '<span class="fico">⭐</span><span class="ftx"><span class="fl">Meu atirador</span><span class="fn">'+finalFlag(a)+a.name+'</span></span>'+
+    '<span class="fst"><b>'+a.rankTotal+'º</b> de '+D.athletes.length+' · <b>'+a.total+'</b> pts · média '+a.avg.toFixed(1)+' · '+a.count+' etapas</span>'+
+    '<span class="fgo">ver painel ›</span></div>';
+  bar.style.display='';
+}
+
+// ---------- card do Top 10 (imagem para o grupo) ----------
+function drawTop10(list, subtitle){
+  return new Promise(resolve=>{
+    const W=1080,H=1350, c=document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
+    const F='"Segoe UI",system-ui,Arial,sans-serif';
+    const bg=x.createLinearGradient(0,0,W,H); bg.addColorStop(0,'#161a22'); bg.addColorStop(1,'#0f1115'); x.fillStyle=bg; x.fillRect(0,0,W,H);
+    const st=x.createLinearGradient(0,0,W,0); st.addColorStop(0,'#d51e2b'); st.addColorStop(1,'#ffd24a'); x.fillStyle=st; x.fillRect(0,0,W,10); x.fillRect(0,H-10,W,10);
+    const rr=(px,py,w,h,r)=>{x.beginPath();x.moveTo(px+r,py);x.arcTo(px+w,py,px+w,py+h,r);x.arcTo(px+w,py+h,px,py+h,r);x.arcTo(px,py+h,px,py,r);x.arcTo(px,py,px+w,py,r);x.closePath();};
+    const fit=(t,max,font)=>{ x.font=font; if(x.measureText(t).width<=max) return t; while(t.length>1 && x.measureText(t+'…').width>max) t=t.slice(0,-1); return t+'…'; };
+    const draw=logo=>{
+      if(logo){ const lw=240, lh=lw*logo.height/logo.width; x.fillStyle='#fff'; rr(W/2-lw/2-16,40,lw+32,lh+24,14); x.fill(); x.drawImage(logo,W/2-lw/2,52,lw,lh); }
+      x.textAlign='center';
+      x.fillStyle='#d51e2b'; rr(W/2-92,214,184,40,8); x.fill();
+      x.fillStyle='#fff'; x.font='700 20px '+F; x.fillText('EDIÇÃO 2026', W/2, 241);
+      x.fillStyle='#ffd24a'; x.font='800 74px '+F; x.fillText('TOP 10', W/2, 330);
+      x.fillStyle='#9aa3b2'; x.font='400 26px '+F; x.fillText(fit(subtitle, W-120, '400 26px '+F), W/2, 372);
+      const y0=420, rh=80, meds=['🥇','🥈','🥉'];
+      list.forEach((it,i)=>{
+        const y=y0+i*rh;
+        x.fillStyle = i%2 ? 'rgba(255,255,255,.025)' : 'rgba(255,255,255,.055)'; rr(60,y,W-120,rh-10,12); x.fill();
+        if(i<3){ x.strokeStyle = i===0 ? 'rgba(245,197,24,.6)' : 'rgba(255,255,255,.14)'; x.lineWidth=1; rr(60,y,W-120,rh-10,12); x.stroke(); }
+        x.textAlign='left';
+        x.font=(i<3?'400 34px ':'800 26px ')+F; x.fillStyle= i<3?'#fff':'#9aa3b2';
+        x.fillText(i<3?meds[i]:(i+1)+'º', 84, y+rh/2+(i<3?12:9));
+        x.fillStyle='#e8eaed'; x.fillText(fit((it.q?'🏁 ':'')+it.name, 600, '700 28px '+F), 160, y+rh/2+10);
+        x.textAlign='right';
+        x.fillStyle='#ffd24a'; x.font='800 32px '+F; x.fillText(String(it.v), W-84, y+rh/2+4);
+        x.fillStyle='#6a7180'; x.font='400 16px '+F; x.fillText(it.sub, W-84, y+rh/2+28);
+      });
+      x.textAlign='center'; x.fillStyle='#6a7180'; x.font='600 22px '+F; x.fillText('copasaopaulodetiroahelice.com.br', W/2, H-40);
+      c.toBlob(b=>resolve(b),'image/png');
+    };
+    const src=document.querySelector('header.top img');
+    if(src&&src.src){ const im=new Image(); im.onload=()=>draw(im); im.onerror=()=>draw(null); im.src=src.src; } else draw(null);
+  });
+}
+async function shareTop10(){
+  const single=state.stage>=0, si=state.stage;
+  const ordered = single
+    ? [...D.athletes].filter(a=>a.etapas[si].score!==null).sort((x,y)=>(y.etapas[si].score-x.etapas[si].score)||(y.total-x.total)||x.name.localeCompare(y.name,'pt-BR'))
+    : [...D.athletes].sort((x,y)=>x.rankTotal-y.rankTotal);
+  const list=ordered.slice(0,10).map(a=>({name:a.name, q:a.count>=6, v: single? a.etapas[si].score : a.total, sub: single? 'nota na etapa' : 'média '+a.avg.toFixed(1)}));
+  if(!list.length){ toast('Sem dados para o Top 10'); return; }
+  const subtitle = single ? (D.stages[si].n+' · '+(D.stages[si].local||'')) : ('Classificação geral · até a '+D.stages.length+'ª Etapa');
+  const text='🏆 TOP 10 — V Copa São Paulo Open 2026\n'+subtitle+'\n'+list.map((it,i)=>(i+1)+'º '+it.name+' — '+it.v).join('\n');
+  const url=location.origin+location.pathname+'?v=rank'+(single?'':'');
+  const btn=document.querySelector('.top10btn'); if(btn){ btn.disabled=true; btn.textContent='⏳ Gerando…'; }
+  try{
+    const blob=await drawTop10(list, subtitle);
+    const file=new File([blob],'copa-sp-open-top10.png',{type:'image/png'});
+    if(navigator.canShare && navigator.canShare({files:[file]})){ await navigator.share({files:[file], text, title:'Top 10 · Copa SP Open 2026'}); }
+    else{
+      const u=URL.createObjectURL(blob), el=document.createElement('a'); el.href=u; el.download=file.name; el.click(); setTimeout(()=>URL.revokeObjectURL(u),3000);
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text+'\n'+url).catch(()=>{});
+      toast('📸 Top 10 baixado · texto copiado!');
+    }
+  }catch(e){ if(!e || e.name!=='AbortError') toast('Não foi possível gerar a imagem'); }
+  finally{ if(btn){ btn.disabled=false; btn.textContent='📸 Top 10'; } }
+}
 
 // per-stage average (recomputed on every loadDataset)
 let stageAvg = [];
@@ -890,11 +1029,13 @@ function render(){
   pb.style.display = special?'none':'';
   rv.style.display = isRec?'':'none';
   cv.style.display = isCmp?'':'none';
-  const pod=document.getElementById('podium');
-  if(isRec){ pod.style.display='none'; renderReceitas(); return; }
-  if(isCmp){ pod.style.display='none'; renderComparativo(); return; }
+  const pod=document.getElementById('podium'), favb=document.getElementById('favbar');
+  if(isRec){ pod.style.display='none'; favb.style.display='none'; renderReceitas(); return; }
+  if(isCmp){ pod.style.display='none'; favb.style.display='none'; renderComparativo(); return; }
   const rows = filtered();
   const grid = document.getElementById('grid');
+  const mob = isMobile(); document.querySelector('.panelbox').classList.toggle('cardsmode', mob);
+  const FAV = getFav();
   document.getElementById('count').textContent = rows.length + ' atirador(es) · ' +
     (state.stage>=0? D.stages[state.stage].n : 'todas as etapas');
 
@@ -910,7 +1051,7 @@ function render(){
       : [...D.athletes].sort((x,y)=>x.rankTotal-y.rankTotal).slice(0,3);
     if(top.length>=3){
       const meds=['🥇','🥈','🥉'];
-      pod.innerHTML='<div class="podttl">Pódio · '+(single? D.stages[state.stage].n : 'Classificação geral')+'</div><div class="podium">'+
+      pod.innerHTML='<div class="podhead"><div class="podttl">Pódio · '+(single? D.stages[state.stage].n : 'Classificação geral')+'</div><button class="top10btn" title="Gerar imagem do Top 10 para compartilhar">📸 Top 10</button></div><div class="podium">'+
         top.map((a,i)=>'<div class="pod p'+(i+1)+'" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Abrir painel"><div class="m">'+meds[i]+'</div><div class="nm">'+finalFlag(a)+a.name+'</div>'+
           '<div class="pt">'+(single? a.etapas[state.stage].score : a.total)+'</div><div class="sb">'+(single?'nota na etapa':'pontos · média '+a.avg.toFixed(1))+'</div></div>').join('')+'</div>';
       pod.style.display='';
@@ -927,12 +1068,12 @@ function render(){
       const val = single? (a.etapas[state.stage].score??'—') : a.total;
       const barv = single? ((a.etapas[state.stage].score??0)/maxv*100) : (a.total/maxv*100);
       const presBadge = a.presCount>=4? '<b style="color:var(--yellow-strong)">'+a.major+'</b>' : '—';
-      return '<tr data-name="'+a.name.replace(/"/g,'&quot;')+'"'+(a.count>=6?' class="qual"':'')+'><td class="pos">'+(medal||pos)+'</td><td class="name">'+finalFlag(a)+a.name+'</td>'+
+      return '<tr data-name="'+a.name.replace(/"/g,'&quot;')+'" class="'+(a.count>=6?'qual ':'')+(a.name===FAV?'fav':'')+'"><td class="pos">'+(medal||pos)+'</td><td class="name">'+finalFlag(a)+a.name+'</td>'+
         (single? '<td class="tot">'+val+'</td>' : '<td class="tot">'+val+'</td><td>'+a.avg.toFixed(1)+'</td><td>'+a.count+'</td>')+
         '<td>'+presBadge+'</td>'+
         '<td><div class="barcell"><div class="minibar" style="width:'+Math.max(barv,2)+'%"></div></div></td></tr>';
     }).join('');
-    grid.innerHTML = head + '<tbody>'+body+'</tbody>';
+    if(mob){ grid.innerHTML=''; renderCards(rows); } else grid.innerHTML = head + '<tbody>'+body+'</tbody>';
   } else {
     pod.style.display='none';
     grid.className='';
@@ -948,14 +1089,15 @@ function render(){
         return '<td class="'+cls+'">'+(e.score===null?'':e.score)+'</td>';
       }).join('');
       const majTd = a.presCount>=4? '<b style="color:var(--yellow-strong)">'+a.major+'</b>' : '—';
-      return '<tr data-name="'+a.name.replace(/"/g,'&quot;')+'"'+(a.count>=6?' class="qual"':'')+'><td class="name">'+finalFlag(a)+a.name+'</td>'+cells+'<td class="tot">'+a.total+'</td><td>'+a.count+'</td><td>'+majTd+'</td></tr>';
+      return '<tr data-name="'+a.name.replace(/"/g,'&quot;')+'" class="'+(a.count>=6?'qual ':'')+(a.name===FAV?'fav':'')+'"><td class="name">'+finalFlag(a)+a.name+'</td>'+cells+'<td class="tot">'+a.total+'</td><td>'+a.count+'</td><td>'+majTd+'</td></tr>';
     }).join('');
-    grid.innerHTML = head + '<tbody>'+body+'</tbody>';
+    if(mob){ grid.innerHTML=''; renderCards(rows); } else grid.innerHTML = head + '<tbody>'+body+'</tbody>';
   }
   // presencial stat for current selection
   let pc=0,sc=0;
   rows.forEach(a=>{ if(state.stage>=0){ if(a.etapas[state.stage].presencial)pc++; if(a.etapas[state.stage].score!==null||a.etapas[state.stage].presencial)sc++; } else { pc+=a.presCount; sc+=a.count; }});
   document.getElementById('presStat').textContent = pc+' participação(ões) presencial(is) no filtro atual';
+  renderFavbar();
 }
 
 // events
@@ -1005,7 +1147,16 @@ function kpiClick(e){
 }
 document.getElementById('kpis').addEventListener('click',kpiClick);
 document.getElementById('infocards').addEventListener('click',kpiClick);
-document.getElementById('podium').addEventListener('click',e=>{ const c=e.target.closest('.pod[data-name]'); if(c) openDetail(c.dataset.name); });
+document.getElementById('podium').addEventListener('click',e=>{ if(e.target.closest('.top10btn')){ shareTop10(); return; } const c=e.target.closest('.pod[data-name]'); if(c) openDetail(c.dataset.name); });
+document.addEventListener('click',e=>{
+  const ac=e.target.closest('.acard[data-name]'); if(ac){ openDetail(ac.dataset.name); return; }
+  const fc=e.target.closest('.favcard[data-name]'); if(fc){ openDetail(fc.dataset.name); return; }
+  const fb=e.target.closest('.favbtn[data-name]');
+  if(fb){ const n=fb.dataset.name, on=getFav()===n; setFav(on?'':n);
+    fb.classList.toggle('on',!on); fb.textContent = !on ? '⭐ Meu atirador' : '☆ Marcar como meu';
+    toast(!on ? '⭐ '+n+' agora é o seu atirador' : 'Marcação removida');
+    render(); }
+});
 
 // abre o Comparativo já com este atirador selecionado
 function compareAthlete(name){
@@ -1257,6 +1408,7 @@ function openDetail(name, fromUrl){
       '<div class="rankbubble '+(gold?'gold':'')+'">'+(gold?'<div style="font-size:22px">🥇</div>':'<div class="pos">#'+a.rankTotal+'</div>')+'<div class="of">de '+D.athletes.length+'</div></div>'+
       '<div class="mtitle"><h2>'+finalFlag(a)+a.name+'</h2><div class="sub">Classificação final (por pontos): <b style="color:var(--accent2)">'+(gold?'1º lugar 🥇':a.rankTotal+'º lugar')+'</b> · '+a.total+' pontos · '+a.count+' de '+D.stages.length+' etapas</div></div>'+
       '<button class="printbtn" onclick="printPanel()" title="Imprimir ou salvar em PDF">🖨️ Salvar PDF</button>'+
+      '<button class="favbtn'+(getFav()===a.name?' on':'')+'" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Fixar este atirador no topo da lista e destacá-lo">'+(getFav()===a.name?'⭐ Meu atirador':'☆ Marcar como meu')+'</button>'+
       '<button class="cmpbtn" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Comparar este atirador no gráfico">🆚 Comparar</button>'+
       '<button class="shbtn" data-name="'+a.name.replace(/"/g,'&quot;')+'" title="Compartilhar o card deste atirador no WhatsApp">📸 Compartilhar</button>'+
       '<button class="close" onclick="closeDetail()">✕</button>'+
