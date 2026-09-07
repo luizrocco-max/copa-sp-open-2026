@@ -345,6 +345,10 @@
   .pkpi.accent .v{color:var(--yellow-strong)}
   .majnote{font-size:12px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--yellow-strong);border-radius:8px;padding:8px 12px;margin:-6px 0 16px}
   .majnote b{color:var(--txt)}
+  .cotanote{font-size:12px;line-height:1.45;background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--good);border-radius:8px;padding:9px 12px;margin:-6px 0 16px;color:var(--muted)}
+  .cotanote.pend{border-left-color:var(--accent)}
+  .cotanote b{color:var(--txt)}
+  .cotanote .vl{color:var(--accent2);font-weight:700}
   .charttitle{font-size:13px;font-weight:600;margin:6px 0 8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
   .chartwrap{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
   .chartlegend{display:flex;gap:18px;font-size:11px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
@@ -492,6 +496,7 @@
       <label>Final</label>
       <div class="pillrow">
         <span class="pill" id="finalPill" title="Mostrar apenas os classificados para a Final (6+ etapas)">🏁 Só classificados</span>
+        <span class="pill" id="cotaPill" title="Classificados que ainda não têm as 11 cotas do fundo">💰 Falta cota</span>
       </div>
     </div>
     <div class="ctl">
@@ -530,6 +535,7 @@
       <span><span class="swatch"></span> Participação presencial</span>
       <span>● indica etapa disputada presencialmente</span>
       <span>🏁 = classificado para a Final (6+ etapas já publicadas)</span>
+      <span>💰 = mínimo de 11 cotas do fundo para concorrer a prêmio em dinheiro</span>
       <span id="presStat"></span>
     </div>
   </div>
@@ -602,6 +608,13 @@ function renderInfoCards(){
   box.innerHTML=liderHtml+proxHtml;
 }
 // bandeirinha para quem já tem 6+ etapas (classificado para a Final)
+// ---------- cotas do fundo (mín. 11 para concorrer a prêmio em dinheiro) ----------
+const COTAS_MIN = 11;
+function cotaValor(){
+  for(let i=0;i<D.stages.length;i++){ const p=D.stageParticipants[i], f=D.fundoEtapa[i];
+    if(p>0 && f) return Math.round(f/p); }
+  return 150;
+}
 const finalFlag = a => (a.count>=6) ? '<span class="qflag" title="Classificado para a Final — '+a.count+' etapas nas provas já publicadas">🏁</span>' : '';
 
 // ---------- celular: cartões no lugar da tabela larga ----------
@@ -620,7 +633,7 @@ function renderCards(rows){
     const main = single ? ((a.etapas[state.stage].score??'—')+' <small>'+D.stages[state.stage].n+'</small>') : (a.topgun+' <small>Top Gun</small>');
     return '<div class="acard'+(a.count>=6?' qual':'')+(a.name===fav?' fav':'')+'" data-name="'+escAttr(a.name)+'">'+
       '<div class="ah"><span class="apos">'+(medal||'#'+pos)+'</span><span class="anm">'+(a.name===fav?'⭐ ':'')+finalFlag(a)+a.name+'</span><span class="atot">'+main+'</span></div>'+
-      '<div class="as">média '+a.avg.toFixed(1)+' · '+a.count+' etapa'+(a.count===1?'':'s')+' · '+a.presCount+' presencia'+(a.presCount===1?'l':'is')+maj+'</div>'+
+      '<div class="as">média '+a.avg.toFixed(1)+' · '+a.count+' etapa'+(a.count===1?'':'s')+' · '+a.presCount+' presencia'+(a.presCount===1?'l':'is')+(a.count>=6&&!a.aptoPremio?' · <b class="mj" style="color:var(--accent)">falta '+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b>':'')+maj+'</div>'+
       '<div class="achips">'+chips+'</div></div>';
   }).join('');
 }
@@ -721,6 +734,10 @@ function loadDataset(){
     a.dropped = a.droppedScores.length;
     a.topgun = a.topScores.reduce((x,y)=>x+y,0);
     a.presCount = a.etapas.filter(e=>e.presencial).length;
+    // Cotas do fundo (regulamento): 1 cota por etapa disputada; mínimo COTAS_MIN para concorrer a prêmio em dinheiro
+    a.cotas = a.count;
+    a.cotasFalta = Math.max(0, COTAS_MIN - a.cotas);
+    a.aptoPremio = a.cotasFalta === 0;
     // Majorança: soma das 4 melhores notas presenciais
     a.presScores = a.etapas.filter(e=>e.presencial && e.score!==null).map(e=>e.score).sort((x,y)=>y-x);
     a.majorTop = a.presScores.slice(0,4);
@@ -745,11 +762,12 @@ function loadDataset(){
     {l:'Patrocínio', v: money(D.patrocinio)},
     {l:'Participantes', v: fmtBR(D.athletes.length)},
     {l:'Classificados até a '+D.stages.length+'ª', v: fmtBR(qualified), flag:true, action:'final'},
+    {l:'Aptos ao prêmio (11 cotas)', v: fmtBR(D.athletes.filter(a=>a.aptoPremio).length), action:'cotas'},
     {l:'Etapas', v: D.stages.length},
     {l:'Participações presenciais', v: fmtBR(totalPres), accent:true},
   ];
   document.getElementById('kpis').innerHTML = kpis.map(k=>
-    '<div class="kpi '+(k.accent?'accent':'')+(k.lead?' lead':'')+(k.action?' clk':'')+'"'+(k.action?' data-action="'+k.action+'"':'')+(k.aname?' data-name="'+k.aname.replace(/"/g,'&quot;')+'"':'')+' title="'+(k.action==='final'?'Ver só os classificados':(k.action==='leader'?'Abrir painel do líder':''))+'"><div class="v">'+(k.flag?'🏁 ':'')+k.v+'</div><div class="l">'+k.l+'</div></div>').join('');
+    '<div class="kpi '+(k.accent?'accent':'')+(k.lead?' lead':'')+(k.action?' clk':'')+'"'+(k.action?' data-action="'+k.action+'"':'')+(k.aname?' data-name="'+k.aname.replace(/"/g,'&quot;')+'"':'')+' title="'+(k.action==='final'?'Ver só os classificados':(k.action==='leader'?'Abrir painel do líder':(k.action==='cotas'?'Ver classificados que ainda precisam completar as cotas':'')))+'"><div class="v">'+(k.flag?'🏁 ':'')+k.v+'</div><div class="l">'+k.l+'</div></div>').join('');
   renderInfoCards();
   const qn=document.getElementById('qualNote');
   if(qn) qn.innerHTML=' <b>'+fmtBR(qualified)+' já classificados</b> com base nas '+D.stages.length+' etapas publicadas'+
@@ -768,11 +786,12 @@ function loadDataset(){
 }
 
 // state
-let state = {q:'', stage:-1, pres:'all', sort:'name', sortDir:1, view:'table', cmpA:'', cmpB:'', finalOnly:false};
+let state = {q:'', stage:-1, pres:'all', sort:'name', sortDir:1, view:'table', cmpA:'', cmpB:'', finalOnly:false, cotaOnly:false};
 
 function filtered(){
   let rows = D.athletes.filter(a=>{
     if(state.finalOnly && a.count<6) return false;
+    if(state.cotaOnly && !(a.count>=6 && !a.aptoPremio)) return false;
     if(state.q && !a.name.toLowerCase().includes(state.q.toLowerCase())) return false;
     if(state.stage>=0){
       const e = a.etapas[state.stage];
@@ -1121,6 +1140,10 @@ document.getElementById('presFilter').addEventListener('click',e=>{
   document.querySelectorAll('#presFilter .pill').forEach(p=>p.classList.remove('active'));
   e.target.classList.add('active'); state.pres=e.target.dataset.v; render();
 });
+document.getElementById('cotaPill').addEventListener('click',e=>{
+  state.cotaOnly=!state.cotaOnly; e.target.classList.toggle('active', state.cotaOnly);
+  if(state.view!=='table' && state.view!=='rank') switchView('table'); else render();
+});
 document.getElementById('finalPill').addEventListener('click',e=>{
   state.finalOnly=!state.finalOnly; e.target.classList.toggle('active', state.finalOnly); render();
 });
@@ -1154,6 +1177,10 @@ function kpiClick(e){
     state.finalOnly=!state.finalOnly;
     const fp=document.getElementById('finalPill'); if(fp) fp.classList.toggle('active', state.finalOnly);
     if(state.view!=='table' && state.view!=='rank') switchView('table'); else render();
+  } else if(act==='cotas'){
+    state.cotaOnly=!state.cotaOnly;
+    const cp=document.getElementById('cotaPill'); if(cp) cp.classList.toggle('active', state.cotaOnly);
+    if(state.view!=='table' && state.view!=='rank') switchView('table'); else render();
   } else if(act==='leader' && card.dataset.name){ openDetail(card.dataset.name); }
   else if(act==='calendar'){ openReg(); }
 }
@@ -1179,11 +1206,12 @@ function compareAthlete(name){
 }
 document.addEventListener('click',e=>{ const btn=e.target.closest('.cmpbtn'); if(btn && btn.dataset.name) compareAthlete(btn.dataset.name); });
 document.getElementById('clearBtn').addEventListener('click',()=>{
-  state={q:'',stage:-1,pres:'all',sort:'name',sortDir:1,view:state.view,cmpA:state.cmpA,cmpB:state.cmpB,finalOnly:false};
+  state={q:'',stage:-1,pres:'all',sort:'name',sortDir:1,view:state.view,cmpA:state.cmpA,cmpB:state.cmpB,finalOnly:false,cotaOnly:false};
   document.getElementById('q').value=''; stageSel.value='-1'; document.getElementById('sortSel').value='name';
   document.querySelectorAll('#presFilter .pill').forEach(p=>p.classList.remove('active'));
   document.querySelector('#presFilter .pill[data-v=all]').classList.add('active');
   document.getElementById('finalPill').classList.remove('active');
+  document.getElementById('cotaPill').classList.remove('active');
   document.querySelectorAll('#stages .stage.sel').forEach(c=>c.classList.remove('sel'));
   render();
 });
@@ -1406,6 +1434,7 @@ function openDetail(name, fromUrl){
     {l:'Melhor nota', v:a.best},
     {l:'Participações', v:a.count+' / '+D.stages.length},
     {l:'Presenciais', v:a.presCount},
+    {l:'Cotas do fundo', v:a.cotas+' / '+COTAS_MIN},
     {l:'Majorança (4 melhores)', v: a.presCount>=4? a.major : '—', accent:true},
   ];
   const rows=a.etapas.map((e,i)=>{
@@ -1428,6 +1457,10 @@ function openDetail(name, fromUrl){
     '</div>'+
     '<div class="mbody">'+
       '<div class="pkpis">'+pkpis.map(k=>'<div class="pkpi'+(k.accent?' accent':'')+'"><div class="v">'+k.v+'</div><div class="l">'+k.l+'</div></div>').join('')+'</div>'+
+      (function(){ const v=cotaValor();
+        return a.aptoPremio
+          ? '<div class="cotanote">💰 <b>Apto ao prêmio em dinheiro</b> — '+a.cotas+' cotas do fundo ('+COTAS_MIN+' é o mínimo exigido).</div>'
+          : '<div class="cotanote pend">💰 <b>'+a.cotas+' de '+COTAS_MIN+' cotas</b> do fundo. Para concorrer ao prêmio em dinheiro, faltam <b>'+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b> — <span class="vl">'+money(a.cotasFalta*v)+'</span>, que podem ser quitadas antes da Final.</div>'; })()+
       (a.presCount>=4? '<div class="majnote">Majorança = soma das 4 melhores notas presenciais'+(a.presScores.length>4?' (de '+a.presScores.length+' presenciais)':'')+': <b>'+a.majorTop.join(' + ')+' = '+a.major+'</b></div>' : '<div class="majnote">Majorança ainda não disponível — exige <b>no mínimo 4 etapas presenciais</b> (este atirador tem '+a.presCount+'). Será calculada conforme as próximas etapas forem registradas.</div>')+
       '<div class="charttitle">Evolução por etapa</div>'+
       '<div class="chartwrap">'+chartSVG(a)+
