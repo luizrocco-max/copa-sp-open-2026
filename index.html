@@ -721,6 +721,8 @@ const stageSel = document.getElementById('stageSel');
 
 // (re)computa métricas derivadas e renderiza KPIs/cards/seletor a partir do D atual
 function loadDataset(){
+  // etapas que ainda faltam disputar (calendário sem a Final, menos as já publicadas)
+  D.etapasRestantes = Math.max(0, (D.calendario||[]).filter(c=>!/final/i.test(c.n||'')).length - D.stages.length);
   D.athletes.forEach(a=>{
     const sc = a.etapas.map(e=>e.score).filter(v=>v!==null);
     a.total = sc.reduce((x,y)=>x+y,0);
@@ -737,6 +739,8 @@ function loadDataset(){
     a.presCount = a.etapas.filter(e=>e.presencial).length;
     // Cotas do fundo (regulamento): 1 cota por etapa disputada; mínimo COTAS_MIN para concorrer a prêmio em dinheiro
     a.cotas = a.count;
+    a.faltamEtapas = Math.max(0, 6 - a.count);
+    a.podeClassificar = a.count>=6 || (a.count + D.etapasRestantes >= 6);
     a.cotasFalta = Math.max(0, COTAS_MIN - a.cotas);
     a.aptoPremio = a.cotasFalta === 0;
     // Majorança: soma das 4 melhores notas presenciais
@@ -749,6 +753,7 @@ function loadDataset(){
   D.athletes.forEach(a=>{ a.rankTotal=null; });
   byTotal.filter(a=>a.count>=6).forEach((a,i)=>{ a.rankTotal=i+1; });
   D.qualCount = D.athletes.filter(a=>a.count>=6).length;
+  D.podemCount = D.athletes.filter(a=>a.count<6 && a.podeClassificar).length;
   // média por etapa (linha de comparação)
   stageAvg = D.stages.map((_,i)=>{
     const vals=D.athletes.map(a=>a.etapas[i].score).filter(v=>v!==null);
@@ -774,6 +779,7 @@ function loadDataset(){
   renderInfoCards();
   const qn=document.getElementById('qualNote');
   if(qn) qn.innerHTML=' <b>'+fmtBR(qualified)+' já classificados</b> com base nas '+D.stages.length+' etapas publicadas'+
+    (D.podemCount? ' · <b>'+fmtBR(D.podemCount)+'</b> ainda pode'+(D.podemCount>1?'m':'')+' se classificar '+(D.etapasRestantes? 'nas '+D.etapasRestantes+' etapas restantes':'') : '')+
     '<span class="qcav"> — etapas recém-disputadas podem ainda não constar aqui.</span>';
   // stage cards
   const maxPart = Math.max(...D.stageParticipants,1);
@@ -1462,7 +1468,11 @@ function openDetail(name, fromUrl){
     '</div>'+
     '<div class="mbody">'+
       '<div class="pkpis">'+pkpis.map(k=>'<div class="pkpi'+(k.accent?' accent':'')+'"><div class="v">'+k.v+'</div><div class="l">'+k.l+'</div></div>').join('')+'</div>'+
+      (a.count>=6 ? '' : (a.podeClassificar
+        ? '<div class="cotanote" style="border-left-color:var(--yellow-strong)">🏁 <b>Ainda pode se classificar</b> — tem '+a.count+' de 6 etapas. Falta'+(a.faltamEtapas>1?'m':'')+' <b>'+a.faltamEtapas+'</b> e resta'+(D.etapasRestantes>1?'m':'')+' <b>'+D.etapasRestantes+'</b> no calendário.</div>'
+        : '<div class="cotanote pend">🏁 <b>Não alcança mais as 6 etapas</b> nesta edição — tem '+a.count+' e resta'+(D.etapasRestantes>1?'m':'')+' apenas <b>'+D.etapasRestantes+'</b> etapa'+(D.etapasRestantes>1?'s':'')+' no calendário.</div>'))+
       (function(){ const v=cotaValor();
+        if(!a.podeClassificar) return '';   // sem chance de Final: cobrar cotas nao faz sentido
         return a.aptoPremio
           ? '<div class="cotanote">💰 <b>Apto ao prêmio em dinheiro</b> — '+a.cotas+' cotas do fundo ('+COTAS_MIN+' é o mínimo exigido).</div>'
           : '<div class="cotanote pend">💰 <b>'+a.cotas+' de '+COTAS_MIN+' cotas</b> do fundo. Para concorrer ao prêmio em dinheiro, faltam <b>'+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b> — <span class="vl">'+money(a.cotasFalta*v)+'</span>, que podem ser quitadas antes da Final.</div>'; })()+
