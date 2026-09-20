@@ -1,5 +1,5 @@
 {
- "fundoAcumulado": 297450,
+ "fundoAcumulado": 299250,
  "patrocinio": 135000,
  "totalParticipantes": 220,
  "etapasComResultado": 12,
@@ -77,7 +77,7 @@
   9000,
   10500,
   10200,
-  3900
+  5700
  ],
  "stageParticipants": [
   133,
@@ -91,7 +91,7 @@
   60,
   70,
   68,
-  26
+  38
  ],
  "athletes": [
   {
@@ -1749,8 +1749,8 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -4144,8 +4144,8 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -4296,8 +4296,7 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 11
     }
    ]
   },
@@ -5615,8 +5614,8 @@
      "score": 14
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 14,
+     "presencial": true
     }
    ]
   },
@@ -5971,8 +5970,8 @@
      "score": 17
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -6021,8 +6020,8 @@
      "score": 13
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 14,
+     "presencial": true
     }
    ]
   },
@@ -7565,8 +7564,8 @@
      "score": 18
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -8628,8 +8627,8 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     }
    ]
   },
@@ -8823,8 +8822,8 @@
      "score": 16
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     }
    ]
   },
@@ -8874,8 +8873,8 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 14,
+     "presencial": true
     }
    ]
   },
@@ -10530,8 +10529,8 @@
      "score": 18
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18,
+     "presencial": true
     }
    ]
   },
@@ -10983,8 +10982,7 @@
      "score": 15
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 9
     }
    ]
   },
