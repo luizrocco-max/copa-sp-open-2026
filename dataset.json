@@ -1,5 +1,5 @@
 {
- "fundoAcumulado": 300750,
+ "fundoAcumulado": 300900,
  "patrocinio": 135000,
  "totalParticipantes": 220,
  "etapasComResultado": 13,
@@ -71,7 +71,7 @@
   }
  ],
  "fundoEtapa": [
-  19950,
+  20100,
   18750,
   19800,
   16800,
@@ -86,7 +86,7 @@
   null
  ],
  "stageParticipants": [
-  133,
+  134,
   125,
   132,
   112,
@@ -3343,8 +3343,7 @@
    "name": "Francisco Azevedo Figueiredo Neto",
    "etapas": [
     {
-     "score": null,
-     "presencial": false
+     "score": 18
     },
     {
      "score": 17,
