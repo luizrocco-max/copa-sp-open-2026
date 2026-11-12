@@ -840,10 +840,17 @@ function lvClass(provaId, cat){
 // ---------- fechamento: Top Gun e Majorança somando as etapas (site) com a Final (sistema) ----------
 // Só entra quem atirou a Final (obrigatória). As provas extras são opcionais: se existirem lançamentos nas provas
 // "topgun" (desempate) e "majoranca" (final extra dos 10 melhores), entram na conta; sem elas, vale o resultado sem extras.
+// acha a prova extra no sistema: pelo código combinado ou, se não houver, pelo NOME ("Majorança", "Top Gun"),
+// para que baste criar a prova na tela do sistema, sem depender de código
+function lvProvaExtra(tipo){
+  const ps=LV.provas||[], porId=ps.find(p=>p.id===FINAL_PROVAS[tipo]); if(porId) return porId.id;
+  const semAcento=t=>(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,''), re = tipo==='majoranca' ? /majoran/i : /top\s*gun/i;
+  const p=ps.find(p=>p.id!==FINAL_PROVAS.final && re.test(semAcento(p.nome))); return p ? p.id : null;
+}
 function lvFecha(){
   const site=new Map(D.athletes.map(a=>[a.name,a]));
-  const soma=id=>{ const m=new Map(); LV.lanc.forEach(l=>{ if(l.provaId===id) m.set(l.atiradorId,(m.get(l.atiradorId)||0)+l.total); }); return m; };
-  const des=soma(FINAL_PROVAS.topgun), ext=soma(FINAL_PROVAS.majoranca);
+  const soma=id=>{ const m=new Map(); if(!id) return m; LV.lanc.forEach(l=>{ if(l.provaId===id) m.set(l.atiradorId,(m.get(l.atiradorId)||0)+l.total); }); return m; };
+  const des=soma(lvProvaExtra('topgun')), ext=soma(lvProvaExtra('majoranca'));
   return lvClass(FINAL_PROVAS.final,'geral').filter(r=>r.comecou && site.has(r.a.nome)).map(r=>{ const z=site.get(r.a.nome);
     return {a:r.a, fin:r.total, tgBase:z.topgun, tg:z.topgun+2*r.total, des:des.has(r.a.id) ? des.get(r.a.id) : null,
       mjOk:z.presCount>=4, mjBase:z.major, mj:z.major+2*r.total, ext:ext.has(r.a.id) ? ext.get(r.a.id) : null}; });
