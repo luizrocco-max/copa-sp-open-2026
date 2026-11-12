@@ -468,7 +468,7 @@
 
   <div class="finalnote">
     <span class="ico">🏁</span>
-    <span><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.<span id="qualNote"></span></span>
+    <span><span id="finalLead"><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.</span><span id="qualNote"></span></span>
   </div>
 
   <div class="kpis" id="kpis"></div>
@@ -724,6 +724,8 @@ const stageSel = document.getElementById('stageSel');
 function loadDataset(){
   // etapas que ainda faltam disputar (calendário sem a Final, menos as já publicadas)
   D.etapasRestantes = Math.max(0, (D.calendario||[]).filter(c=>!/final/i.test(c.n||'')).length - D.stages.length);
+  // todas as etapas do calendário já publicadas: só falta a Final (os textos deixam de falar em "próximas etapas")
+  D.faseEncerrada = (D.calendario||[]).some(c=>!/final/i.test(c.n||'')) && D.etapasRestantes===0;
   D.athletes.forEach(a=>{
     const sc = a.etapas.map(e=>e.score).filter(v=>v!==null);
     a.total = sc.reduce((x,y)=>x+y,0);
@@ -770,7 +772,7 @@ function loadDataset(){
     {l:'Fundo acumulado', v: money(D.fundoAcumulado), accent:true},
     {l:'Patrocínio', v: money(D.patrocinio)},
     {l:'Participantes', v: fmtBR(D.athletes.length)},
-    {l:'Classificados até a '+D.stages.length+'ª', v: fmtBR(qualified), flag:true, action:'final'},
+    {l: D.faseEncerrada ? 'Classificados para a Final' : 'Classificados até a '+D.stages.length+'ª', v: fmtBR(qualified), flag:true, action:'final'},
     {l:'Aptos ao prêmio (11 cotas)', v: fmtBR(D.athletes.filter(a=>a.aptoPremio).length), action:'cotas'},
     {l:'Etapas', v: D.stages.length},
     {l:'Participações presenciais', v: fmtBR(totalPres), accent:true},
@@ -778,8 +780,14 @@ function loadDataset(){
   document.getElementById('kpis').innerHTML = kpis.map(k=>
     '<div class="kpi '+(k.accent?'accent':'')+(k.lead?' lead':'')+(k.action?' clk':'')+'"'+(k.action?' data-action="'+k.action+'"':'')+(k.aname?' data-name="'+k.aname.replace(/"/g,'&quot;')+'"':'')+' title="'+(k.action==='final'?'Ver só os classificados':(k.action==='leader'?'Abrir painel do líder':(k.action==='cotas'?'Ver classificados que ainda precisam completar as cotas':'')))+'"><div class="v">'+(k.flag?'🏁 ':'')+k.v+'</div><div class="l">'+k.l+'</div></div>').join('');
   renderInfoCards();
-  const qn=document.getElementById('qualNote');
-  if(qn) qn.innerHTML=' <b>'+fmtBR(qualified)+' já classificados</b> com base nas '+D.stages.length+' etapas publicadas'+
+  const qn=document.getElementById('qualNote'), fl=document.getElementById('finalLead');
+  const cf=(D.calendario||[]).find(c=>/final/i.test(c.n||''));
+  if(fl) fl.innerHTML = D.faseEncerrada
+    ? '<b>Classificação para a Final:</b> as '+D.stages.length+' etapas estão encerradas. Quem disputou <b>6 etapas ou mais</b> (presenciais ou on-line) tem direito de participar da Final.'
+    : '<b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.';
+  if(qn) qn.innerHTML = D.faseEncerrada
+    ? ' <b>'+fmtBR(qualified)+' classificados</b>'+(cf && cf.data ? ' para a Final de '+cf.data+(cf.local? ', no '+cf.local : '') : '')+'.'
+    : ' <b>'+fmtBR(qualified)+' já classificados</b> com base nas '+D.stages.length+' etapas publicadas'+
     (D.podemCount? ' · <b>'+fmtBR(D.podemCount)+'</b> ainda pode'+(D.podemCount>1?'m':'')+' se classificar '+(D.etapasRestantes? 'nas '+D.etapasRestantes+' etapas restantes':'') : '')+
     '<span class="qcav"> — etapas recém-disputadas podem ainda não constar aqui.</span>';
   // stage cards
@@ -1471,13 +1479,15 @@ function openDetail(name, fromUrl){
       '<div class="pkpis">'+pkpis.map(k=>'<div class="pkpi'+(k.accent?' accent':'')+'"><div class="v">'+k.v+'</div><div class="l">'+k.l+'</div></div>').join('')+'</div>'+
       (a.count>=6 ? '' : (a.podeClassificar
         ? '<div class="cotanote" style="border-left-color:var(--yellow-strong)">🏁 <b>Ainda pode se classificar</b> — tem '+a.count+' de 6 etapas. Falta'+(a.faltamEtapas>1?'m':'')+' <b>'+a.faltamEtapas+'</b> e resta'+(D.etapasRestantes>1?'m':'')+' <b>'+D.etapasRestantes+'</b> no calendário.</div>'
-        : '<div class="cotanote pend">🏁 <b>Não alcança mais as 6 etapas</b> nesta edição — tem '+a.count+' e resta'+(D.etapasRestantes>1?'m':'')+' apenas <b>'+D.etapasRestantes+'</b> etapa'+(D.etapasRestantes>1?'s':'')+' no calendário.</div>'))+
+        : (D.faseEncerrada
+          ? '<div class="cotanote pend">🏁 <b>Não classificado para a Final</b> — disputou '+a.count+' das 6 etapas exigidas e as '+D.stages.length+' etapas já estão encerradas.</div>'
+          : '<div class="cotanote pend">🏁 <b>Não alcança mais as 6 etapas</b> nesta edição — tem '+a.count+' e resta'+(D.etapasRestantes>1?'m':'')+' apenas <b>'+D.etapasRestantes+'</b> etapa'+(D.etapasRestantes>1?'s':'')+' no calendário.</div>')))+
       (function(){ const v=cotaValor();
         if(!a.podeClassificar) return '';   // sem chance de Final: cobrar cotas nao faz sentido
         return a.aptoPremio
           ? '<div class="cotanote">💰 <b>Apto ao prêmio em dinheiro</b> — '+a.cotas+' cotas do fundo ('+COTAS_MIN+' é o mínimo exigido).</div>'
           : '<div class="cotanote pend">💰 <b>'+a.cotas+' de '+COTAS_MIN+' cotas</b> do fundo. Para concorrer ao prêmio em dinheiro, faltam <b>'+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b> — <span class="vl">'+money(a.cotasFalta*v)+'</span>, que podem ser quitadas antes da Final.</div>'; })()+
-      (a.presCount>=4? '<div class="majnote">Majorança = soma das 4 melhores notas presenciais'+(a.presScores.length>4?' (de '+a.presScores.length+' presenciais)':'')+': <b>'+a.majorTop.join(' + ')+' = '+a.major+'</b></div>' : '<div class="majnote">Majorança ainda não disponível — exige <b>no mínimo 4 etapas presenciais</b> (este atirador tem '+a.presCount+'). Será calculada conforme as próximas etapas forem registradas.</div>')+
+      (a.presCount>=4? '<div class="majnote">Majorança = soma das 4 melhores notas presenciais'+(a.presScores.length>4?' (de '+a.presScores.length+' presenciais)':'')+': <b>'+a.majorTop.join(' + ')+' = '+a.major+'</b></div>' : '<div class="majnote">Majorança ainda não disponível — exige <b>no mínimo 4 etapas presenciais</b> (este atirador tem '+a.presCount+').'+(D.faseEncerrada?'':' Será calculada conforme as próximas etapas forem registradas.')+'</div>')+
       '<div class="charttitle">Evolução por etapa</div>'+
       '<div class="chartwrap">'+chartSVG(a)+
         '<div class="chartlegend"><span><i style="background:#f5c518;border:2px solid #d51e2b"></i>Presencial</span>'+
