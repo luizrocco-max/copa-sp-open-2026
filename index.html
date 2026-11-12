@@ -78,6 +78,8 @@
   .fntable .pz.p1,.fntable .pz.p0{color:#ff7a84}
   .fntable .pz.run{text-decoration:underline dotted}
   .fntable tr.wait td{color:var(--muted)}
+  .fnmodos{border-bottom:1px solid var(--line);padding-bottom:10px}
+  .fnq{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--accent2);border:1px solid var(--accent2);border-radius:10px;padding:1px 6px;margin-left:6px;white-space:nowrap}
   .fntable tr.wait .nm{font-weight:400}
   @media (max-width:640px){ .fntable .hm{display:none} .fntable td,.fntable th{padding:7px 5px} .fntable .pz{width:24px;padding:7px 1px} .fnlink{margin-left:0} .fnv{padding:12px} }
   /* faixa de inscrição para a Final (dados lidos do sistema de resultados) */
@@ -835,6 +837,49 @@ function lvClass(provaId, cat){
   rows.forEach((r,i)=>{ r.pos = !r.comecou ? null : ((i>0 && rows[i-1].comecou && rows[i-1].total===r.total) ? rows[i-1].pos : i+1); });
   return rows;
 }
+// ---------- fechamento: Top Gun e Majorança somando as etapas (site) com a Final (sistema) ----------
+// Só entra quem atirou a Final (obrigatória). As provas extras são opcionais: se existirem lançamentos nas provas
+// "topgun" (desempate) e "majoranca" (final extra dos 10 melhores), entram na conta; sem elas, vale o resultado sem extras.
+function lvFecha(){
+  const site=new Map(D.athletes.map(a=>[a.name,a]));
+  const soma=id=>{ const m=new Map(); LV.lanc.forEach(l=>{ if(l.provaId===id) m.set(l.atiradorId,(m.get(l.atiradorId)||0)+l.total); }); return m; };
+  const des=soma(FINAL_PROVAS.topgun), ext=soma(FINAL_PROVAS.majoranca);
+  return lvClass(FINAL_PROVAS.final,'geral').filter(r=>r.comecou && site.has(r.a.nome)).map(r=>{ const z=site.get(r.a.nome);
+    return {a:r.a, fin:r.total, tgBase:z.topgun, tg:z.topgun+2*r.total, des:des.has(r.a.id) ? des.get(r.a.id) : null,
+      mjOk:z.presCount>=4, mjBase:z.major, mj:z.major+2*r.total, ext:ext.has(r.a.id) ? ext.get(r.a.id) : null}; });
+}
+function renderFecha(modo, esc){
+  const all=lvFecha(), num=(x,y)=>x.a.numero.localeCompare(y.a.numero,'pt-BR',{numeric:true});
+  const posicoes=(rows,igual)=>rows.forEach((r,i)=>{ r.pos = (i>0 && igual(rows[i-1],r)) ? rows[i-1].pos : i+1; });
+  let rows, cab, cel, nota;
+  if(modo==='topgun'){
+    const d=r=>r.des==null ? -1 : r.des;
+    rows=all.slice().sort((x,y)=> (y.tg-x.tg) || (d(y)-d(x)) || num(x,y));
+    posicoes(rows,(x,y)=> x.tg===y.tg && d(x)===d(y));
+    const temDes=rows.some(r=>r.des!=null);
+    cab=[['Pos.','c'],['Nº','c hm'],['Atirador','nmh'],['10 melhores','c'],['Final × 2','c'],['Top Gun','c']].concat(temDes ? [['Desempate','c']] : []);
+    cel=r=>['<td class="c pos">'+r.pos+'º</td>','<td class="c hm">'+esc(r.a.numero)+'</td>','<td class="nm">'+esc(r.a.nome)+'</td>','<td class="c">'+r.tgBase+'</td>','<td class="c">'+(2*r.fin)+'</td>','<td class="c tot">'+r.tg+'</td>']
+      .concat(temDes ? ['<td class="c">'+(r.des==null ? '·' : r.des)+'</td>'] : []).join('');
+    nota='Top Gun = soma das 10 melhores etapas + nota da Final com peso dobrado (máximo 216). Só entra quem atirou a Final. '+
+      (temDes ? 'Empates decididos no tiro de desempate (coluna Desempate).' : 'Empatados aparecem na mesma posição; o desempate é no tiro, “um zero elimina”.');
+  } else {
+    const el=all.filter(r=>r.mjOk), temExt=el.some(r=>r.ext!=null);
+    el.forEach(r=>{ r.mjT = r.mj + (r.ext!=null ? 2*r.ext : 0); });
+    const porBase=el.slice().sort((x,y)=>y.mj-x.mj), corte=porBase.length>10 ? porBase[9].mj : -1;
+    rows=el.slice().sort((x,y)=> ((y.ext!=null)-(x.ext!=null)) || (y.mjT-x.mjT) || num(x,y));
+    posicoes(rows,(x,y)=> (x.ext!=null)===(y.ext!=null) && x.mjT===y.mjT);
+    cab=[['Pos.','c'],['Nº','c hm'],['Atirador','nmh'],['4 presenciais','c'],['Final × 2','c'],[temExt ? 'Parcial' : 'Majorança','c']].concat(temExt ? [['Final extra × 2','c'],['Majorança','c']] : []);
+    cel=r=>['<td class="c pos">'+r.pos+'º</td>','<td class="c hm">'+esc(r.a.numero)+'</td>',
+      '<td class="nm">'+esc(r.a.nome)+(!temExt && r.mj>=corte && corte>=0 ? ' <span class="fnq" title="Entre os 10 melhores: disputa a final extra da Majorança">final extra</span>' : '')+'</td>',
+      '<td class="c">'+r.mjBase+'</td>','<td class="c">'+(2*r.fin)+'</td>','<td class="c'+(temExt ? '' : ' tot')+'">'+r.mj+'</td>']
+      .concat(temExt ? ['<td class="c">'+(r.ext==null ? '·' : 2*r.ext)+'</td>','<td class="c tot">'+r.mjT+'</td>'] : []).join('');
+    nota='Majorança = 4 melhores notas presenciais + nota da Final com peso dobrado (máximo 108). Só entra quem tem 4 ou mais presenciais e atirou a Final. '+
+      (temExt ? 'Os que disputaram a final extra somam essa nota com peso dobrado (máximo 144) e ficam à frente.' : 'Os 10 melhores (com os empatados no corte) disputam a final extra de 18 hélices, somada com peso dobrado (máximo 144).');
+  }
+  if(!rows.length) return '<div class="fnempty">Ainda não há resultado para mostrar aqui.</div>';
+  return '<div class="fnwrap"><table class="fntable"><thead><tr>'+cab.map(c=>'<th class="'+c[1]+'">'+c[0]+'</th>').join('')+'</tr></thead><tbody>'+
+    rows.map(r=>'<tr data-name="'+esc(r.a.nome)+'">'+cel(r)+'</tr>').join('')+'</tbody></table></div><div class="fnmeta" style="margin-top:10px">'+nota+'</div>';
+}
 function renderFinalView(){
   const el=document.getElementById('finalView'); if(!el) return;
   const esc=v=>(''+v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
@@ -856,6 +901,10 @@ function renderFinalView(){
   const sum='<div class="fnsum"><div><b>'+comecaram.length+' de '+geral.length+'</b>já atiraram</div>'+
     '<div><b>'+geral.filter(r=>r.fim).length+'</b>concluíram as '+LV_HELICES+' hélices</div>'+
     '<div><b>'+lider.total+(empLider>1 ? ' · '+empLider+' empatados' : ' · '+esc(lider.a.nome))+'</b>melhor resultado até agora</div></div>';
+  // depois de encerrada a Final, entram as abas de fechamento (Top Gun e Majorança)
+  const enc = st==='encerrada'; if(!enc) LV.modo='final';
+  const modos = enc ? '<div class="fnpills fnmodos">'+[['final','🏆 Final'],['topgun','🎯 Top Gun'],['majoranca','⭐ Majorança']].map(m=>'<span class="pill'+((LV.modo||'final')===m[0]?' active':'')+'" data-modo="'+m[0]+'">'+m[1]+'</span>').join('')+'</div>' : '';
+  if(enc && LV.modo && LV.modo!=='final'){ el.innerHTML = head+sum+modos+renderFecha(LV.modo, esc); return; }
   const cats=[['geral','Geral'],['a','Categoria A'],['b','Categoria B']];
   const pills='<div class="fnpills">'+cats.map(c=>'<span class="pill'+(LV.cat===c[0]?' active':'')+'" data-cat="'+c[0]+'">'+c[1]+'</span>').join('')+'</div>';
   const rows=lvClass(FINAL_PROVAS.final, LV.cat);
@@ -863,7 +912,7 @@ function renderFinalView(){
   const body=rows.map(r=>'<tr'+(r.comecou?'':' class="wait"')+' data-name="'+esc(r.a.nome)+'"><td class="c pos">'+(r.pos ? r.pos+'º' : '—')+'</td><td class="c hm">'+esc(r.a.numero)+'</td><td class="nm">'+esc(r.a.nome)+'</td>'+
     '<td class="c hm">'+(r.a.cats.includes('a')?'A':r.a.cats.includes('b')?'B':'')+'</td>'+r.pas.map(pz).join('')+
     '<td class="c tot">'+(r.comecou ? r.total : '—')+'</td><td class="c hm">'+r.lanc+'/'+LV_HELICES+'</td></tr>').join('');
-  el.innerHTML = head+sum+pills+'<div class="fnwrap"><table class="fntable"><thead><tr><th class="c">Pos.</th><th class="c hm">Nº</th><th class="nmh">Atirador</th><th class="c hm">Cat.</th>'+
+  el.innerHTML = head+sum+modos+pills+'<div class="fnwrap"><table class="fntable"><thead><tr><th class="c">Pos.</th><th class="c hm">Nº</th><th class="nmh">Atirador</th><th class="c hm">Cat.</th>'+
     Array.from({length:LV_PASSADAS},(_,i)=>'<th class="pz">'+(i+1)+'ª</th>').join('')+'<th class="c">Total</th><th class="c hm">Hélices</th></tr></thead><tbody>'+body+'</tbody></table></div>'+
     '<div class="fnmeta" style="margin-top:10px">Cada coluna é uma passada de 3 hélices. Empatados aparecem na mesma posição; o desempate é no tiro. Lançamentos feitos no sistema oficial da Final.</div>';
   if(LV.rolar){ LV.rolar=false; requestAnimationFrame(()=>{
@@ -877,6 +926,7 @@ function renderFinalView(){
 document.addEventListener('click', e=>{
   const fv=e.target.closest && e.target.closest('#finalView'); if(!fv) return;
   const pill=e.target.closest('.pill[data-cat]'); if(pill){ LV.cat=pill.dataset.cat; renderFinalView(); return; }
+  const md=e.target.closest('.pill[data-modo]'); if(md){ LV.modo=md.dataset.modo; renderFinalView(); return; }
   const tr=e.target.closest('tr[data-name]'); if(tr && D.athletes.some(a=>a.name===tr.dataset.name)) openDetail(tr.dataset.name);
 });
 // a aba "Final" aparece quando a prova está ao vivo ou encerrada; ao vivo, abre nela quem chega pela página inicial
