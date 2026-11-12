@@ -1,5 +1,5 @@
 {
- "fundoAcumulado": 300900,
+ "fundoAcumulado": 308250,
  "patrocinio": 135000,
  "totalParticipantes": 220,
  "etapasComResultado": 13,
@@ -82,8 +82,8 @@
   9000,
   10500,
   10200,
-  7200,
-  null
+  7350,
+  7200
  ],
  "stageParticipants": [
   134,
@@ -97,8 +97,8 @@
   60,
   70,
   68,
-  48,
-  24
+  49,
+  48
  ],
  "athletes": [
   {
@@ -148,27 +148,7 @@
     {
      "score": 11
     }
-   ],
-   "total": 183,
-   "count": 13,
-   "avg": 14.076923076923077,
-   "best": 17,
-   "presCount": 5,
-   "presScores": [
-    16,
-    15,
-    13,
-    12,
-    9
-   ],
-   "majorTop": [
-    16,
-    15,
-    13,
-    12
-   ],
-   "major": 56,
-   "rankTotal": 19
+   ]
   },
   {
    "name": "Adriano Sacon",
@@ -225,20 +205,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 12,
-   "count": 1,
-   "avg": 12,
-   "best": 12,
-   "presCount": 1,
-   "presScores": [
-    12
-   ],
-   "majorTop": [
-    12
-   ],
-   "major": 12,
-   "rankTotal": 202
+   ]
   },
   {
    "name": "Alan Pai",
@@ -292,22 +259,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 61,
-   "count": 5,
-   "avg": 12.2,
-   "best": 17,
-   "presCount": 2,
-   "presScores": [
-    9,
-    9
-   ],
-   "majorTop": [
-    9,
-    9
-   ],
-   "major": 18,
-   "rankTotal": 107
+   ]
   },
   {
    "name": "Alex Atala",
@@ -360,16 +312,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 59,
-   "count": 4,
-   "avg": 14.75,
-   "best": 16,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 113
+   ]
   },
   {
    "name": "Alexandre P. Scachetti",
@@ -424,24 +367,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 84,
-   "count": 5,
-   "avg": 16.8,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    17,
-    17,
-    17
-   ],
-   "majorTop": [
-    17,
-    17,
-    17
-   ],
-   "major": 51,
-   "rankTotal": 84
+   ]
   },
   {
    "name": "Alexandre Shunn Vianna",
@@ -497,24 +423,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 62,
-   "count": 4,
-   "avg": 15.5,
-   "best": 17,
-   "presCount": 3,
-   "presScores": [
-    17,
-    17,
-    14
-   ],
-   "majorTop": [
-    17,
-    17,
-    14
-   ],
-   "major": 48,
-   "rankTotal": 102
+   ]
   },
   {
    "name": "Allan Kaio Mano",
@@ -570,16 +479,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 16,
-   "count": 1,
-   "avg": 16,
-   "best": 16,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 167
+   ]
   },
   {
    "name": "Andre Bizio",
@@ -628,27 +528,7 @@
     {
      "score": 12
     }
-   ],
-   "total": 190,
-   "count": 13,
-   "avg": 14.615384615384615,
-   "best": 18,
-   "presCount": 5,
-   "presScores": [
-    18,
-    16,
-    15,
-    15,
-    12
-   ],
-   "majorTop": [
-    18,
-    16,
-    15,
-    15
-   ],
-   "major": 64,
-   "rankTotal": 12
+   ]
   },
   {
    "name": "André Geo",
@@ -700,20 +580,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 98,
-   "count": 6,
-   "avg": 16.333333333333332,
-   "best": 18,
-   "presCount": 1,
-   "presScores": [
-    16
-   ],
-   "majorTop": [
-    16
-   ],
-   "major": 16,
-   "rankTotal": 76
+   ]
   },
   {
    "name": "André Luiz De Moraes Rizzo",
@@ -767,16 +634,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 21,
-   "count": 3,
-   "avg": 7,
-   "best": 11,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 158
+   ]
   },
   {
    "name": "Andre Luiz Tonial",
@@ -826,24 +684,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 166,
-   "count": 10,
-   "avg": 16.6,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    16,
-    15,
-    14
-   ],
-   "majorTop": [
-    16,
-    15,
-    14
-   ],
-   "major": 45,
-   "rankTotal": 27
+   ]
   },
   {
    "name": "Andre Ramos Nogueira",
@@ -896,26 +737,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 109,
-   "count": 8,
-   "avg": 13.625,
-   "best": 16,
-   "presCount": 4,
-   "presScores": [
-    14,
-    14,
-    12,
-    11
-   ],
-   "majorTop": [
-    14,
-    14,
-    12,
-    11
-   ],
-   "major": 51,
-   "rankTotal": 68
+   ]
   },
   {
    "name": "Aparecido Eduardo Tarossi",
@@ -971,16 +793,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 10,
-   "count": 1,
-   "avg": 10,
-   "best": 10,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 208
+   ]
   },
   {
    "name": "Aquiles Leonardo Diniz",
@@ -1032,16 +845,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 75,
-   "count": 5,
-   "avg": 15,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 91
+   ]
   },
   {
    "name": "Arthur Chiarotto Penteado",
@@ -1093,30 +897,10 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 16,
+     "presencial": true
     }
-   ],
-   "total": 111,
-   "count": 7,
-   "avg": 15.857142857142858,
-   "best": 18,
-   "presCount": 5,
-   "presScores": [
-    18,
-    17,
-    17,
-    17,
-    15
-   ],
-   "majorTop": [
-    18,
-    17,
-    17,
-    17
-   ],
-   "major": 69,
-   "rankTotal": 67
+   ]
   },
   {
    "name": "Assaad Malek",
@@ -1170,28 +954,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 145,
-   "count": 9,
-   "avg": 16.11111111111111,
-   "best": 18,
-   "presCount": 6,
-   "presScores": [
-    17,
-    17,
-    16,
-    16,
-    15,
-    15
-   ],
-   "majorTop": [
-    17,
-    17,
-    16,
-    16
-   ],
-   "major": 66,
-   "rankTotal": 46
+   ]
   },
   {
    "name": "Assis Ali Mohamad",
@@ -1245,26 +1008,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 120,
-   "count": 7,
-   "avg": 17.142857142857142,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    18,
-    18,
-    17,
-    16
-   ],
-   "majorTop": [
-    18,
-    18,
-    17,
-    16
-   ],
-   "major": 69,
-   "rankTotal": 60
+   ]
   },
   {
    "name": "Augusto Cesar M. L. Magalhães",
@@ -1320,22 +1064,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 53,
-   "count": 3,
-   "avg": 17.666666666666668,
-   "best": 18,
-   "presCount": 2,
-   "presScores": [
-    18,
-    17
-   ],
-   "majorTop": [
-    18,
-    17
-   ],
-   "major": 35,
-   "rankTotal": 116
+   ]
   },
   {
    "name": "Breno Negrisoli Ribas",
@@ -1391,20 +1120,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 26,
-   "count": 2,
-   "avg": 13,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 152
+   ]
   },
   {
    "name": "Breno Sartori",
@@ -1459,16 +1175,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 29,
-   "count": 2,
-   "avg": 14.5,
-   "best": 15,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 147
+   ]
   },
   {
    "name": "Bruno De Lima Ferreira",
@@ -1524,22 +1231,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 30,
-   "count": 3,
-   "avg": 10,
-   "best": 14,
-   "presCount": 2,
-   "presScores": [
-    9,
-    7
-   ],
-   "majorTop": [
-    9,
-    7
-   ],
-   "major": 16,
-   "rankTotal": 145
+   ]
   },
   {
    "name": "Bruno Hebach L Abbate",
@@ -1589,26 +1281,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 180,
-   "count": 11,
-   "avg": 16.363636363636363,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    18,
-    17,
-    15,
-    15
-   ],
-   "majorTop": [
-    18,
-    17,
-    15,
-    15
-   ],
-   "major": 65,
-   "rankTotal": 20
+   ]
   },
   {
    "name": "Bruno Xavier Verciani",
@@ -1663,28 +1336,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 124,
-   "count": 8,
-   "avg": 15.5,
-   "best": 17,
-   "presCount": 6,
-   "presScores": [
-    17,
-    17,
-    16,
-    16,
-    15,
-    14
-   ],
-   "majorTop": [
-    17,
-    17,
-    16,
-    16
-   ],
-   "major": 66,
-   "rankTotal": 58
+   ]
   },
   {
    "name": "Candido Giovanella Jr",
@@ -1740,20 +1392,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 35,
-   "count": 2,
-   "avg": 17.5,
-   "best": 18,
-   "presCount": 1,
-   "presScores": [
-    18
-   ],
-   "majorTop": [
-    18
-   ],
-   "major": 18,
-   "rankTotal": 133
+   ]
   },
   {
    "name": "Camila Mendes Araujo Mansur",
@@ -1810,20 +1449,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 5,
-   "count": 1,
-   "avg": 5,
-   "best": 5,
-   "presCount": 1,
-   "presScores": [
-    5
-   ],
-   "majorTop": [
-    5
-   ],
-   "major": 5,
-   "rankTotal": 219
+   ]
   },
   {
    "name": "Carlos Eduardo Doll",
@@ -1874,24 +1500,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 131,
-   "count": 9,
-   "avg": 14.555555555555555,
-   "best": 16,
-   "presCount": 3,
-   "presScores": [
-    15,
-    14,
-    14
-   ],
-   "majorTop": [
-    15,
-    14,
-    14
-   ],
-   "major": 43,
-   "rankTotal": 53
+   ]
   },
   {
    "name": "Carlos Eduardo N. Dourado",
@@ -1945,16 +1554,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 45,
-   "count": 3,
-   "avg": 15,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 123
+   ]
   },
   {
    "name": "Carlos Italo Michelangeli",
@@ -2010,20 +1610,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 27,
-   "count": 2,
-   "avg": 13.5,
-   "best": 14,
-   "presCount": 1,
-   "presScores": [
-    14
-   ],
-   "majorTop": [
-    14
-   ],
-   "major": 14,
-   "rankTotal": 151
+   ]
   },
   {
    "name": "Carlos Rafael Muchinski",
@@ -2079,16 +1666,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 15,
-   "count": 1,
-   "avg": 15,
-   "best": 15,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 176
+   ]
   },
   {
    "name": "Carlos Horn",
@@ -2144,16 +1722,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 13,
-   "count": 1,
-   "avg": 13,
-   "best": 13,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 195
+   ]
   },
   {
    "name": "Cassio Agostini",
@@ -2210,20 +1779,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 1,
-   "presScores": [
-    14
-   ],
-   "majorTop": [
-    14
-   ],
-   "major": 14,
-   "rankTotal": 185
+   ]
   },
   {
    "name": "Celso Bugalho",
@@ -2278,16 +1834,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 31,
-   "count": 2,
-   "avg": 15.5,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 139
+   ]
   },
   {
    "name": "Daniel Boiko",
@@ -2342,26 +1889,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 105,
-   "count": 6,
-   "avg": 17.5,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    18,
-    18,
-    17,
-    16
-   ],
-   "majorTop": [
-    18,
-    18,
-    17,
-    16
-   ],
-   "major": 69,
-   "rankTotal": 73
+   ]
   },
   {
    "name": "Danilo Vieira",
@@ -2415,16 +1943,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 38,
-   "count": 3,
-   "avg": 12.666666666666666,
-   "best": 15,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 132
+   ]
   },
   {
    "name": "David Coury",
@@ -2476,24 +1995,7 @@
     {
      "score": 14
     }
-   ],
-   "total": 115,
-   "count": 8,
-   "avg": 14.375,
-   "best": 16,
-   "presCount": 3,
-   "presScores": [
-    15,
-    14,
-    14
-   ],
-   "majorTop": [
-    15,
-    14,
-    14
-   ],
-   "major": 43,
-   "rankTotal": 64
+   ]
   },
   {
    "name": "Dener Augusto Diniz",
@@ -2537,25 +2039,10 @@
      "score": 18
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     }
-   ],
-   "total": 199,
-   "count": 12,
-   "avg": 16.583333333333332,
-   "best": 18,
-   "presCount": 2,
-   "presScores": [
-    17,
-    15
-   ],
-   "majorTop": [
-    17,
-    15
-   ],
-   "major": 32,
-   "rankTotal": 5
+   ]
   },
   {
    "name": "Douglas Dorival Russo",
@@ -2605,27 +2092,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 197,
-   "count": 12,
-   "avg": 16.416666666666668,
-   "best": 18,
-   "presCount": 5,
-   "presScores": [
-    18,
-    18,
-    18,
-    17,
-    16
-   ],
-   "majorTop": [
-    18,
-    18,
-    18,
-    17
-   ],
-   "major": 71,
-   "rankTotal": 9
+   ]
   },
   {
    "name": "Eduardo A C P De Lucena",
@@ -2674,20 +2141,7 @@
     {
      "score": 14
     }
-   ],
-   "total": 119,
-   "count": 9,
-   "avg": 13.222222222222221,
-   "best": 16,
-   "presCount": 1,
-   "presScores": [
-    13
-   ],
-   "majorTop": [
-    13
-   ],
-   "major": 13,
-   "rankTotal": 61
+   ]
   },
   {
    "name": "Eduardo Antonio Mascarello",
@@ -2742,20 +2196,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 45,
-   "count": 3,
-   "avg": 15,
-   "best": 16,
-   "presCount": 1,
-   "presScores": [
-    14
-   ],
-   "majorTop": [
-    14
-   ],
-   "major": 14,
-   "rankTotal": 124
+   ]
   },
   {
    "name": "Erick Augusto Carmago",
@@ -2810,20 +2251,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 43,
-   "count": 3,
-   "avg": 14.333333333333334,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 128
+   ]
   },
   {
    "name": "Eduardo Guilherme Alves De Oliveira",
@@ -2874,28 +2302,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 165,
-   "count": 12,
-   "avg": 13.75,
-   "best": 17,
-   "presCount": 6,
-   "presScores": [
-    17,
-    16,
-    15,
-    15,
-    11,
-    10
-   ],
-   "majorTop": [
-    17,
-    16,
-    15,
-    15
-   ],
-   "major": 63,
-   "rankTotal": 29
+   ]
   },
   {
    "name": "Eduardo Esteves",
@@ -2950,22 +2357,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 60,
-   "count": 4,
-   "avg": 15,
-   "best": 16,
-   "presCount": 2,
-   "presScores": [
-    16,
-    14
-   ],
-   "majorTop": [
-    16,
-    14
-   ],
-   "major": 30,
-   "rankTotal": 112
+   ]
   },
   {
    "name": "Eduardo Passalacqua",
@@ -3017,16 +2409,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 71,
-   "count": 5,
-   "avg": 14.2,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 95
+   ]
   },
   {
    "name": "Eduardo Peres Krum",
@@ -3075,27 +2458,10 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 16,
+     "presencial": true
     }
-   ],
-   "total": 133,
-   "count": 8,
-   "avg": 16.625,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    17,
-    16,
-    14
-   ],
-   "majorTop": [
-    17,
-    16,
-    14
-   ],
-   "major": 47,
-   "rankTotal": 50
+   ]
   },
   {
    "name": "Emerson Gabriel",
@@ -3151,24 +2517,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 45,
-   "count": 4,
-   "avg": 11.25,
-   "best": 13,
-   "presCount": 3,
-   "presScores": [
-    13,
-    10,
-    9
-   ],
-   "majorTop": [
-    13,
-    10,
-    9
-   ],
-   "major": 32,
-   "rankTotal": 125
+   ]
   },
   {
    "name": "Emerson da Silva",
@@ -3225,20 +2574,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 9,
-   "count": 1,
-   "avg": 9,
-   "best": 9,
-   "presCount": 1,
-   "presScores": [
-    9
-   ],
-   "majorTop": [
-    9
-   ],
-   "major": 9,
-   "rankTotal": 212
+   ]
   },
   {
    "name": "Eric Hime",
@@ -3292,20 +2628,7 @@
     {
      "score": 18
     }
-   ],
-   "total": 63,
-   "count": 4,
-   "avg": 15.75,
-   "best": 18,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 100
+   ]
   },
   {
    "name": "Erik Richard Melozi Acosta",
@@ -3361,16 +2684,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 11,
-   "count": 1,
-   "avg": 11,
-   "best": 11,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 205
+   ]
   },
   {
    "name": "Everton Martins Dos Santos",
@@ -3427,20 +2741,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 16,
-   "count": 1,
-   "avg": 16,
-   "best": 16,
-   "presCount": 1,
-   "presScores": [
-    16
-   ],
-   "majorTop": [
-    16
-   ],
-   "major": 16,
-   "rankTotal": 168
+   ]
   },
   {
    "name": "Fabio Lima Mourão",
@@ -3491,16 +2792,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 90,
-   "count": 6,
-   "avg": 15,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 81
+   ]
   },
   {
    "name": "Fabio Luiz Bressiani",
@@ -3557,20 +2849,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 12,
-   "count": 1,
-   "avg": 12,
-   "best": 12,
-   "presCount": 1,
-   "presScores": [
-    12
-   ],
-   "majorTop": [
-    12
-   ],
-   "major": 12,
-   "rankTotal": 203
+   ]
   },
   {
    "name": "Fabio Santos De Melo",
@@ -3627,26 +2906,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 58,
-   "count": 4,
-   "avg": 14.5,
-   "best": 16,
-   "presCount": 4,
-   "presScores": [
-    16,
-    16,
-    14,
-    12
-   ],
-   "majorTop": [
-    16,
-    16,
-    14,
-    12
-   ],
-   "major": 58,
-   "rankTotal": 114
+   ]
   },
   {
    "name": "Fabrício Dognani",
@@ -3698,28 +2958,7 @@
     {
      "score": 16
     }
-   ],
-   "total": 159,
-   "count": 11,
-   "avg": 14.454545454545455,
-   "best": 18,
-   "presCount": 6,
-   "presScores": [
-    18,
-    15,
-    15,
-    13,
-    13,
-    13
-   ],
-   "majorTop": [
-    18,
-    15,
-    15,
-    13
-   ],
-   "major": 61,
-   "rankTotal": 37
+   ]
   },
   {
    "name": "Farouk Muhieddine",
@@ -3769,32 +3008,10 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     }
-   ],
-   "total": 190,
-   "count": 11,
-   "avg": 17.272727272727273,
-   "best": 18,
-   "presCount": 7,
-   "presScores": [
-    18,
-    18,
-    18,
-    17,
-    16,
-    16,
-    16
-   ],
-   "majorTop": [
-    18,
-    18,
-    18,
-    17
-   ],
-   "major": 71,
-   "rankTotal": 13
+   ]
   },
   {
    "name": "Felipe A. O. Pottoff",
@@ -3848,20 +3065,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 61,
-   "count": 4,
-   "avg": 15.25,
-   "best": 17,
-   "presCount": 1,
-   "presScores": [
-    14
-   ],
-   "majorTop": [
-    14
-   ],
-   "major": 14,
-   "rankTotal": 108
+   ]
   },
   {
    "name": "Felipe Sanguino",
@@ -3908,24 +3112,7 @@
     {
      "score": 11
     }
-   ],
-   "total": 164,
-   "count": 13,
-   "avg": 12.615384615384615,
-   "best": 15,
-   "presCount": 3,
-   "presScores": [
-    12,
-    11,
-    10
-   ],
-   "majorTop": [
-    12,
-    11,
-    10
-   ],
-   "major": 33,
-   "rankTotal": 30
+   ]
   },
   {
    "name": "Felipe Schreiner De Oliveira",
@@ -3982,22 +3169,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 27,
-   "count": 2,
-   "avg": 13.5,
-   "best": 17,
-   "presCount": 2,
-   "presScores": [
-    17,
-    10
-   ],
-   "majorTop": [
-    17,
-    10
-   ],
-   "major": 27,
-   "rankTotal": 148
+   ]
   },
   {
    "name": "Fernando Antonio S. De La Riva",
@@ -4052,16 +3224,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 21,
-   "count": 2,
-   "avg": 10.5,
-   "best": 12,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 157
+   ]
   },
   {
    "name": "Fernando Barcena",
@@ -4118,20 +3281,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 10,
-   "count": 1,
-   "avg": 10,
-   "best": 10,
-   "presCount": 1,
-   "presScores": [
-    10
-   ],
-   "majorTop": [
-    10
-   ],
-   "major": 10,
-   "rankTotal": 209
+   ]
   },
   {
    "name": "Fernando Tassinari",
@@ -4187,16 +3337,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 5,
-   "count": 1,
-   "avg": 5,
-   "best": 5,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 220
+   ]
   },
   {
    "name": "Francisco Azevedo Figueiredo Neto",
@@ -4246,31 +3387,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     }
-   ],
-   "total": 162,
-   "count": 10,
-   "avg": 16.2,
-   "best": 18,
-   "presCount": 6,
-   "presScores": [
-    17,
-    17,
-    17,
-    16,
-    15,
-    14
-   ],
-   "majorTop": [
-    17,
-    17,
-    17,
-    16
-   ],
-   "major": 67,
-   "rankTotal": 32
+   ]
   },
   {
    "name": "Francisco Luiz Arcari",
@@ -4325,24 +3445,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 84,
-   "count": 5,
-   "avg": 16.8,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    18,
-    16,
-    14
-   ],
-   "majorTop": [
-    18,
-    16,
-    14
-   ],
-   "major": 48,
-   "rankTotal": 85
+   ]
   },
   {
    "name": "Frederico Montefeltro",
@@ -4391,27 +3494,7 @@
     {
      "score": 12
     }
-   ],
-   "total": 199,
-   "count": 13,
-   "avg": 15.307692307692308,
-   "best": 17,
-   "presCount": 5,
-   "presScores": [
-    17,
-    17,
-    16,
-    13,
-    12
-   ],
-   "majorTop": [
-    17,
-    17,
-    16,
-    13
-   ],
-   "major": 63,
-   "rankTotal": 8
+   ]
   },
   {
    "name": "Gabriel Russo",
@@ -4465,24 +3548,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 50,
-   "count": 6,
-   "avg": 8.333333333333334,
-   "best": 10,
-   "presCount": 3,
-   "presScores": [
-    10,
-    8,
-    8
-   ],
-   "majorTop": [
-    10,
-    8,
-    8
-   ],
-   "major": 26,
-   "rankTotal": 118
+   ]
   },
   {
    "name": "Gabriel Henrique Maciel",
@@ -4534,22 +3600,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 107,
-   "count": 7,
-   "avg": 15.285714285714286,
-   "best": 18,
-   "presCount": 2,
-   "presScores": [
-    18,
-    14
-   ],
-   "majorTop": [
-    18,
-    14
-   ],
-   "major": 32,
-   "rankTotal": 69
+   ]
   },
   {
    "name": "Gabriel Zanatta R. Cunha",
@@ -4605,16 +3656,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 11,
-   "count": 1,
-   "avg": 11,
-   "best": 11,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 206
+   ]
   },
   {
    "name": "Gabrielle Dias",
@@ -4670,16 +3712,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 186
+   ]
   },
   {
    "name": "Glaudemir Pagnoncelli",
@@ -4733,16 +3766,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 49,
-   "count": 3,
-   "avg": 16.333333333333332,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 119
+   ]
   },
   {
    "name": "Gledson Rovere Ferraz",
@@ -4798,26 +3822,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 72,
-   "count": 5,
-   "avg": 14.4,
-   "best": 17,
-   "presCount": 4,
-   "presScores": [
-    16,
-    15,
-    15,
-    9
-   ],
-   "majorTop": [
-    16,
-    15,
-    15,
-    9
-   ],
-   "major": 55,
-   "rankTotal": 94
+   ]
   },
   {
    "name": "Guilherme Geo",
@@ -4862,27 +3867,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     }
-   ],
-   "total": 199,
-   "count": 12,
-   "avg": 16.583333333333332,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    18,
-    17,
-    16
-   ],
-   "majorTop": [
-    18,
-    17,
-    16
-   ],
-   "major": 51,
-   "rankTotal": 6
+   ]
   },
   {
    "name": "Guilherme Mazzoni",
@@ -4935,20 +3923,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 61,
-   "count": 5,
-   "avg": 12.2,
-   "best": 14,
-   "presCount": 1,
-   "presScores": [
-    13
-   ],
-   "majorTop": [
-    13
-   ],
-   "major": 13,
-   "rankTotal": 111
+   ]
   },
   {
    "name": "Guilherme Vallerini",
@@ -5002,26 +3977,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 106,
-   "count": 7,
-   "avg": 15.142857142857142,
-   "best": 17,
-   "presCount": 4,
-   "presScores": [
-    17,
-    16,
-    15,
-    14
-   ],
-   "majorTop": [
-    17,
-    16,
-    15,
-    14
-   ],
-   "major": 62,
-   "rankTotal": 71
+   ]
   },
   {
    "name": "Guilherme Vallerini Jr",
@@ -5077,24 +4033,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 41,
-   "count": 4,
-   "avg": 10.25,
-   "best": 14,
-   "presCount": 3,
-   "presScores": [
-    14,
-    10,
-    7
-   ],
-   "majorTop": [
-    14,
-    10,
-    7
-   ],
-   "major": 31,
-   "rankTotal": 131
+   ]
   },
   {
    "name": "Guilherme Z Maurina",
@@ -5151,20 +4090,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 15,
-   "count": 1,
-   "avg": 15,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 177
+   ]
   },
   {
    "name": "Guilherme Frizzo",
@@ -5221,20 +4147,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 13,
-   "count": 1,
-   "avg": 13,
-   "best": 13,
-   "presCount": 1,
-   "presScores": [
-    13
-   ],
-   "majorTop": [
-    13
-   ],
-   "major": 13,
-   "rankTotal": 196
+   ]
   },
   {
    "name": "Gustavo Adolfo Schilling Neto",
@@ -5284,26 +4197,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 184,
-   "count": 11,
-   "avg": 16.727272727272727,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    18,
-    18,
-    16,
-    14
-   ],
-   "majorTop": [
-    18,
-    18,
-    16,
-    14
-   ],
-   "major": 66,
-   "rankTotal": 18
+   ]
   },
   {
    "name": "Hamilton Franck",
@@ -5358,20 +4252,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 47,
-   "count": 3,
-   "avg": 15.666666666666666,
-   "best": 16,
-   "presCount": 1,
-   "presScores": [
-    16
-   ],
-   "majorTop": [
-    16
-   ],
-   "major": 16,
-   "rankTotal": 121
+   ]
   },
   {
    "name": "Heuro Tortato",
@@ -5421,24 +4302,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 151,
-   "count": 10,
-   "avg": 15.1,
-   "best": 17,
-   "presCount": 3,
-   "presScores": [
-    16,
-    15,
-    15
-   ],
-   "majorTop": [
-    16,
-    15,
-    15
-   ],
-   "major": 46,
-   "rankTotal": 44
+   ]
   },
   {
    "name": "Hugo Massaro",
@@ -5494,20 +4358,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 27,
-   "count": 2,
-   "avg": 13.5,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 149
+   ]
   },
   {
    "name": "Imad Ismael",
@@ -5561,22 +4412,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 73,
-   "count": 5,
-   "avg": 14.6,
-   "best": 17,
-   "presCount": 2,
-   "presScores": [
-    16,
-    14
-   ],
-   "majorTop": [
-    16,
-    14
-   ],
-   "major": 30,
-   "rankTotal": 93
+   ]
   },
   {
    "name": "Jamel Jamil Chukr",
@@ -5630,37 +4466,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     }
-   ],
-   "total": 200,
-   "count": 12,
-   "avg": 16.666666666666668,
-   "best": 18,
-   "presCount": 12,
-   "presScores": [
-    18,
-    18,
-    18,
-    17,
-    17,
-    17,
-    17,
-    17,
-    16,
-    16,
-    16,
-    13
-   ],
-   "majorTop": [
-    18,
-    18,
-    18,
-    17
-   ],
-   "major": 71,
-   "rankTotal": 3
+   ]
   },
   {
    "name": "Jean Carlos Cazaroto",
@@ -5708,27 +4517,9 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 12
     }
-   ],
-   "total": 155,
-   "count": 9,
-   "avg": 17.22222222222222,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    18,
-    17,
-    16
-   ],
-   "majorTop": [
-    18,
-    17,
-    16
-   ],
-   "major": 51,
-   "rankTotal": 39
+   ]
   },
   {
    "name": "Jean Marcel Maressi",
@@ -5785,20 +4576,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 16,
-   "count": 1,
-   "avg": 16,
-   "best": 16,
-   "presCount": 1,
-   "presScores": [
-    16
-   ],
-   "majorTop": [
-    16
-   ],
-   "major": 16,
-   "rankTotal": 169
+   ]
   },
   {
    "name": "João Edward Soranz Filho",
@@ -5850,34 +4628,10 @@
      "score": 11
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 11,
+     "presencial": true
     }
-   ],
-   "total": 162,
-   "count": 11,
-   "avg": 14.727272727272727,
-   "best": 16,
-   "presCount": 9,
-   "presScores": [
-    16,
-    16,
-    16,
-    15,
-    15,
-    15,
-    15,
-    14,
-    13
-   ],
-   "majorTop": [
-    16,
-    16,
-    16,
-    15
-   ],
-   "major": 63,
-   "rankTotal": 33
+   ]
   },
   {
    "name": "João Lutz",
@@ -5933,16 +4687,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 15,
-   "count": 1,
-   "avg": 15,
-   "best": 15,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 178
+   ]
   },
   {
    "name": "João Neiva",
@@ -5997,16 +4742,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 31,
-   "count": 2,
-   "avg": 15.5,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 140
+   ]
   },
   {
    "name": "João Paulo Balaban",
@@ -6058,26 +4794,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 135,
-   "count": 9,
-   "avg": 15,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    16,
-    16,
-    15,
-    15
-   ],
-   "majorTop": [
-    16,
-    16,
-    15,
-    15
-   ],
-   "major": 62,
-   "rankTotal": 48
+   ]
   },
   {
    "name": "João Paulo Pimentel",
@@ -6134,20 +4851,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 13,
-   "count": 1,
-   "avg": 13,
-   "best": 13,
-   "presCount": 1,
-   "presScores": [
-    13
-   ],
-   "majorTop": [
-    13
-   ],
-   "major": 13,
-   "rankTotal": 197
+   ]
   },
   {
    "name": "João Paulo Pinheiro",
@@ -6196,27 +4900,7 @@
     {
      "score": 13
     }
-   ],
-   "total": 201,
-   "count": 13,
-   "avg": 15.461538461538462,
-   "best": 17,
-   "presCount": 5,
-   "presScores": [
-    17,
-    15,
-    15,
-    15,
-    14
-   ],
-   "majorTop": [
-    17,
-    15,
-    15,
-    15
-   ],
-   "major": 62,
-   "rankTotal": 2
+   ]
   },
   {
    "name": "João Reinaldo Clasen (Fera)",
@@ -6264,27 +4948,10 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18,
+     "presencial": true
     }
-   ],
-   "total": 147,
-   "count": 9,
-   "avg": 16.333333333333332,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    17,
-    17,
-    14
-   ],
-   "majorTop": [
-    17,
-    17,
-    14
-   ],
-   "major": 48,
-   "rankTotal": 45
+   ]
   },
   {
    "name": "João Pedro Andrade",
@@ -6339,24 +5006,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 66,
-   "count": 5,
-   "avg": 13.2,
-   "best": 17,
-   "presCount": 3,
-   "presScores": [
-    17,
-    12,
-    12
-   ],
-   "majorTop": [
-    17,
-    12,
-    12
-   ],
-   "major": 41,
-   "rankTotal": 97
+   ]
   },
   {
    "name": "Jose Henrique",
@@ -6413,20 +5063,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 15,
-   "count": 1,
-   "avg": 15,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 179
+   ]
   },
   {
    "name": "João Trevizoli Esteves",
@@ -6482,16 +5119,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 187
+   ]
   },
   {
    "name": "Jober A Carneiro Baseggio",
@@ -6546,24 +5174,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 74,
-   "count": 5,
-   "avg": 14.8,
-   "best": 17,
-   "presCount": 3,
-   "presScores": [
-    16,
-    15,
-    12
-   ],
-   "majorTop": [
-    16,
-    15,
-    12
-   ],
-   "major": 43,
-   "rankTotal": 92
+   ]
   },
   {
    "name": "Jonathan Erik Moreno",
@@ -6617,22 +5228,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 62,
-   "count": 5,
-   "avg": 12.4,
-   "best": 15,
-   "presCount": 2,
-   "presScores": [
-    12,
-    11
-   ],
-   "majorTop": [
-    12,
-    11
-   ],
-   "major": 23,
-   "rankTotal": 105
+   ]
   },
   {
    "name": "Jose Alencar Neto",
@@ -6687,16 +5283,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 30,
-   "count": 2,
-   "avg": 15,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 141
+   ]
   },
   {
    "name": "Jose Alfredo Gherardi",
@@ -6744,20 +5331,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 122,
-   "count": 10,
-   "avg": 12.2,
-   "best": 14,
-   "presCount": 1,
-   "presScores": [
-    12
-   ],
-   "majorTop": [
-    12
-   ],
-   "major": 12,
-   "rankTotal": 59
+   ]
   },
   {
    "name": "José Anisio Pasquini",
@@ -6814,20 +5388,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 18,
-   "count": 1,
-   "avg": 18,
-   "best": 18,
-   "presCount": 1,
-   "presScores": [
-    18
-   ],
-   "majorTop": [
-    18
-   ],
-   "major": 18,
-   "rankTotal": 160
+   ]
   },
   {
    "name": "José Carlos Mazer",
@@ -6878,27 +5439,7 @@
     {
      "score": 14
     }
-   ],
-   "total": 160,
-   "count": 11,
-   "avg": 14.545454545454545,
-   "best": 16,
-   "presCount": 5,
-   "presScores": [
-    16,
-    16,
-    15,
-    14,
-    13
-   ],
-   "majorTop": [
-    16,
-    16,
-    15,
-    14
-   ],
-   "major": 61,
-   "rankTotal": 36
+   ]
   },
   {
    "name": "Jose Carlos Anitablian",
@@ -6954,20 +5495,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 30,
-   "count": 2,
-   "avg": 15,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 144
+   ]
   },
   {
    "name": "Jose Gilson",
@@ -7024,20 +5552,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 1,
-   "presScores": [
-    14
-   ],
-   "majorTop": [
-    14
-   ],
-   "major": 14,
-   "rankTotal": 188
+   ]
   },
   {
    "name": "Jose Ivan Carvalho Rangel",
@@ -7094,29 +5609,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 97,
-   "count": 7,
-   "avg": 13.857142857142858,
-   "best": 15,
-   "presCount": 7,
-   "presScores": [
-    15,
-    15,
-    14,
-    14,
-    13,
-    13,
-    13
-   ],
-   "majorTop": [
-    15,
-    15,
-    14,
-    14
-   ],
-   "major": 58,
-   "rankTotal": 78
+   ]
   },
   {
    "name": "Jose Otavio Junqueira",
@@ -7165,26 +5658,7 @@
     {
      "score": 15
     }
-   ],
-   "total": 176,
-   "count": 12,
-   "avg": 14.666666666666666,
-   "best": 17,
-   "presCount": 4,
-   "presScores": [
-    17,
-    15,
-    15,
-    10
-   ],
-   "majorTop": [
-    17,
-    15,
-    15,
-    10
-   ],
-   "major": 57,
-   "rankTotal": 22
+   ]
   },
   {
    "name": "Lamberto Godoy Ramenzoni",
@@ -7237,35 +5711,10 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     }
-   ],
-   "total": 170,
-   "count": 11,
-   "avg": 15.454545454545455,
-   "best": 18,
-   "presCount": 10,
-   "presScores": [
-    18,
-    17,
-    17,
-    17,
-    16,
-    16,
-    15,
-    15,
-    14,
-    10
-   ],
-   "majorTop": [
-    18,
-    17,
-    17,
-    17
-   ],
-   "major": 69,
-   "rankTotal": 25
+   ]
   },
   {
    "name": "Laura Frizzo",
@@ -7322,20 +5771,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 6,
-   "count": 1,
-   "avg": 6,
-   "best": 6,
-   "presCount": 1,
-   "presScores": [
-    6
-   ],
-   "majorTop": [
-    6
-   ],
-   "major": 6,
-   "rankTotal": 218
+   ]
   },
   {
    "name": "Leonardo Gomes Iustoza",
@@ -7391,20 +5827,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 35,
-   "count": 2,
-   "avg": 17.5,
-   "best": 18,
-   "presCount": 1,
-   "presScores": [
-    18
-   ],
-   "majorTop": [
-    18
-   ],
-   "major": 18,
-   "rankTotal": 134
+   ]
   },
   {
    "name": "Leziro Marques Silva",
@@ -7461,20 +5884,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 16,
-   "count": 1,
-   "avg": 16,
-   "best": 16,
-   "presCount": 1,
-   "presScores": [
-    16
-   ],
-   "majorTop": [
-    16
-   ],
-   "major": 16,
-   "rankTotal": 170
+   ]
   },
   {
    "name": "Lisbet Basso",
@@ -7531,20 +5941,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 15,
-   "count": 1,
-   "avg": 15,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 180
+   ]
   },
   {
    "name": "Leandro Fracassi",
@@ -7600,16 +5997,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 9,
-   "count": 1,
-   "avg": 9,
-   "best": 9,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 213
+   ]
   },
   {
    "name": "Lorayne A R V Boogaard",
@@ -7660,33 +6048,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 13,
+     "presencial": true
     }
-   ],
-   "total": 157,
-   "count": 11,
-   "avg": 14.272727272727273,
-   "best": 17,
-   "presCount": 8,
-   "presScores": [
-    17,
-    16,
-    16,
-    14,
-    14,
-    14,
-    13,
-    12
-   ],
-   "majorTop": [
-    17,
-    16,
-    16,
-    14
-   ],
-   "major": 63,
-   "rankTotal": 38
+   ]
   },
   {
    "name": "Lorenzo Barcena",
@@ -7743,20 +6108,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 13,
-   "count": 1,
-   "avg": 13,
-   "best": 13,
-   "presCount": 1,
-   "presScores": [
-    13
-   ],
-   "majorTop": [
-    13
-   ],
-   "major": 13,
-   "rankTotal": 198
+   ]
   },
   {
    "name": "Lorenzo Basso",
@@ -7812,16 +6164,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 18,
-   "count": 1,
-   "avg": 18,
-   "best": 18,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 161
+   ]
   },
   {
    "name": "Lorenzo Roche Bistafa",
@@ -7878,24 +6221,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 42,
-   "count": 3,
-   "avg": 14,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    18,
-    12,
-    12
-   ],
-   "majorTop": [
-    18,
-    12,
-    12
-   ],
-   "major": 42,
-   "rankTotal": 130
+   ]
   },
   {
    "name": "Lucas Campos G. Vereza",
@@ -7944,22 +6270,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 130,
-   "count": 10,
-   "avg": 13,
-   "best": 17,
-   "presCount": 2,
-   "presScores": [
-    11,
-    7
-   ],
-   "majorTop": [
-    11,
-    7
-   ],
-   "major": 18,
-   "rankTotal": 54
+   ]
   },
   {
    "name": "Lucas Soares Bahia",
@@ -8013,16 +6324,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 51,
-   "count": 3,
-   "avg": 17,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 117
+   ]
   },
   {
    "name": "Lucas Haiduck",
@@ -8079,20 +6381,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 17,
-   "count": 1,
-   "avg": 17,
-   "best": 17,
-   "presCount": 1,
-   "presScores": [
-    17
-   ],
-   "majorTop": [
-    17
-   ],
-   "major": 17,
-   "rankTotal": 164
+   ]
   },
   {
    "name": "Luciano Aardoon",
@@ -8143,33 +6432,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 14,
+     "presencial": true
     }
-   ],
-   "total": 172,
-   "count": 11,
-   "avg": 15.636363636363637,
-   "best": 17,
-   "presCount": 8,
-   "presScores": [
-    17,
-    16,
-    16,
-    16,
-    15,
-    15,
-    14,
-    13
-   ],
-   "majorTop": [
-    17,
-    16,
-    16,
-    16
-   ],
-   "major": 65,
-   "rankTotal": 24
+   ]
   },
   {
    "name": "Luciano André Fenker",
@@ -8220,31 +6486,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 16,
+     "presencial": true
     }
-   ],
-   "total": 134,
-   "count": 9,
-   "avg": 14.88888888888889,
-   "best": 17,
-   "presCount": 6,
-   "presScores": [
-    17,
-    16,
-    16,
-    16,
-    15,
-    14
-   ],
-   "majorTop": [
-    17,
-    16,
-    16,
-    16
-   ],
-   "major": 65,
-   "rankTotal": 49
+   ]
   },
   {
    "name": "Luciano Rodrigo P. Correa",
@@ -8299,24 +6544,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 62,
-   "count": 5,
-   "avg": 12.4,
-   "best": 15,
-   "presCount": 3,
-   "presScores": [
-    15,
-    13,
-    6
-   ],
-   "majorTop": [
-    15,
-    13,
-    6
-   ],
-   "major": 34,
-   "rankTotal": 106
+   ]
   },
   {
    "name": "Luis Henrique Neves",
@@ -8371,27 +6599,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 98,
-   "count": 7,
-   "avg": 14,
-   "best": 17,
-   "presCount": 5,
-   "presScores": [
-    17,
-    16,
-    15,
-    15,
-    13
-   ],
-   "majorTop": [
-    17,
-    16,
-    15,
-    15
-   ],
-   "major": 63,
-   "rankTotal": 77
+   ]
   },
   {
    "name": "Luis Antonio Guideti",
@@ -8443,28 +6651,7 @@
     {
      "score": 10
     }
-   ],
-   "total": 165,
-   "count": 11,
-   "avg": 15,
-   "best": 18,
-   "presCount": 6,
-   "presScores": [
-    18,
-    18,
-    17,
-    14,
-    14,
-    13
-   ],
-   "majorTop": [
-    18,
-    18,
-    17,
-    14
-   ],
-   "major": 67,
-   "rankTotal": 28
+   ]
   },
   {
    "name": "Luis R Vargas Jr",
@@ -8513,32 +6700,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 16,
+     "presencial": true
     }
-   ],
-   "total": 194,
-   "count": 12,
-   "avg": 16.166666666666668,
-   "best": 18,
-   "presCount": 7,
-   "presScores": [
-    18,
-    17,
-    17,
-    16,
-    15,
-    15,
-    14
-   ],
-   "majorTop": [
-    18,
-    17,
-    17,
-    16
-   ],
-   "major": 68,
-   "rankTotal": 11
+   ]
   },
   {
    "name": "Luiz Antonio Farha Rocco",
@@ -8585,22 +6750,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 189,
-   "count": 12,
-   "avg": 15.75,
-   "best": 17,
-   "presCount": 2,
-   "presScores": [
-    17,
-    12
-   ],
-   "majorTop": [
-    17,
-    12
-   ],
-   "major": 29,
-   "rankTotal": 15
+   ]
   },
   {
    "name": "Luiz Azzoni",
@@ -8652,24 +6802,7 @@
     {
      "score": 12
     }
-   ],
-   "total": 113,
-   "count": 8,
-   "avg": 14.125,
-   "best": 17,
-   "presCount": 3,
-   "presScores": [
-    17,
-    16,
-    14
-   ],
-   "majorTop": [
-    17,
-    16,
-    14
-   ],
-   "major": 47,
-   "rankTotal": 65
+   ]
   },
   {
    "name": "Luiz Coke",
@@ -8725,22 +6858,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 34,
-   "count": 3,
-   "avg": 11.333333333333334,
-   "best": 14,
-   "presCount": 2,
-   "presScores": [
-    14,
-    12
-   ],
-   "majorTop": [
-    14,
-    12
-   ],
-   "major": 26,
-   "rankTotal": 135
+   ]
   },
   {
    "name": "Luiz Jabbur Jr.",
@@ -8790,27 +6908,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 197,
-   "count": 12,
-   "avg": 16.416666666666668,
-   "best": 18,
-   "presCount": 5,
-   "presScores": [
-    18,
-    16,
-    15,
-    14,
-    13
-   ],
-   "majorTop": [
-    18,
-    16,
-    15,
-    14
-   ],
-   "major": 63,
-   "rankTotal": 10
+   ]
   },
   {
    "name": "Luiz Pirani",
@@ -8862,27 +6960,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 143,
-   "count": 10,
-   "avg": 14.3,
-   "best": 17,
-   "presCount": 5,
-   "presScores": [
-    17,
-    17,
-    16,
-    15,
-    13
-   ],
-   "majorTop": [
-    17,
-    17,
-    16,
-    15
-   ],
-   "major": 65,
-   "rankTotal": 47
+   ]
   },
   {
    "name": "Madalena Pirani",
@@ -8938,24 +7016,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 54,
-   "count": 4,
-   "avg": 13.5,
-   "best": 16,
-   "presCount": 3,
-   "presScores": [
-    14,
-    12,
-    12
-   ],
-   "majorTop": [
-    14,
-    12,
-    12
-   ],
-   "major": 38,
-   "rankTotal": 115
+   ]
   },
   {
    "name": "Manuel Carlos Salemme",
@@ -9005,30 +7066,10 @@
      "score": 17
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 15,
+     "presencial": true
     }
-   ],
-   "total": 152,
-   "count": 9,
-   "avg": 16.88888888888889,
-   "best": 17,
-   "presCount": 5,
-   "presScores": [
-    17,
-    17,
-    17,
-    17,
-    16
-   ],
-   "majorTop": [
-    17,
-    17,
-    17,
-    17
-   ],
-   "major": 68,
-   "rankTotal": 41
+   ]
   },
   {
    "name": "Marcelo Augusto De Souza",
@@ -9080,20 +7121,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 95,
-   "count": 6,
-   "avg": 15.833333333333334,
-   "best": 17,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 79
+   ]
   },
   {
    "name": "Marcelo Martignani",
@@ -9144,16 +7172,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 80,
-   "count": 6,
-   "avg": 13.333333333333334,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 88
+   ]
   },
   {
    "name": "Marcelo Orlando",
@@ -9209,16 +7228,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 8,
-   "count": 1,
-   "avg": 8,
-   "best": 8,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 216
+   ]
   },
   {
    "name": "Marcelo Schun Diniz Junqueira",
@@ -9270,20 +7280,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 65,
-   "count": 6,
-   "avg": 10.833333333333334,
-   "best": 13,
-   "presCount": 1,
-   "presScores": [
-    9
-   ],
-   "majorTop": [
-    9
-   ],
-   "major": 9,
-   "rankTotal": 99
+   ]
   },
   {
    "name": "Marcelo Molina",
@@ -9339,16 +7336,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 7,
-   "count": 1,
-   "avg": 7,
-   "best": 7,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 217
+   ]
   },
   {
    "name": "Marcio G. Antonelli",
@@ -9404,16 +7392,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 10,
-   "count": 1,
-   "avg": 10,
-   "best": 10,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 210
+   ]
   },
   {
    "name": "Marco Antônio Ferreira",
@@ -9470,24 +7449,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 30,
-   "count": 3,
-   "avg": 10,
-   "best": 14,
-   "presCount": 3,
-   "presScores": [
-    14,
-    9,
-    7
-   ],
-   "majorTop": [
-    14,
-    9,
-    7
-   ],
-   "major": 30,
-   "rankTotal": 146
+   ]
   },
   {
    "name": "Marco Antonio Frederico",
@@ -9544,20 +7506,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 1,
-   "presScores": [
-    14
-   ],
-   "majorTop": [
-    14
-   ],
-   "major": 14,
-   "rankTotal": 189
+   ]
   },
   {
    "name": "Marco Antônio Malzoni",
@@ -9608,24 +7557,7 @@
     {
      "score": 10
     }
-   ],
-   "total": 133,
-   "count": 9,
-   "avg": 14.777777777777779,
-   "best": 17,
-   "presCount": 3,
-   "presScores": [
-    17,
-    14,
-    13
-   ],
-   "majorTop": [
-    17,
-    14,
-    13
-   ],
-   "major": 44,
-   "rankTotal": 51
+   ]
   },
   {
    "name": "Marco Aurélio Souza Silva (zinho)",
@@ -9680,22 +7612,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 61,
-   "count": 4,
-   "avg": 15.25,
-   "best": 17,
-   "presCount": 2,
-   "presScores": [
-    17,
-    15
-   ],
-   "majorTop": [
-    17,
-    15
-   ],
-   "major": 32,
-   "rankTotal": 109
+   ]
   },
   {
    "name": "Marcos B. Gonsalez",
@@ -9746,22 +7663,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 132,
-   "count": 8,
-   "avg": 16.5,
-   "best": 18,
-   "presCount": 2,
-   "presScores": [
-    18,
-    15
-   ],
-   "majorTop": [
-    18,
-    15
-   ],
-   "major": 33,
-   "rankTotal": 52
+   ]
   },
   {
    "name": "Marcos Farah",
@@ -9812,16 +7714,7 @@
     {
      "score": 14
     }
-   ],
-   "total": 81,
-   "count": 6,
-   "avg": 13.5,
-   "best": 16,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 87
+   ]
   },
   {
    "name": "Marcos Luciano Rodrigues Soares",
@@ -9874,22 +7767,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 71,
-   "count": 6,
-   "avg": 11.833333333333334,
-   "best": 16,
-   "presCount": 2,
-   "presScores": [
-    12,
-    11
-   ],
-   "majorTop": [
-    12,
-    11
-   ],
-   "major": 23,
-   "rankTotal": 96
+   ]
   },
   {
    "name": "Marcos Ermirio De Moraes",
@@ -9945,16 +7823,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 190
+   ]
   },
   {
    "name": "Marcos Marinho Lutz",
@@ -10010,16 +7879,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 9,
-   "count": 1,
-   "avg": 9,
-   "best": 9,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 214
+   ]
   },
   {
    "name": "Marcus Vinícius Ferreira Dos Santos",
@@ -10073,16 +7933,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 44,
-   "count": 3,
-   "avg": 14.666666666666666,
-   "best": 16,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 127
+   ]
   },
   {
    "name": "Maria Lucila Ribeiro Martins",
@@ -10136,16 +7987,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 33,
-   "count": 3,
-   "avg": 11,
-   "best": 13,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 136
+   ]
   },
   {
    "name": "Mario Cesar Seghetto Basso",
@@ -10201,16 +8043,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 16,
-   "count": 1,
-   "avg": 16,
-   "best": 16,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 171
+   ]
   },
   {
    "name": "Matheus Siqueira Bueno",
@@ -10266,20 +8099,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 31,
-   "count": 2,
-   "avg": 15.5,
-   "best": 18,
-   "presCount": 1,
-   "presScores": [
-    18
-   ],
-   "majorTop": [
-    18
-   ],
-   "major": 18,
-   "rankTotal": 137
+   ]
   },
   {
    "name": "Mauricio Antonio Piazzetta",
@@ -10327,30 +8147,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     }
-   ],
-   "total": 186,
-   "count": 11,
-   "avg": 16.90909090909091,
-   "best": 18,
-   "presCount": 5,
-   "presScores": [
-    18,
-    16,
-    16,
-    16,
-    15
-   ],
-   "majorTop": [
-    18,
-    16,
-    16,
-    16
-   ],
-   "major": 66,
-   "rankTotal": 17
+   ]
   },
   {
    "name": "Mauro Farah",
@@ -10404,24 +8204,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 88,
-   "count": 6,
-   "avg": 14.666666666666666,
-   "best": 17,
-   "presCount": 3,
-   "presScores": [
-    15,
-    13,
-    12
-   ],
-   "majorTop": [
-    15,
-    13,
-    12
-   ],
-   "major": 40,
-   "rankTotal": 82
+   ]
   },
   {
    "name": "Mauricio Gava",
@@ -10478,20 +8261,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 17,
-   "count": 1,
-   "avg": 17,
-   "best": 17,
-   "presCount": 1,
-   "presScores": [
-    17
-   ],
-   "majorTop": [
-    17
-   ],
-   "major": 17,
-   "rankTotal": 165
+   ]
   },
   {
    "name": "Mario Brandizzi",
@@ -10547,16 +8317,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 9,
-   "count": 1,
-   "avg": 9,
-   "best": 9,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 215
+   ]
   },
   {
    "name": "Max Pollizi",
@@ -10613,20 +8374,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 16,
-   "count": 1,
-   "avg": 16,
-   "best": 16,
-   "presCount": 1,
-   "presScores": [
-    16
-   ],
-   "majorTop": [
-    16
-   ],
-   "major": 16,
-   "rankTotal": 172
+   ]
   },
   {
    "name": "Neimar Batista",
@@ -10678,22 +8426,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 106,
-   "count": 7,
-   "avg": 15.142857142857142,
-   "best": 16,
-   "presCount": 2,
-   "presScores": [
-    16,
-    16
-   ],
-   "majorTop": [
-    16,
-    16
-   ],
-   "major": 32,
-   "rankTotal": 72
+   ]
   },
   {
    "name": "Neimar Lopes Silva",
@@ -10748,16 +8481,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 31,
-   "count": 2,
-   "avg": 15.5,
-   "best": 18,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 138
+   ]
   },
   {
    "name": "Nelson Alfredo R. Bolduan",
@@ -10809,26 +8533,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 151,
-   "count": 9,
-   "avg": 16.77777777777778,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    18,
-    17,
-    16,
-    16
-   ],
-   "majorTop": [
-    18,
-    17,
-    16,
-    16
-   ],
-   "major": 67,
-   "rankTotal": 42
+   ]
   },
   {
    "name": "Nilo Antonio Soares Norden",
@@ -10881,16 +8586,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 63,
-   "count": 4,
-   "avg": 15.75,
-   "best": 16,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 101
+   ]
   },
   {
    "name": "Nilton Molina",
@@ -10947,20 +8643,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 1,
-   "presScores": [
-    14
-   ],
-   "majorTop": [
-    14
-   ],
-   "major": 14,
-   "rankTotal": 191
+   ]
   },
   {
    "name": "Octavio Ferrreira Magalhães",
@@ -11015,16 +8698,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 27,
-   "count": 2,
-   "avg": 13.5,
-   "best": 15,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 150
+   ]
   },
   {
    "name": "Odimir Jose De Moraes",
@@ -11077,22 +8751,7 @@
     {
      "score": 12
     }
-   ],
-   "total": 66,
-   "count": 6,
-   "avg": 11,
-   "best": 12,
-   "presCount": 2,
-   "presScores": [
-    12,
-    9
-   ],
-   "majorTop": [
-    12,
-    9
-   ],
-   "major": 21,
-   "rankTotal": 98
+   ]
   },
   {
    "name": "Olavo Eugenio D W P Q Tinoco",
@@ -11148,16 +8807,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 192
+   ]
   },
   {
    "name": "Olavo Ferraz Carrara",
@@ -11207,22 +8857,7 @@
     {
      "score": 11
     }
-   ],
-   "total": 130,
-   "count": 9,
-   "avg": 14.444444444444445,
-   "best": 16,
-   "presCount": 2,
-   "presScores": [
-    15,
-    15
-   ],
-   "majorTop": [
-    15,
-    15
-   ],
-   "major": 30,
-   "rankTotal": 55
+   ]
   },
   {
    "name": "Otávio Peretti Iglesias",
@@ -11272,20 +8907,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 124,
-   "count": 8,
-   "avg": 15.5,
-   "best": 18,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 57
+   ]
   },
   {
    "name": "Pablo Souza Assis",
@@ -11341,16 +8963,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 13,
-   "count": 1,
-   "avg": 13,
-   "best": 13,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 199
+   ]
   },
   {
    "name": "Paolo Brandizzi Neto",
@@ -11402,35 +9015,10 @@
      "score": 17
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18,
+     "presencial": true
     }
-   ],
-   "total": 200,
-   "count": 12,
-   "avg": 16.666666666666668,
-   "best": 18,
-   "presCount": 10,
-   "presScores": [
-    18,
-    18,
-    17,
-    17,
-    17,
-    17,
-    16,
-    16,
-    15,
-    14
-   ],
-   "majorTop": [
-    18,
-    18,
-    17,
-    17
-   ],
-   "major": 70,
-   "rankTotal": 4
+   ]
   },
   {
    "name": "Paulo Roberto Uechi",
@@ -11487,22 +9075,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 22,
-   "count": 2,
-   "avg": 11,
-   "best": 14,
-   "presCount": 2,
-   "presScores": [
-    14,
-    8
-   ],
-   "majorTop": [
-    14,
-    8
-   ],
-   "major": 22,
-   "rankTotal": 155
+   ]
   },
   {
    "name": "Pedro Augusto Roso Pelosini",
@@ -11556,16 +9129,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 22,
-   "count": 3,
-   "avg": 7.333333333333333,
-   "best": 10,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 156
+   ]
   },
   {
    "name": "Pedro Cozza",
@@ -11621,31 +9185,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 160,
-   "count": 10,
-   "avg": 16,
-   "best": 17,
-   "presCount": 9,
-   "presScores": [
-    17,
-    17,
-    17,
-    17,
-    16,
-    16,
-    15,
-    15,
-    14
-   ],
-   "majorTop": [
-    17,
-    17,
-    17,
-    17
-   ],
-   "major": 68,
-   "rankTotal": 35
+   ]
   },
   {
    "name": "Pierre Loeb",
@@ -11701,22 +9241,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 43,
-   "count": 3,
-   "avg": 14.333333333333334,
-   "best": 15,
-   "presCount": 2,
-   "presScores": [
-    15,
-    14
-   ],
-   "majorTop": [
-    15,
-    14
-   ],
-   "major": 29,
-   "rankTotal": 129
+   ]
   },
   {
    "name": "Rafael Linne Netto",
@@ -11767,30 +9292,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18,
+     "presencial": true
     }
-   ],
-   "total": 126,
-   "count": 8,
-   "avg": 15.75,
-   "best": 17,
-   "presCount": 5,
-   "presScores": [
-    17,
-    17,
-    17,
-    15,
-    15
-   ],
-   "majorTop": [
-    17,
-    17,
-    17,
-    15
-   ],
-   "major": 66,
-   "rankTotal": 56
+   ]
   },
   {
    "name": "Rafael Andrade Neto",
@@ -11845,20 +9350,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 46,
-   "count": 3,
-   "avg": 15.333333333333334,
-   "best": 17,
-   "presCount": 1,
-   "presScores": [
-    14
-   ],
-   "majorTop": [
-    14
-   ],
-   "major": 14,
-   "rankTotal": 122
+   ]
   },
   {
    "name": "Rafael Martins De Mello Vianna",
@@ -11914,16 +9406,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 16,
-   "count": 1,
-   "avg": 16,
-   "best": 16,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 173
+   ]
   },
   {
    "name": "Rafael Pancan De Biaggi",
@@ -11974,16 +9457,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 99,
-   "count": 6,
-   "avg": 16.5,
-   "best": 18,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 75
+   ]
   },
   {
    "name": "Raphael Bonet Mozena",
@@ -12029,29 +9503,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 16,
+     "presencial": true
     }
-   ],
-   "total": 199,
-   "count": 12,
-   "avg": 16.583333333333332,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    18,
-    17,
-    17,
-    16
-   ],
-   "majorTop": [
-    18,
-    17,
-    17,
-    16
-   ],
-   "major": 68,
-   "rankTotal": 7
+   ]
   },
   {
    "name": "Reinaldo Tockus",
@@ -12106,24 +9561,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 80,
-   "count": 5,
-   "avg": 16,
-   "best": 17,
-   "presCount": 3,
-   "presScores": [
-    17,
-    16,
-    14
-   ],
-   "majorTop": [
-    17,
-    16,
-    14
-   ],
-   "major": 47,
-   "rankTotal": 89
+   ]
   },
   {
    "name": "Reinaldo Zani Baggio",
@@ -12173,32 +9611,10 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18,
+     "presencial": true
     }
-   ],
-   "total": 169,
-   "count": 11,
-   "avg": 15.363636363636363,
-   "best": 18,
-   "presCount": 7,
-   "presScores": [
-    18,
-    17,
-    17,
-    14,
-    14,
-    14,
-    13
-   ],
-   "majorTop": [
-    18,
-    17,
-    17,
-    14
-   ],
-   "major": 66,
-   "rankTotal": 26
+   ]
   },
   {
    "name": "Renato Amantini",
@@ -12255,20 +9671,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 15,
-   "count": 1,
-   "avg": 15,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 181
+   ]
   },
   {
    "name": "Renato Da Costa Junior",
@@ -12314,27 +9717,10 @@
      "score": 18
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18,
+     "presencial": true
     }
-   ],
-   "total": 189,
-   "count": 11,
-   "avg": 17.181818181818183,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    18,
-    16,
-    14
-   ],
-   "majorTop": [
-    18,
-    16,
-    14
-   ],
-   "major": 48,
-   "rankTotal": 14
+   ]
   },
   {
    "name": "Renato Khun",
@@ -12390,20 +9776,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 18,
-   "count": 2,
-   "avg": 9,
-   "best": 12,
-   "presCount": 1,
-   "presScores": [
-    12
-   ],
-   "majorTop": [
-    12
-   ],
-   "major": 12,
-   "rankTotal": 163
+   ]
   },
   {
    "name": "Renato Polizzi",
@@ -12457,22 +9830,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 62,
-   "count": 5,
-   "avg": 12.4,
-   "best": 16,
-   "presCount": 2,
-   "presScores": [
-    16,
-    10
-   ],
-   "majorTop": [
-    16,
-    10
-   ],
-   "major": 26,
-   "rankTotal": 104
+   ]
   },
   {
    "name": "Renato Ribeiro De Paula",
@@ -12528,22 +9886,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 44,
-   "count": 3,
-   "avg": 14.666666666666666,
-   "best": 17,
-   "presCount": 2,
-   "presScores": [
-    17,
-    13
-   ],
-   "majorTop": [
-    17,
-    13
-   ],
-   "major": 30,
-   "rankTotal": 126
+   ]
   },
   {
    "name": "Renato Ribeiro F. Abucham",
@@ -12598,26 +9941,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 82,
-   "count": 6,
-   "avg": 13.666666666666666,
-   "best": 15,
-   "presCount": 4,
-   "presScores": [
-    15,
-    14,
-    14,
-    11
-   ],
-   "majorTop": [
-    15,
-    14,
-    14,
-    11
-   ],
-   "major": 54,
-   "rankTotal": 86
+   ]
   },
   {
    "name": "Ricardo Chiarotto Penteado",
@@ -12669,28 +9993,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 179,
-   "count": 11,
-   "avg": 16.272727272727273,
-   "best": 18,
-   "presCount": 6,
-   "presScores": [
-    18,
-    18,
-    17,
-    16,
-    16,
-    15
-   ],
-   "majorTop": [
-    18,
-    18,
-    17,
-    16
-   ],
-   "major": 69,
-   "rankTotal": 21
+   ]
   },
   {
    "name": "Ricardo Junqueira Meirelles",
@@ -12739,26 +10042,7 @@
     {
      "score": 17
     }
-   ],
-   "total": 160,
-   "count": 12,
-   "avg": 13.333333333333334,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    17,
-    15,
-    14,
-    11
-   ],
-   "majorTop": [
-    17,
-    15,
-    14,
-    11
-   ],
-   "major": 57,
-   "rankTotal": 34
+   ]
   },
   {
    "name": "Ricardo L. Baeta",
@@ -12813,16 +10097,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 26,
-   "count": 2,
-   "avg": 13,
-   "best": 14,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 153
+   ]
   },
   {
    "name": "Roberto Zarzur",
@@ -12876,16 +10151,7 @@
     {
      "score": 7
     }
-   ],
-   "total": 25,
-   "count": 3,
-   "avg": 8.333333333333334,
-   "best": 11,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 154
+   ]
   },
   {
    "name": "Robson Coura",
@@ -12938,20 +10204,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 61,
-   "count": 5,
-   "avg": 12.2,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 110
+   ]
   },
   {
    "name": "Robson Fernando Erbert",
@@ -13007,16 +10260,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 18,
-   "count": 1,
-   "avg": 18,
-   "best": 18,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 162
+   ]
   },
   {
    "name": "Rodolfo Jusfredo",
@@ -13073,20 +10317,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 16,
-   "count": 1,
-   "avg": 16,
-   "best": 16,
-   "presCount": 1,
-   "presScores": [
-    16
-   ],
-   "majorTop": [
-    16
-   ],
-   "major": 16,
-   "rankTotal": 174
+   ]
   },
   {
    "name": "Rodrigo Coutinho R. Cipriano",
@@ -13137,24 +10368,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 153,
-   "count": 9,
-   "avg": 17,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    17,
-    17,
-    16
-   ],
-   "majorTop": [
-    17,
-    17,
-    16
-   ],
-   "major": 50,
-   "rankTotal": 40
+   ]
   },
   {
    "name": "Rodrigo Curi",
@@ -13210,20 +10424,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 30,
-   "count": 2,
-   "avg": 15,
-   "best": 17,
-   "presCount": 1,
-   "presScores": [
-    13
-   ],
-   "majorTop": [
-    13
-   ],
-   "major": 13,
-   "rankTotal": 142
+   ]
   },
   {
    "name": "Rodrigo Magalhães",
@@ -13280,20 +10481,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 16,
-   "count": 1,
-   "avg": 16,
-   "best": 16,
-   "presCount": 1,
-   "presScores": [
-    16
-   ],
-   "majorTop": [
-    16
-   ],
-   "major": 16,
-   "rankTotal": 175
+   ]
   },
   {
    "name": "Rodrigo Rebello",
@@ -13347,26 +10535,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 115,
-   "count": 7,
-   "avg": 16.428571428571427,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    18,
-    17,
-    17,
-    15
-   ],
-   "majorTop": [
-    18,
-    17,
-    17,
-    15
-   ],
-   "major": 67,
-   "rankTotal": 63
+   ]
   },
   {
    "name": "Rogerio Balestrin",
@@ -13420,24 +10589,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 106,
-   "count": 6,
-   "avg": 17.666666666666668,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    18,
-    18,
-    16
-   ],
-   "majorTop": [
-    18,
-    18,
-    16
-   ],
-   "major": 52,
-   "rankTotal": 70
+   ]
   },
   {
    "name": "Roges Paulo Perineto",
@@ -13493,16 +10645,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 13,
-   "count": 1,
-   "avg": 13,
-   "best": 13,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 200
+   ]
   },
   {
    "name": "Romulo Mansur",
@@ -13552,24 +10695,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 151,
-   "count": 10,
-   "avg": 15.1,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    15,
-    15,
-    13
-   ],
-   "majorTop": [
-    15,
-    15,
-    13
-   ],
-   "major": 43,
-   "rankTotal": 43
+   ]
   },
   {
    "name": "Rubens Los Junior",
@@ -13622,24 +10748,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 112,
-   "count": 7,
-   "avg": 16,
-   "best": 18,
-   "presCount": 3,
-   "presScores": [
-    17,
-    14,
-    13
-   ],
-   "majorTop": [
-    17,
-    14,
-    13
-   ],
-   "major": 44,
-   "rankTotal": 66
+   ]
   },
   {
    "name": "Ryan Dacacche",
@@ -13695,16 +10804,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 13,
-   "count": 1,
-   "avg": 13,
-   "best": 13,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 201
+   ]
   },
   {
    "name": "Sandro Eurico Ferriello",
@@ -13760,16 +10860,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 193
+   ]
   },
   {
    "name": "Saulo Guarnieri",
@@ -13826,20 +10917,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 15,
-   "count": 1,
-   "avg": 15,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 182
+   ]
   },
   {
    "name": "Scheila Menin",
@@ -13895,28 +10973,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 100,
-   "count": 7,
-   "avg": 14.285714285714286,
-   "best": 17,
-   "presCount": 6,
-   "presScores": [
-    17,
-    16,
-    14,
-    14,
-    13,
-    12
-   ],
-   "majorTop": [
-    17,
-    16,
-    14,
-    14
-   ],
-   "major": 61,
-   "rankTotal": 74
+   ]
   },
   {
    "name": "Sergio Camilo Daccache Filho",
@@ -13971,16 +11028,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 30,
-   "count": 2,
-   "avg": 15,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 143
+   ]
   },
   {
    "name": "Sergio De Oliveira Barbosa",
@@ -14028,22 +11076,7 @@
     {
      "score": 15
     }
-   ],
-   "total": 173,
-   "count": 11,
-   "avg": 15.727272727272727,
-   "best": 18,
-   "presCount": 2,
-   "presScores": [
-    18,
-    17
-   ],
-   "majorTop": [
-    18,
-    17
-   ],
-   "major": 35,
-   "rankTotal": 23
+   ]
   },
   {
    "name": "Sherlon Augusto Bonato",
@@ -14097,16 +11130,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 47,
-   "count": 3,
-   "avg": 15.666666666666666,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 120
+   ]
   },
   {
    "name": "Silvio Luis Paggiaro",
@@ -14160,26 +11184,7 @@
     {
      "score": 9
     }
-   ],
-   "total": 88,
-   "count": 7,
-   "avg": 12.571428571428571,
-   "best": 16,
-   "presCount": 4,
-   "presScores": [
-    16,
-    13,
-    12,
-    12
-   ],
-   "majorTop": [
-    16,
-    13,
-    12,
-    12
-   ],
-   "major": 53,
-   "rankTotal": 83
+   ]
   },
   {
    "name": "Tacito Lemos Bicas",
@@ -14235,16 +11240,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 17,
-   "count": 1,
-   "avg": 17,
-   "best": 17,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 166
+   ]
   },
   {
    "name": "Thiago Balbo",
@@ -14300,16 +11296,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 15,
-   "count": 1,
-   "avg": 15,
-   "best": 15,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 183
+   ]
   },
   {
    "name": "Thiago Bonet Mozena",
@@ -14355,29 +11342,10 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18,
+     "presencial": true
     }
-   ],
-   "total": 210,
-   "count": 12,
-   "avg": 17.5,
-   "best": 18,
-   "presCount": 4,
-   "presScores": [
-    18,
-    17,
-    17,
-    17
-   ],
-   "majorTop": [
-    18,
-    17,
-    17,
-    17
-   ],
-   "major": 69,
-   "rankTotal": 1
+   ]
   },
   {
    "name": "Tiago M Batista",
@@ -14424,27 +11392,13 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 16,
+     "presencial": true
     }
-   ],
-   "total": 62,
-   "count": 4,
-   "avg": 15.5,
-   "best": 17,
-   "presCount": 1,
-   "presScores": [
-    17
-   ],
-   "majorTop": [
-    17
-   ],
-   "major": 17,
-   "rankTotal": 103
+   ]
   },
   {
    "name": "Tomas Duarte Kikuta",
@@ -14500,16 +11454,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 12,
-   "count": 1,
-   "avg": 12,
-   "best": 12,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 204
+   ]
   },
   {
    "name": "Umberto Livani",
@@ -14562,20 +11507,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 80,
-   "count": 5,
-   "avg": 16,
-   "best": 17,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 90
+   ]
   },
   {
    "name": "Valdair Ribeiro Da Silva",
@@ -14630,26 +11562,7 @@
     {
      "score": 16
     }
-   ],
-   "total": 93,
-   "count": 6,
-   "avg": 15.5,
-   "best": 16,
-   "presCount": 4,
-   "presScores": [
-    16,
-    16,
-    16,
-    13
-   ],
-   "majorTop": [
-    16,
-    16,
-    16,
-    13
-   ],
-   "major": 61,
-   "rankTotal": 80
+   ]
   },
   {
    "name": "Valter Fonseca",
@@ -14695,16 +11608,7 @@
     {
      "score": 13
     }
-   ],
-   "total": 163,
-   "count": 11,
-   "avg": 14.818181818181818,
-   "best": 18,
-   "presCount": 0,
-   "presScores": [],
-   "majorTop": [],
-   "major": 0,
-   "rankTotal": 31
+   ]
   },
   {
    "name": "Vandre Luiz",
@@ -14761,20 +11665,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 10,
-   "count": 1,
-   "avg": 10,
-   "best": 10,
-   "presCount": 1,
-   "presScores": [
-    10
-   ],
-   "majorTop": [
-    10
-   ],
-   "major": 10,
-   "rankTotal": 211
+   ]
   },
   {
    "name": "Vinicius Gonçalves Salvador Amantini",
@@ -14831,20 +11722,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 14,
-   "count": 1,
-   "avg": 14,
-   "best": 14,
-   "presCount": 1,
-   "presScores": [
-    14
-   ],
-   "majorTop": [
-    14
-   ],
-   "major": 14,
-   "rankTotal": 194
+   ]
   },
   {
    "name": "Vinicuis Ribeiro da Silva",
@@ -14901,20 +11779,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 11,
-   "count": 1,
-   "avg": 11,
-   "best": 11,
-   "presCount": 1,
-   "presScores": [
-    11
-   ],
-   "majorTop": [
-    11
-   ],
-   "major": 11,
-   "rankTotal": 207
+   ]
   },
   {
    "name": "Walter Vitor Lança Jr",
@@ -14964,28 +11829,7 @@
     {
      "score": 15
     }
-   ],
-   "total": 188,
-   "count": 13,
-   "avg": 14.461538461538462,
-   "best": 17,
-   "presCount": 6,
-   "presScores": [
-    17,
-    16,
-    15,
-    15,
-    14,
-    12
-   ],
-   "majorTop": [
-    17,
-    16,
-    15,
-    15
-   ],
-   "major": 63,
-   "rankTotal": 16
+   ]
   },
   {
    "name": "Willian Richard Hamanue",
@@ -15036,22 +11880,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 116,
-   "count": 8,
-   "avg": 14.5,
-   "best": 16,
-   "presCount": 2,
-   "presScores": [
-    15,
-    12
-   ],
-   "majorTop": [
-    15,
-    12
-   ],
-   "major": 27,
-   "rankTotal": 62
+   ]
   },
   {
    "name": "Gilherme Levy",
@@ -15108,20 +11937,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 18,
-   "count": 1,
-   "avg": 18,
-   "best": 18,
-   "presCount": 1,
-   "presScores": [
-    18
-   ],
-   "majorTop": [
-    18
-   ],
-   "major": 18,
-   "rankTotal": 159
+   ]
   },
   {
    "name": "Wilson Martins Dos Santos",
@@ -15178,20 +11994,7 @@
      "score": null,
      "presencial": false
     }
-   ],
-   "total": 15,
-   "count": 1,
-   "avg": 15,
-   "best": 15,
-   "presCount": 1,
-   "presScores": [
-    15
-   ],
-   "majorTop": [
-    15
-   ],
-   "major": 15,
-   "rankTotal": 184
+   ]
   }
  ],
  "titulo": "V Copa São Paulo Open de Tiro às Hélices — 2026",
