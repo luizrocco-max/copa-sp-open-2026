@@ -627,9 +627,13 @@ let COTAS_MIN = 11;
 
 // ---------- Final: leitura do sistema de resultados ao vivo ----------
 // O site da Copa só LÊ (API pública do sistema, sem chave). Inscrição e Pix ficam no sistema; nada é gravado daqui.
-const FINAL_EVT = 'mw2pnqq9e4ea6a';
+// Endereço do sistema (LiveClays) num lugar só: para trocar de domínio, basta mudar FINAL_SITE.
+const FINAL_SITE = 'https://resultados-esfah.web.app';   // também responderá em https://liveclays.com
+const FINAL_EVT = 'mw2pnqq9e4ea6a';                       // evento oficial da Final no sistema
+const FINAL_PROVAS = {final:'final', majoranca:'majoranca', topgun:'topgun'};   // códigos das provas no sistema
 const FINAL_API = 'https://firestore.googleapis.com/v1/projects/resultados-esfah/databases/(default)/documents/eventos/'+FINAL_EVT;
-const FINAL_INSC_URL = 'https://resultados-esfah.web.app/inscricao/'+FINAL_EVT;
+const FINAL_INSC_URL = FINAL_SITE+'/inscricao/'+FINAL_EVT;
+const FINAL_VIVO_URL = FINAL_SITE+'/ao-vivo/'+FINAL_EVT;
 const FS_KEY='copa_final_sys_v1', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_STALE=24*60*60*1000;
 let fsTry = 0;   // última tentativa de leitura (evita repetir a cada troca de aba)
 let FS = null;   // {cfg:{aberta,valor,valorCota,cotasMinimas}, insc:[{id,atiradorId,status,querPremio}]|null, ats:[{id,nome,cotasPagas}]|null}
