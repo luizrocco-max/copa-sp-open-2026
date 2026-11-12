@@ -45,6 +45,41 @@
   .finalnote{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(245,197,24,.12),var(--panel));border:1px solid var(--line);border-left:4px solid var(--yellow-strong);border-radius:12px;padding:13px 16px;margin:18px 0;font-size:14px;line-height:1.45;color:var(--txt)}
   .finalnote .ico{font-size:20px;flex:0 0 auto}
   .finalnote b{color:var(--accent2)}
+  /* aba Final ao vivo (classificação lida do sistema de resultados) */
+  .fnv{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:10px}
+  .fnhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+  .fnhead h2{margin:0;font-size:20px}
+  .fnchip{font-size:11px;font-weight:700;letter-spacing:.6px;padding:4px 10px;border-radius:20px;background:var(--panel2);border:1px solid var(--line);color:var(--muted);text-transform:uppercase}
+  .fnchip.live{background:var(--accent);border-color:var(--accent);color:#fff;animation:fnpulse 1.6s ease-in-out infinite}
+  .fnchip.done{background:rgba(54,196,111,.16);border-color:var(--good);color:var(--good)}
+  @keyframes fnpulse{50%{opacity:.55}}
+  .fnmeta{color:var(--muted);font-size:12px}
+  .fnlink{margin-left:auto;background:var(--panel2);border:1px solid var(--line);color:var(--txt);font-weight:700;font-size:13px;padding:8px 12px;border-radius:9px;text-decoration:none;white-space:nowrap}
+  .fnlink:hover{border-color:var(--accent2)}
+  .fnsum{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}
+  .fnsum div{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--muted)}
+  .fnsum b{display:block;font-size:17px;color:var(--txt)}
+  .fnpills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+  .fnempty{color:var(--muted);padding:26px 8px;text-align:center;font-size:14px;line-height:1.5}
+  .fnwrap{overflow-x:auto}
+  table.fntable{width:100%;border-collapse:collapse;font-size:14px}
+  .fntable th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+  .fntable td{padding:8px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+  .fntable .c{text-align:center}
+  .fntable tbody tr{cursor:pointer}
+  .fntable tbody tr:hover td{background:var(--panel2)}
+  .fntable .pos{font-weight:700;color:var(--accent2)}
+  .fntable .nm{white-space:normal;font-weight:600;min-width:150px;text-align:left}
+  .fntable th.nmh{text-align:left}
+  .fntable .tot{font-weight:700;font-size:16px}
+  .fntable .pz{text-align:center;width:34px;padding:8px 3px;font-variant-numeric:tabular-nums;color:var(--muted)}
+  .fntable .pz.p3{color:var(--good);font-weight:700}
+  .fntable .pz.p2{color:var(--txt)}
+  .fntable .pz.p1,.fntable .pz.p0{color:#ff7a84}
+  .fntable .pz.run{text-decoration:underline dotted}
+  .fntable tr.wait td{color:var(--muted)}
+  .fntable tr.wait .nm{font-weight:400}
+  @media (max-width:640px){ .fntable .hm{display:none} .fntable td,.fntable th{padding:7px 5px} .fntable .pz{width:24px;padding:7px 1px} .fnlink{margin-left:0} .fnv{padding:12px} }
   /* faixa de inscrição para a Final (dados lidos do sistema de resultados) */
   .inscbar{align-items:center;gap:14px;flex-wrap:wrap;background:linear-gradient(90deg,rgba(213,30,43,.20),var(--panel));border:1px solid var(--accent);border-radius:12px;padding:14px 16px;margin:18px 0}
   .inscbar .ico{font-size:26px;flex:0 0 auto}
@@ -531,6 +566,7 @@
         <div class="tab" data-view="rank">🏆 Top Gun</div>
         <div class="tab" data-view="receitas">💰 Receitas</div>
         <div class="tab" data-view="comparativo">🆚 Comparativo</div>
+        <div class="tab" data-view="final" id="tabFinal" style="display:none">🏆 Final</div>
       </div>
     </div>
   </div>
@@ -556,6 +592,8 @@
   <section id="receitasView" class="rcv" style="display:none"></section>
 
   <section id="compView" class="cmpv" style="display:none"></section>
+
+  <section id="finalView" class="fnv" style="display:none"></section>
 
   <footer>Clique em um atirador para ver o painel individual.</footer>
 </div>
@@ -634,7 +672,7 @@ const FINAL_PROVAS = {final:'final', majoranca:'majoranca', topgun:'topgun'};   
 const FINAL_API = 'https://firestore.googleapis.com/v1/projects/resultados-esfah/databases/(default)/documents/eventos/'+FINAL_EVT;
 const FINAL_INSC_URL = FINAL_SITE+'/inscricao/'+FINAL_EVT;
 const FINAL_VIVO_URL = FINAL_SITE+'/ao-vivo/'+FINAL_EVT;
-const FS_KEY='copa_final_sys_v1', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_STALE=24*60*60*1000;
+const FS_KEY='copa_final_sys_v2', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_STALE=24*60*60*1000;
 let fsTry = 0;   // última tentativa de leitura (evita repetir a cada troca de aba)
 let FS = null;   // {cfg:{aberta,valor,valorCota,cotasMinimas}, insc:[{id,atiradorId,status,querPremio}]|null, ats:[{id,nome,cotasPagas}]|null}
 function fsVal(v){
@@ -716,9 +754,141 @@ function renderFinalBanner(){
   el.style.display='flex';
 }
 function applyFinalSys(){
-  calcCotas(); renderKpis(); renderFinalBanner();
+  calcCotas(); renderKpis(); renderFinalBanner(); syncFinalTab();
   if(typeof render==='function') render();
   if(openAthlete) openDetail(openAthlete, true);   // painel aberto: atualiza o quadro de cotas
+}
+// ---------- aba "Final ao vivo": classificação da Final lida do sistema ----------
+// Enquanto a aba está aberta e a prova está ao vivo, confere a cada 25 s. Para gastar pouco do sistema:
+// 1 leitura de contagem/soma por ciclo; só busca lançamentos quando algo mudou (e só os que mudaram).
+const LIVE_MS = 25000, LV_PASSADAS = 6, LV_HELICES = 18;
+const LV = {provas:null, ats:null, lanc:new Map(), descl:[], maxUpd:0, loaded:false, t:0, cat:'geral', timer:null, busy:false, err:false, st:'', auto:false};
+const LV_MASK_L = ['provaId','atiradorId','serie','passada','pratos','total','concluida','atualizadoEm'];
+async function fsPost(metodo, body){
+  const r=await fetch(FINAL_API+':'+metodo,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok) throw new Error('fs '+r.status); return r.json();
+}
+const lvProva = d => ({id:d._id, nome:d.nome||d._id, status:d.status||'', atiradorIds:d.atiradorIds||[]});
+const lvLanc = d => ({id:d._id, provaId:d.provaId, atiradorId:d.atiradorId, passada:(typeof d.passada==='number' ? d.passada : null), pratos:d.pratos||[], total:+d.total||0, concluida:d.concluida===true, upd:+d.atualizadoEm||0});
+const fsAtMap = a => ({id:a._id, nome:a.nome, numero:a.numero||'', cats:a.categoriaIds||[], ativo:a.ativo!==false, cotasPagas:(typeof a.cotasPagas==='number' ? a.cotasPagas : null)});
+async function fsAtiradores(){ return (await fsList('atiradores','&mask.fieldPaths=nome&mask.fieldPaths=numero&mask.fieldPaths=categoriaIds&mask.fieldPaths=ativo&mask.fieldPaths=cotasPagas')).map(fsAtMap); }
+function lvMerge(l){ LV.lanc.set(l.id, l); if(l.upd>LV.maxUpd) LV.maxUpd=l.upd; }
+function lvSum(){ let s=0; LV.lanc.forEach(l=>{ s+=l.total; }); return s; }
+async function lvFull(){
+  const docs=await fsList('lancamentos', LV_MASK_L.map(f=>'&mask.fieldPaths='+f).join(''));
+  LV.lanc=new Map(); LV.maxUpd=0; docs.forEach(d=>lvMerge(lvLanc(d))); LV.loaded=true;
+}
+async function lvInc(){
+  const res=await fsPost('runQuery',{structuredQuery:{from:[{collectionId:'lancamentos'}],
+    select:{fields:LV_MASK_L.map(f=>({fieldPath:f}))},
+    where:{fieldFilter:{field:{fieldPath:'atualizadoEm'},op:'GREATER_THAN',value:{integerValue:String(Math.max(0,LV.maxUpd-120000))}}},
+    orderBy:[{field:{fieldPath:'atualizadoEm'},direction:'ASCENDING'}]}});
+  let mudou=0;
+  (res||[]).forEach(x=>{ if(!x.document) return; const l=lvLanc(fsDoc(x.document)); const o=LV.lanc.get(l.id);
+    if(!o || o.upd!==l.upd || o.total!==l.total || o.pratos.length!==l.pratos.length || o.concluida!==l.concluida) mudou++; lvMerge(l); });
+  return mudou;
+}
+async function lvAgg(){
+  const r=await fsPost('runAggregationQuery',{structuredAggregationQuery:{structuredQuery:{from:[{collectionId:'lancamentos'}]},
+    aggregations:[{alias:'n',count:{}},{alias:'s',sum:{field:{fieldPath:'total'}}}]}});
+  const f=(r && r[0] && r[0].result && r[0].result.aggregateFields)||{};
+  return {n:fsVal(f.n)||0, s:fsVal(f.s)||0};
+}
+async function lvTick(){
+  if(LV.busy) return; LV.busy=true;
+  try{
+    LV.provas=(await fsList('provas')).map(lvProva);
+    if(!LV.ats) LV.ats = (FS && FS.ats && FS.ats.length && FS.ats[0].cats) ? FS.ats : await fsAtiradores();
+    const pf=LV.provas.find(p=>p.id===FINAL_PROVAS.final), st=pf ? pf.status : '';
+    if(!LV.loaded){ await lvFull(); LV.descl=await fsList('desclassificacoes','&mask.fieldPaths=provaId&mask.fieldPaths=atiradorId'); }
+    else if(st==='ao_vivo' || st!==LV.st){
+      const ag=await lvAgg();
+      if(ag.n!==LV.lanc.size || ag.s!==lvSum()){
+        const mudou=await lvInc();
+        if(!mudou || LV.lanc.size>ag.n) await lvFull();   // mudança que a busca por horário não pegou (apagado/corrigido): recarrega tudo
+      }
+      LV.descl=await fsList('desclassificacoes','&mask.fieldPaths=provaId&mask.fieldPaths=atiradorId');
+    }
+    LV.st=st; LV.t=Date.now(); LV.err=false;
+  }catch(e){ LV.err=true; }
+  LV.busy=false;
+  if(state.view==='final') renderFinalView();
+}
+// liga/desliga a atualização automática conforme a aba e a visibilidade da página
+function lvSync(){
+  const on = state.view==='final' && !document.hidden;
+  if(on && !LV.timer){ LV.timer=setInterval(lvTick, LIVE_MS); lvTick(); }
+  else if(!on && LV.timer){ clearInterval(LV.timer); LV.timer=null; }
+}
+// classificação de uma prova: soma das passadas; empate fica na mesma posição (o desempate é no tiro)
+function lvClass(provaId, cat){
+  const p=(LV.provas||[]).find(x=>x.id===provaId); if(!p || !LV.ats) return [];
+  const fora=new Set(LV.descl.filter(d=>d.provaId===provaId).map(d=>d.atiradorId));
+  const insc=(p.atiradorIds && p.atiradorIds.length) ? LV.ats.filter(a=>p.atiradorIds.includes(a.id)) : LV.ats.filter(a=>a.ativo);
+  const by=new Map(); LV.lanc.forEach(l=>{ if(l.provaId!==provaId) return; if(!by.has(l.atiradorId)) by.set(l.atiradorId,[]); by.get(l.atiradorId).push(l); });
+  const rows=insc.filter(a=>!fora.has(a.id) && (cat==='geral' || a.cats.includes(cat))).map(a=>{
+    const ls=by.get(a.id)||[], pas=Array(LV_PASSADAS).fill(null); let total=0, lanc=0;
+    ls.forEach(l=>{ total+=l.total; lanc+=l.pratos.length; if(l.passada!=null && l.passada>=0 && l.passada<LV_PASSADAS) pas[l.passada]=l; });
+    return {a, pas, total, lanc, comecou:ls.length>0, fim: lanc>=LV_HELICES};
+  });
+  rows.sort((x,y)=> (y.comecou-x.comecou) || (y.total-x.total) || x.a.numero.localeCompare(y.a.numero,'pt-BR',{numeric:true}));
+  rows.forEach((r,i)=>{ r.pos = !r.comecou ? null : ((i>0 && rows[i-1].comecou && rows[i-1].total===r.total) ? rows[i-1].pos : i+1); });
+  return rows;
+}
+function renderFinalView(){
+  const el=document.getElementById('finalView'); if(!el) return;
+  const esc=v=>(''+v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+  const pf=(LV.provas||[]).find(p=>p.id===FINAL_PROVAS.final), st=pf ? pf.status : '';
+  const chip = st==='ao_vivo' ? '<span class="fnchip live">● Ao vivo</span>' : st==='encerrada' ? '<span class="fnchip done">Encerrada</span>' : '<span class="fnchip">Ainda não começou</span>';
+  const hora = LV.t ? new Date(LV.t).toLocaleTimeString('pt-BR') : '';
+  const meta = !LV.t ? (LV.err ? 'Sem resposta do sistema agora. Tentando de novo…' : 'Carregando…')
+    : 'Atualizado às '+hora+(st==='ao_vivo' ? ' · atualiza sozinho a cada '+Math.round(LIVE_MS/1000)+' s' : '')+(LV.err ? ' · sem resposta do sistema agora, mostrando o último dado' : '');
+  const head='<div class="fnhead"><h2>'+(st==='encerrada' ? 'Resultado da Final' : 'Final ao vivo')+'</h2>'+chip+'<span class="fnmeta">'+meta+'</span>'+
+    '<a class="fnlink" href="'+FINAL_VIVO_URL+'" target="_blank" rel="noopener">Ao vivo completo ↗</a></div>';
+  const geral=lvClass(FINAL_PROVAS.final,'geral');
+  const comecaram=geral.filter(r=>r.comecou);
+  if(!LV.t || !pf || !comecaram.length){
+    const cf=(D.calendario||[]).find(x=>/final/i.test(x.n||''));
+    el.innerHTML = head+'<div class="fnempty">'+(!LV.t ? '' : 'A Final ainda não começou.'+(cf && cf.data ? ' No dia <b>'+esc(cf.data)+'</b>'+(cf.local ? ', no '+esc(cf.local) : '')+', a classificação aparece aqui, ao vivo.' : ''))+'</div>';
+    return;
+  }
+  const lider=comecaram[0], empLider=comecaram.filter(r=>r.total===lider.total).length;
+  const sum='<div class="fnsum"><div><b>'+comecaram.length+' de '+geral.length+'</b>já atiraram</div>'+
+    '<div><b>'+geral.filter(r=>r.fim).length+'</b>concluíram as '+LV_HELICES+' hélices</div>'+
+    '<div><b>'+lider.total+(empLider>1 ? ' · '+empLider+' empatados' : ' · '+esc(lider.a.nome))+'</b>melhor resultado até agora</div></div>';
+  const cats=[['geral','Geral'],['a','Categoria A'],['b','Categoria B']];
+  const pills='<div class="fnpills">'+cats.map(c=>'<span class="pill'+(LV.cat===c[0]?' active':'')+'" data-cat="'+c[0]+'">'+c[1]+'</span>').join('')+'</div>';
+  const rows=lvClass(FINAL_PROVAS.final, LV.cat);
+  const pz=l=> !l ? '<td class="pz">·</td>' : '<td class="pz p'+l.total+(l.concluida?'':' run')+'" title="'+l.pratos.map(x=>x?'●':'○').join(' ')+(l.concluida?'':' (em andamento)')+'">'+l.total+'</td>';
+  const body=rows.map(r=>'<tr'+(r.comecou?'':' class="wait"')+' data-name="'+esc(r.a.nome)+'"><td class="c pos">'+(r.pos ? r.pos+'º' : '—')+'</td><td class="c hm">'+esc(r.a.numero)+'</td><td class="nm">'+esc(r.a.nome)+'</td>'+
+    '<td class="c hm">'+(r.a.cats.includes('a')?'A':r.a.cats.includes('b')?'B':'')+'</td>'+r.pas.map(pz).join('')+
+    '<td class="c tot">'+(r.comecou ? r.total : '—')+'</td><td class="c hm">'+r.lanc+'/'+LV_HELICES+'</td></tr>').join('');
+  el.innerHTML = head+sum+pills+'<div class="fnwrap"><table class="fntable"><thead><tr><th class="c">Pos.</th><th class="c hm">Nº</th><th class="nmh">Atirador</th><th class="c hm">Cat.</th>'+
+    Array.from({length:LV_PASSADAS},(_,i)=>'<th class="pz">'+(i+1)+'ª</th>').join('')+'<th class="c">Total</th><th class="c hm">Hélices</th></tr></thead><tbody>'+body+'</tbody></table></div>'+
+    '<div class="fnmeta" style="margin-top:10px">Cada coluna é uma passada de 3 hélices. Empatados aparecem na mesma posição; o desempate é no tiro. Lançamentos feitos no sistema oficial da Final.</div>';
+  if(LV.rolar){ LV.rolar=false; requestAnimationFrame(()=>{
+    const c=document.querySelector('.controls'); if(!c) return;
+    // no computador a barra das abas fica presa no topo: a classificação para logo abaixo dela; no celular, rola até as abas
+    const presa = getComputedStyle(c).position==='sticky';
+    const y = presa ? el.getBoundingClientRect().top + window.scrollY - c.getBoundingClientRect().height - 20 : c.getBoundingClientRect().top + window.scrollY - 8;
+    window.scrollTo(0, Math.max(0, y));
+  }); }
+}
+document.addEventListener('click', e=>{
+  const fv=e.target.closest && e.target.closest('#finalView'); if(!fv) return;
+  const pill=e.target.closest('.pill[data-cat]'); if(pill){ LV.cat=pill.dataset.cat; renderFinalView(); return; }
+  const tr=e.target.closest('tr[data-name]'); if(tr && D.athletes.some(a=>a.name===tr.dataset.name)) openDetail(tr.dataset.name);
+});
+// a aba "Final" aparece quando a prova está ao vivo ou encerrada; ao vivo, abre nela quem chega pela página inicial
+function syncFinalTab(){
+  const tab=document.getElementById('tabFinal'); if(!tab) return;
+  const pf=((FS && FS.provas)||[]).find(p=>p.id===FINAL_PROVAS.final), st=pf ? pf.status : '';
+  const on = st==='ao_vivo' || st==='encerrada' || state.view==='final';
+  tab.style.display = on ? '' : 'none';
+  tab.innerHTML = st==='ao_vivo' ? '🔴 Final ao vivo' : '🏆 Final';
+  if(st==='ao_vivo' && !LV.auto && state.view==='table' && !openAthlete && !location.search){
+    LV.auto=true; LV.rolar=true; switchView('final');   // quem chega pela página inicial já cai na classificação
+  }
 }
 async function loadFinalSys(force){
   let c=null; try{ c=JSON.parse(localStorage.getItem(FS_KEY)||'null'); }catch(e){}
@@ -730,15 +900,17 @@ async function loadFinalSys(force){
     const cfg=fsDoc(ev).inscricao||{};
     // enquanto o sistema não publicar a leitura das inscrições, isto falha e o site segue sem contador
     let insc=null; try{ insc=await fsList('inscricoes','&mask.fieldPaths=atiradorId&mask.fieldPaths=status&mask.fieldPaths=querPremio'); }catch(e){ insc=null; }
+    let provas=null; try{ provas=(await fsList('provas','&mask.fieldPaths=nome&mask.fieldPaths=status&mask.fieldPaths=atiradorIds')).map(lvProva); }catch(e){ provas=null; }
+    const finalOn = !!(provas && provas.some(p=>p.id===FINAL_PROVAS.final && p.status!=='preparada'));
     let ats=null, atsT=0;
-    if(cfg.aberta===true || (insc && insc.length)){
+    if(cfg.aberta===true || (insc && insc.length) || finalOn){
       if(c && c.ats && now-(c.atsT||0)<FS_TTL_ATS){ ats=c.ats; atsT=c.atsT; }
-      else { try{ ats=(await fsList('atiradores','&mask.fieldPaths=nome&mask.fieldPaths=cotasPagas')).map(a=>({id:a._id, nome:a.nome, cotasPagas:(typeof a.cotasPagas==='number' ? a.cotasPagas : null)})); atsT=now; }catch(e){ ats=null; } }
+      else { try{ ats=await fsAtiradores(); atsT=now; }catch(e){ ats=null; } }
     }
     FS={evt:FINAL_EVT, t:now,
       cfg:{aberta:cfg.aberta===true, valor:+cfg.valor||0, valorCota:+cfg.valorCota||0, cotasMinimas:+cfg.cotasMinimas||0},
       insc: insc ? insc.map(i=>({id:i._id, atiradorId:i.atiradorId||'', status:i.status||'', querPremio:i.querPremio===true})) : null,
-      ats, atsT};
+      ats, atsT, provas};
     try{ localStorage.setItem(FS_KEY, JSON.stringify(FS)); }catch(e){}
   }catch(e){
     FS = (c && now-c.t<FS_STALE) ? c : null;   // sem rede / sistema fora do ar: último dado conhecido (até 24 h)
@@ -1193,7 +1365,8 @@ function renderComparativo(){
 function render(){
   const isRec = state.view==='receitas';
   const isCmp = state.view==='comparativo';
-  const special = isRec || isCmp;
+  const isFin = state.view==='final';
+  const special = isRec || isCmp || isFin;
   const rv = document.getElementById('receitasView');
   const cv = document.getElementById('compView');
   const pb = document.querySelector('.panelbox');
@@ -1202,9 +1375,14 @@ function render(){
   pb.style.display = special?'none':'';
   rv.style.display = isRec?'':'none';
   cv.style.display = isCmp?'':'none';
+  document.getElementById('finalView').style.display = isFin?'':'none';
+  // na aba Final, os cards das etapas saem da frente para a classificação ao vivo ficar perto do topo
+  ['stages','infocards'].forEach(id=>{ const x=document.getElementById(id); if(x) x.style.display = isFin?'none':''; });
+  lvSync();   // liga a atualização automática só enquanto a aba Final está aberta
   const pod=document.getElementById('podium'), favb=document.getElementById('favbar');
   if(isRec){ pod.style.display='none'; favb.style.display='none'; renderReceitas(); return; }
   if(isCmp){ pod.style.display='none'; favb.style.display='none'; renderComparativo(); return; }
+  if(isFin){ pod.style.display='none'; favb.style.display='none'; syncFinalTab(); renderFinalView(); return; }
   const rows = filtered();
   const grid = document.getElementById('grid');
   const mob = isMobile(); document.querySelector('.panelbox').classList.toggle('cardsmode', mob);
@@ -1408,7 +1586,7 @@ function syncUrl(push){
 function applyUrl(){
   const q=new URLSearchParams(location.search);
   const v=q.get('v'), a=q.get('a'), b=q.get('b');
-  const views=['table','rank','receitas','comparativo'];
+  const views=['table','rank','receitas','comparativo','final'];
   state.view = views.includes(v) ? v : 'table';
   if(state.view==='comparativo'){
     if(a && D.athletes.some(x=>x.name===a)) state.cmpA=a;
@@ -1689,7 +1867,7 @@ async function boot(){
 }
 boot();
 // ao voltar para a aba depois de um tempo, confere de novo a inscrição da Final
-document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && Date.now()-fsTry>FS_TTL) loadFinalSys(); });
+document.addEventListener('visibilitychange', ()=>{ lvSync(); if(!document.hidden && Date.now()-fsTry>FS_TTL) loadFinalSys(); });
 
 </script>
 </body>
