@@ -1,5 +1,5 @@
 {
- "fundoAcumulado": 308250,
+ "fundoAcumulado": 309150,
  "patrocinio": 135000,
  "totalParticipantes": 220,
  "etapasComResultado": 13,
@@ -77,13 +77,13 @@
   16800,
   15600,
   13500,
-  13950,
+  13800,
   10500,
   9000,
   10500,
   10200,
   7350,
-  7200
+  8250
  ],
  "stageParticipants": [
   134,
@@ -98,7 +98,7 @@
   70,
   68,
   49,
-  48
+  55
  ],
  "athletes": [
   {
@@ -1278,8 +1278,8 @@
      "score": 15
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 15,
+     "presencial": true
     }
    ]
   },
@@ -2089,8 +2089,8 @@
      "score": 13
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 14,
+     "presencial": true
     }
    ]
   },
@@ -3545,8 +3545,8 @@
      "score": 10
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 8,
+     "presencial": true
     }
    ]
   },
@@ -4194,8 +4194,8 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18,
+     "presencial": true
     }
    ]
   },
@@ -4299,8 +4299,8 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 16,
+     "presencial": true
     }
    ]
   },
@@ -4791,8 +4791,8 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 14,
+     "presencial": true
     }
    ]
   },
@@ -6719,13 +6719,13 @@
      "presencial": true
     },
     {
-     "score": 15
+     "score": 17
     },
     {
      "score": 15
     },
     {
-     "score": 14
+     "score": 17
     },
     {
      "score": 17
@@ -10692,8 +10692,7 @@
      "presencial": false
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 18
     }
    ]
   },
