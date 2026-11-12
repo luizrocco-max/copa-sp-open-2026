@@ -45,6 +45,17 @@
   .finalnote{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(245,197,24,.12),var(--panel));border:1px solid var(--line);border-left:4px solid var(--yellow-strong);border-radius:12px;padding:13px 16px;margin:18px 0;font-size:14px;line-height:1.45;color:var(--txt)}
   .finalnote .ico{font-size:20px;flex:0 0 auto}
   .finalnote b{color:var(--accent2)}
+  /* faixa de inscrição para a Final (dados lidos do sistema de resultados) */
+  .inscbar{align-items:center;gap:14px;flex-wrap:wrap;background:linear-gradient(90deg,rgba(213,30,43,.20),var(--panel));border:1px solid var(--accent);border-radius:12px;padding:14px 16px;margin:18px 0}
+  .inscbar .ico{font-size:26px;flex:0 0 auto}
+  .inscbar .tx{flex:1 1 260px;min-width:0}
+  .inscbar .tt{font-size:17px;font-weight:700}
+  .inscbar .sb{color:var(--muted);font-size:13px;margin-top:2px;line-height:1.4}
+  .inscbar .cnt{margin-top:6px;font-size:13px} .inscbar .cnt b{color:var(--accent2);font-size:15px}
+  .inscbtn{flex:0 0 auto;background:var(--accent);color:#fff;font-weight:700;font-size:15px;padding:11px 18px;border-radius:10px;text-decoration:none;white-space:nowrap}
+  .inscbtn:hover{filter:brightness(1.12)}
+  .cotalink{color:var(--accent2);font-weight:700;white-space:nowrap}
+  @media (max-width:640px){ .inscbtn{flex:1 1 100%;text-align:center} }
 
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:18px 0}
   .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
@@ -471,6 +482,8 @@
     <span><span id="finalLead"><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.</span><span id="qualNote"></span></span>
   </div>
 
+  <div class="inscbar" id="inscBar" style="display:none"></div>
+
   <div class="kpis" id="kpis"></div>
   <div class="infocards" id="infocards"></div>
   <div class="stages" id="stages"></div>
@@ -610,7 +623,124 @@ function renderInfoCards(){
 }
 // bandeirinha para quem já tem 6+ etapas (classificado para a Final)
 // ---------- cotas do fundo (mín. 11 para concorrer a prêmio em dinheiro) ----------
-const COTAS_MIN = 11;
+let COTAS_MIN = 11;
+
+// ---------- Final: leitura do sistema de resultados ao vivo ----------
+// O site da Copa só LÊ (API pública do sistema, sem chave). Inscrição e Pix ficam no sistema; nada é gravado daqui.
+const FINAL_EVT = 'mw2pnqq9e4ea6a';
+const FINAL_API = 'https://firestore.googleapis.com/v1/projects/resultados-esfah/databases/(default)/documents/eventos/'+FINAL_EVT;
+const FINAL_INSC_URL = 'https://resultados-esfah.web.app/inscricao/'+FINAL_EVT;
+const FS_KEY='copa_final_sys_v1', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_STALE=24*60*60*1000;
+let fsTry = 0;   // última tentativa de leitura (evita repetir a cada troca de aba)
+let FS = null;   // {cfg:{aberta,valor,valorCota,cotasMinimas}, insc:[{id,atiradorId,status,querPremio}]|null, ats:[{id,nome,cotasPagas}]|null}
+function fsVal(v){
+  if(!v || typeof v!=='object') return null;
+  if('stringValue' in v) return v.stringValue;
+  if('integerValue' in v) return Number(v.integerValue);
+  if('doubleValue' in v) return Number(v.doubleValue);
+  if('booleanValue' in v) return v.booleanValue;
+  if('arrayValue' in v) return (v.arrayValue.values||[]).map(fsVal);
+  if('mapValue' in v){ const o={}, f=v.mapValue.fields||{}; for(const k in f) o[k]=fsVal(f[k]); return o; }
+  return null;
+}
+function fsDoc(d){ const o={}, f=(d&&d.fields)||{}; for(const k in f) o[k]=fsVal(f[k]); if(d&&d.name) o._id=d.name.split('/').pop(); return o; }
+async function fsGet(url){ const r=await fetch(url,{cache:'no-store'}); if(!r.ok) throw new Error('fs '+r.status); return r.json(); }
+async function fsList(col, mask){
+  const out=[]; let tok='';
+  for(let n=0;n<10;n++){
+    const j=await fsGet(FINAL_API+'/'+col+'?pageSize=300'+(mask||'')+(tok?'&pageToken='+encodeURIComponent(tok):''));
+    (j.documents||[]).forEach(d=>out.push(fsDoc(d)));
+    tok=j.nextPageToken||''; if(!tok) break;
+  }
+  return out;
+}
+// nome do atirador -> situação dele no sistema (cotas pagas lançadas lá e inscrição na Final)
+function finalSysIndex(){
+  const m=new Map(); if(!FS || !FS.ats) return m;
+  const ins=new Map(); (FS.insc||[]).forEach(i=>{ if(i.status!=='cancelada') ins.set(i.atiradorId||i.id, i); });
+  FS.ats.forEach(s=>{ const i=ins.get(s.id);
+    m.set(s.nome, {cotasPagas:s.cotasPagas, confirmada: !!i && (i.status==='pago'||i.status==='isento'), querPremio: !!(i && i.querPremio)}); });
+  return m;
+}
+// Cotas do fundo e aptos ao prêmio. Sem dados do sistema: 1 cota por etapa disputada.
+// Com dados do sistema: vale a cota paga lançada lá; e quem quitou as cotas na inscrição confirmada também fica apto.
+function calcCotas(){
+  COTAS_MIN = (FS && FS.cfg && FS.cfg.cotasMinimas>0) ? FS.cfg.cotasMinimas : 11;
+  const idx=finalSysIndex();
+  D.athletes.forEach(a=>{
+    const z=idx.get(a.name)||null;
+    a.cotas = (z && z.cotasPagas!=null) ? z.cotasPagas : a.count;
+    a.cotasFalta = Math.max(0, COTAS_MIN - a.cotas);
+    a.quitouInsc = !!(z && z.confirmada && z.querPremio && a.cotasFalta>0);
+    a.aptoPremio = a.cotasFalta===0 || a.quitouInsc;
+  });
+}
+function renderKpis(){
+  const totalPres = D.athletes.reduce((s,a)=>s+a.presCount,0);
+  const qualified = D.athletes.filter(a=>a.count>=6).length;
+  const kpis = [
+    {l:'Fundo acumulado', v: money(D.fundoAcumulado), accent:true},
+    {l:'Patrocínio', v: money(D.patrocinio)},
+    {l:'Participantes', v: fmtBR(D.athletes.length)},
+    {l: D.faseEncerrada ? 'Classificados para a Final' : 'Classificados até a '+D.stages.length+'ª', v: fmtBR(qualified), flag:true, action:'final'},
+    {l:'Aptos ao prêmio ('+COTAS_MIN+' cotas)', v: fmtBR(D.athletes.filter(a=>a.aptoPremio).length), action:'cotas'},
+    {l:'Etapas', v: D.stages.length},
+    {l:'Participações presenciais', v: fmtBR(totalPres), accent:true},
+  ];
+  document.getElementById('kpis').innerHTML = kpis.map(k=>
+    '<div class="kpi '+(k.accent?'accent':'')+(k.lead?' lead':'')+(k.action?' clk':'')+'"'+(k.action?' data-action="'+k.action+'"':'')+(k.aname?' data-name="'+k.aname.replace(/"/g,'&quot;')+'"':'')+' title="'+(k.action==='final'?'Ver só os classificados':(k.action==='leader'?'Abrir painel do líder':(k.action==='cotas'?'Ver classificados que ainda precisam completar as cotas':'')))+'"><div class="v">'+(k.flag?'🏁 ':'')+k.v+'</div><div class="l">'+k.l+'</div></div>').join('');
+}
+// Faixa "Inscrição para a Final": aparece sozinha quando o sistema marca as inscrições como abertas
+// (ou, depois de encerradas, enquanto houver inscritos para mostrar). Sem isso, fica escondida.
+function renderFinalBanner(){
+  const el=document.getElementById('inscBar'); if(!el) return;
+  const c=FS && FS.cfg, ins=(FS && FS.insc) || null;
+  const validas = ins ? ins.filter(i=>i.status!=='cancelada') : [];
+  const conf = validas.filter(i=>i.status==='pago'||i.status==='isento');
+  if(!c || (!c.aberta && !validas.length)){ el.style.display='none'; el.innerHTML=''; return; }
+  const cf=(D.calendario||[]).find(x=>/final/i.test(x.n||''));
+  const quando = cf ? [cf.data, cf.local].filter(Boolean).join(' · ') : '';
+  const sub = c.aberta
+    ? [quando, (c.valor>0 ? 'taxa de '+money(c.valor) : ''), 'inscrição e Pix no sistema oficial da Final'].filter(Boolean).join(' · ')
+    : [quando, 'lista de inscritos no sistema oficial da Final'].filter(Boolean).join(' · ');
+  const cnt = validas.length
+    ? '<div class="cnt">Inscritos: <b>'+fmtBR(validas.length)+'</b>'+(D.qualCount? ' de '+fmtBR(D.qualCount) : '')+' · Confirmados: <b>'+fmtBR(conf.length)+'</b></div>'
+    : '';
+  el.innerHTML = '<span class="ico">🏆</span>'+
+    '<div class="tx"><div class="tt">'+(c.aberta ? 'Inscrição para a Final' : 'Inscrições para a Final encerradas')+'</div><div class="sb">'+sub+'</div>'+cnt+'</div>'+
+    '<a class="inscbtn" href="'+FINAL_INSC_URL+'" target="_blank" rel="noopener">'+(c.aberta ? 'Fazer inscrição →' : 'Ver inscritos →')+'</a>';
+  el.style.display='flex';
+}
+function applyFinalSys(){
+  calcCotas(); renderKpis(); renderFinalBanner();
+  if(typeof render==='function') render();
+  if(openAthlete) openDetail(openAthlete, true);   // painel aberto: atualiza o quadro de cotas
+}
+async function loadFinalSys(force){
+  let c=null; try{ c=JSON.parse(localStorage.getItem(FS_KEY)||'null'); }catch(e){}
+  if(c && c.evt!==FINAL_EVT) c=null;
+  const now=Date.now(); fsTry=now;
+  if(c && !force && now-c.t<FS_TTL){ FS=c; applyFinalSys(); return; }
+  try{
+    const ev=await fsGet(FINAL_API+'?mask.fieldPaths=inscricao.aberta&mask.fieldPaths=inscricao.valor&mask.fieldPaths=inscricao.valorCota&mask.fieldPaths=inscricao.cotasMinimas');
+    const cfg=fsDoc(ev).inscricao||{};
+    // enquanto o sistema não publicar a leitura das inscrições, isto falha e o site segue sem contador
+    let insc=null; try{ insc=await fsList('inscricoes','&mask.fieldPaths=atiradorId&mask.fieldPaths=status&mask.fieldPaths=querPremio'); }catch(e){ insc=null; }
+    let ats=null, atsT=0;
+    if(cfg.aberta===true || (insc && insc.length)){
+      if(c && c.ats && now-(c.atsT||0)<FS_TTL_ATS){ ats=c.ats; atsT=c.atsT; }
+      else { try{ ats=(await fsList('atiradores','&mask.fieldPaths=nome&mask.fieldPaths=cotasPagas')).map(a=>({id:a._id, nome:a.nome, cotasPagas:(typeof a.cotasPagas==='number' ? a.cotasPagas : null)})); atsT=now; }catch(e){ ats=null; } }
+    }
+    FS={evt:FINAL_EVT, t:now,
+      cfg:{aberta:cfg.aberta===true, valor:+cfg.valor||0, valorCota:+cfg.valorCota||0, cotasMinimas:+cfg.cotasMinimas||0},
+      insc: insc ? insc.map(i=>({id:i._id, atiradorId:i.atiradorId||'', status:i.status||'', querPremio:i.querPremio===true})) : null,
+      ats, atsT};
+    try{ localStorage.setItem(FS_KEY, JSON.stringify(FS)); }catch(e){}
+  }catch(e){
+    FS = (c && now-c.t<FS_STALE) ? c : null;   // sem rede / sistema fora do ar: último dado conhecido (até 24 h)
+  }
+  applyFinalSys();
+}
 const posTxt = a => a.rankTotal ? a.rankTotal+'º' : '—';
 function cotaValor(){
   for(let i=0;i<D.stages.length;i++){ const p=D.stageParticipants[i], f=D.fundoEtapa[i];
@@ -751,6 +881,7 @@ function loadDataset(){
     a.majorTop = a.presScores.slice(0,4);
     a.major = a.majorTop.reduce((x,y)=>x+y,0);
   });
+  calcCotas();   // ajusta cotas/aptos ao prêmio com os dados do sistema da Final, quando houver
   // classificação Top Gun (sequencial; desempate por melhor nota, depois nome — o oficial é tiro de desempate)
   const byTotal = [...D.athletes].sort((a,b)=> b.topgun-a.topgun || b.best-a.best || a.name.localeCompare(b.name,'pt-BR'));
   D.athletes.forEach(a=>{ a.rankTotal=null; });
@@ -765,20 +896,8 @@ function loadDataset(){
   // título dinâmico (nº de etapas com resultado)
   const mt=document.getElementById('mainTitle'); if(mt) mt.innerHTML='Resultado &amp; Fundo de Premiação — até a '+D.stages.length+'ª Etapa';
   // KPIs
-  const totalPres = D.athletes.reduce((s,a)=>s+a.presCount,0);
   const qualified = D.athletes.filter(a=>a.count>=6).length;
-  const leader = D.athletes.find(a=>a.rankTotal===1);
-  const kpis = [
-    {l:'Fundo acumulado', v: money(D.fundoAcumulado), accent:true},
-    {l:'Patrocínio', v: money(D.patrocinio)},
-    {l:'Participantes', v: fmtBR(D.athletes.length)},
-    {l: D.faseEncerrada ? 'Classificados para a Final' : 'Classificados até a '+D.stages.length+'ª', v: fmtBR(qualified), flag:true, action:'final'},
-    {l:'Aptos ao prêmio (11 cotas)', v: fmtBR(D.athletes.filter(a=>a.aptoPremio).length), action:'cotas'},
-    {l:'Etapas', v: D.stages.length},
-    {l:'Participações presenciais', v: fmtBR(totalPres), accent:true},
-  ];
-  document.getElementById('kpis').innerHTML = kpis.map(k=>
-    '<div class="kpi '+(k.accent?'accent':'')+(k.lead?' lead':'')+(k.action?' clk':'')+'"'+(k.action?' data-action="'+k.action+'"':'')+(k.aname?' data-name="'+k.aname.replace(/"/g,'&quot;')+'"':'')+' title="'+(k.action==='final'?'Ver só os classificados':(k.action==='leader'?'Abrir painel do líder':(k.action==='cotas'?'Ver classificados que ainda precisam completar as cotas':'')))+'"><div class="v">'+(k.flag?'🏁 ':'')+k.v+'</div><div class="l">'+k.l+'</div></div>').join('');
+  renderKpis();
   renderInfoCards();
   const qn=document.getElementById('qualNote'), fl=document.getElementById('finalLead');
   const cf=(D.calendario||[]).find(c=>/final/i.test(c.n||''));
@@ -1454,7 +1573,7 @@ function openDetail(name, fromUrl){
     {l:'Melhor nota', v:a.best},
     {l:'Participações', v:a.count+' / '+D.stages.length},
     {l:'Presenciais', v:a.presCount},
-    {l:'Cotas do fundo', v:a.cotas+' / '+COTAS_MIN},
+    {l:'Cotas do fundo', v:(a.quitouInsc ? COTAS_MIN : a.cotas)+' / '+COTAS_MIN},
     {l:'Majorança (4 melhores)', v: a.presCount>=4? a.major : '—', accent:true},
   ];
   const rows=a.etapas.map((e,i)=>{
@@ -1484,9 +1603,11 @@ function openDetail(name, fromUrl){
           : '<div class="cotanote pend">🏁 <b>Não alcança mais as 6 etapas</b> nesta edição — tem '+a.count+' e resta'+(D.etapasRestantes>1?'m':'')+' apenas <b>'+D.etapasRestantes+'</b> etapa'+(D.etapasRestantes>1?'s':'')+' no calendário.</div>')))+
       (function(){ const v=cotaValor();
         if(!a.podeClassificar) return '';   // sem chance de Final: cobrar cotas nao faz sentido
+        if(a.quitouInsc) return '<div class="cotanote">💰 <b>Apto ao prêmio em dinheiro</b> — a'+(a.cotasFalta>1?'s '+a.cotasFalta+' cotas que faltavam foram quitadas':' cota que faltava foi quitada')+' na inscrição da Final.</div>';
+        const insAberta = !!(FS && FS.cfg && FS.cfg.aberta);
         return a.aptoPremio
           ? '<div class="cotanote">💰 <b>Apto ao prêmio em dinheiro</b> — '+a.cotas+' cotas do fundo ('+COTAS_MIN+' é o mínimo exigido).</div>'
-          : '<div class="cotanote pend">💰 <b>'+a.cotas+' de '+COTAS_MIN+' cotas</b> do fundo. Para concorrer ao prêmio em dinheiro, faltam <b>'+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b> — <span class="vl">'+money(a.cotasFalta*v)+'</span>, que podem ser quitadas antes da Final.</div>'; })()+
+          : '<div class="cotanote pend">💰 <b>'+a.cotas+' de '+COTAS_MIN+' cotas</b> do fundo. Para concorrer ao prêmio em dinheiro, falta'+(a.cotasFalta>1?'m':'')+' <b>'+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b> — <span class="vl">'+money(a.cotasFalta*v)+'</span>, que pode'+(a.cotasFalta>1?'m ser quitadas ':' ser quitada ')+(insAberta ? 'na inscrição da Final. <a class="cotalink" href="'+FINAL_INSC_URL+'" target="_blank" rel="noopener">Quitar na inscrição →</a>' : 'antes da Final.')+'</div>'; })()+
       (a.presCount>=4? '<div class="majnote">Majorança = soma das 4 melhores notas presenciais'+(a.presScores.length>4?' (de '+a.presScores.length+' presenciais)':'')+': <b>'+a.majorTop.join(' + ')+' = '+a.major+'</b></div>' : '<div class="majnote">Majorança ainda não disponível — exige <b>no mínimo 4 etapas presenciais</b> (este atirador tem '+a.presCount+').'+(D.faseEncerrada?'':' Será calculada conforme as próximas etapas forem registradas.')+'</div>')+
       '<div class="charttitle">Evolução por etapa</div>'+
       '<div class="chartwrap">'+chartSVG(a)+
@@ -1560,8 +1681,11 @@ async function boot(){
   }catch(e){ /* offline/local: usa o dataset embutido */ }
   loadDataset();
   applyUrl();   // aplica aba/atirador vindos do link compartilhado (cai em render())
+  loadFinalSys();   // inscrição da Final: lê do sistema de resultados (não bloqueia a página)
 }
 boot();
+// ao voltar para a aba depois de um tempo, confere de novo a inscrição da Final
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && Date.now()-fsTry>FS_TTL) loadFinalSys(); });
 
 </script>
 </body>
