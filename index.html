@@ -56,7 +56,9 @@
   .fnchip.done{background:rgba(54,196,111,.16);border-color:var(--good);color:var(--good)}
   @keyframes fnpulse{50%{opacity:.55}}
   .fnmeta{color:var(--muted);font-size:12px}
-  .fnlink{margin-left:auto;background:var(--panel2);border:1px solid var(--line);color:var(--txt);font-weight:700;font-size:13px;padding:8px 12px;border-radius:9px;text-decoration:none;white-space:nowrap}
+  .fnbtns{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.fnlink{background:var(--panel2);border:1px solid var(--line);color:var(--txt);font-weight:700;font-size:13px;padding:8px 12px;border-radius:9px;text-decoration:none;white-space:nowrap}
+.fnlink.fninsc{background:var(--accent);border-color:var(--accent);color:#fff}
   .fnlink:hover{border-color:var(--accent2)}
   .fnsum{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}
   .fnsum div{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--muted)}
@@ -83,7 +85,7 @@
   .fnmodos{border-bottom:1px solid var(--line);padding-bottom:10px}
   .fnq{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--accent2);border:1px solid var(--accent2);border-radius:10px;padding:1px 6px;margin-left:6px;white-space:nowrap}
   .fntable tr.wait .nm{font-weight:400}
-  @media (max-width:640px){ .fntable .hm{display:none} .fntable td,.fntable th{padding:7px 5px} .fntable .pz{width:24px;padding:7px 1px} .fnlink{margin-left:0} .fnv{padding:12px} }
+  @media (max-width:640px){ .fntable .hm{display:none} .fntable td,.fntable th{padding:7px 5px} .fntable .pz{width:24px;padding:7px 1px} .fnbtns{margin-left:0} .fnv{padding:12px} }
   /* faixa de inscrição para a Final (dados lidos do sistema de resultados) */
   .inscbar{align-items:center;gap:14px;flex-wrap:wrap;background:linear-gradient(90deg,rgba(213,30,43,.20),var(--panel));border:1px solid var(--accent);border-radius:12px;padding:14px 16px;margin:18px 0}
   .inscbar .ico{font-size:26px;flex:0 0 auto}
@@ -695,8 +697,8 @@ const FINAL_PROVAS = {final:'final', majoranca:'majoranca', topgun:'topgun'};   
 const FINAL_API = 'https://firestore.googleapis.com/v1/projects/resultados-esfah/databases/(default)/documents/eventos/'+FINAL_EVT;
 const FINAL_INSC_URL = FINAL_SITE+'/c/cctsp/inscricao';   // atalho do clube: abre a inscrição da Final
 // inscrição já aberta na situação do atirador (número dele na Final). O site só direciona: nada de pagamento passa por aqui.
-const finalInscUrl = num => FINAL_INSC_URL + (num ? '?atirador='+encodeURIComponent(num) : '');
-const FINAL_VIVO_URL = FINAL_SITE+'/ao-vivo/'+FINAL_EVT;
+const finalInscUrl = num => num ? FINAL_SITE+'/inscricao/'+FINAL_EVT+'?atirador='+encodeURIComponent(num) : FINAL_INSC_URL;   // com número: já abre na inscrição do atirador
+const FINAL_VIVO_URL = FINAL_SITE+'/c/cctsp/vivo';
 const FS_KEY='copa_final_sys_v2', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_STALE=24*60*60*1000;
 // TRAVA DA INSCRIÇÃO. Enquanto for false, o site não mostra NADA de inscrição (faixa, links, contador de inscritos,
 // cotas quitadas), mesmo que as inscrições já estejam abertas no sistema, por exemplo durante os testes de lá.
@@ -782,8 +784,8 @@ function renderFinalBanner(){
     ? '<div class="cnt">Inscritos: <b>'+fmtBR(validas.length)+'</b>'+(D.qualCount? ' de '+fmtBR(D.qualCount) : '')+' · Confirmados: <b>'+fmtBR(conf.length)+'</b></div>'
     : '';
   el.innerHTML = '<span class="ico">🏆</span>'+
-    '<div class="tx"><div class="tt">'+(c.aberta ? 'Inscrição para a Final' : 'Inscrições para a Final encerradas')+'</div><div class="sb">'+sub+'</div>'+cnt+'</div>'+
-    '<a class="inscbtn" href="'+FINAL_INSC_URL+'" target="_blank" rel="noopener">'+(c.aberta ? 'Fazer inscrição →' : 'Ver inscritos →')+'</a>';
+    '<div class="tx"><div class="tt">'+(c.aberta ? 'Inscrições abertas para a Final' : 'Inscrições para a Final encerradas')+'</div><div class="sb">'+sub+'</div>'+cnt+'</div>'+
+    '<a class="inscbtn" href="'+FINAL_INSC_URL+'" target="_blank" rel="noopener">'+(c.aberta ? '🏆 Inscrição da Final →' : 'Ver inscritos →')+'</a>';
   const sbx=el.querySelector('.sb'); if(sbx) sbx.insertAdjacentHTML('beforeend',' · <a class="cotalink" href="classificados.html">valores e lista dos classificados</a>');
   el.style.display='flex';
 }
@@ -929,7 +931,8 @@ function renderFinalView(){
   const meta = !LV.t ? (LV.err ? 'Sem resposta do sistema agora. Tentando de novo…' : 'Carregando…')
     : 'Atualizado às '+hora+(st==='ao_vivo' ? ' · atualiza sozinho a cada '+Math.round(LIVE_MS/1000)+' s' : '')+(LV.err ? ' · sem resposta do sistema agora, mostrando o último dado' : '');
   const head='<div class="fnhead"><h2>'+(st==='encerrada' ? 'Resultado da Final' : 'Final ao vivo')+'</h2>'+chip+'<span class="fnmeta">'+meta+'</span>'+
-    '<a class="fnlink" href="'+FINAL_VIVO_URL+'" target="_blank" rel="noopener">Ao vivo completo ↗</a></div>';
+    '<span class="fnbtns">'+(FS && FS.cfg && FS.cfg.aberta ? '<a class="fnlink fninsc" href="'+FINAL_INSC_URL+'" target="_blank" rel="noopener">🏆 Inscrição da Final ↗</a>' : '')+
+    '<a class="fnlink" href="'+FINAL_VIVO_URL+'" target="_blank" rel="noopener">Ao vivo completo ↗</a></span></div>';
   const geral=lvClass(FINAL_PROVAS.final,'geral');
   const comecaram=geral.filter(r=>r.comecou);
   if(!LV.t || !pf || !comecaram.length){

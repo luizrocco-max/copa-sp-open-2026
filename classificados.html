@@ -85,7 +85,8 @@
   .grp{margin-top:14px} .grp h3{margin:0;font-size:15px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
   .grp h3 .v{color:var(--accent2)} .grp h3 small{color:var(--muted);font-weight:400;font-size:12px}
   .cats{display:grid;grid-template-columns:1fr 1fr;gap:18px} .cats h3{margin:0 0 2px;font-size:16px} .cats ul.lista{columns:1}
-  @media (max-width:640px){ .kp{grid-template-columns:1fr 1fr} .duo,.cats{grid-template-columns:1fr} ul.lista,ul.lista.c3{columns:1} }
+  @media (max-width:640px){ .precos thead{display:none} .precos,.precos tbody{display:block;min-width:0} .precos tr{display:grid;grid-template-columns:1fr auto;gap:3px 12px;padding:11px 0;border-bottom:1px solid var(--line)} .precos td{padding:0;border:0} .precos td:nth-child(1){grid-column:1;grid-row:1} .precos td:nth-child(3){grid-column:2;grid-row:1;font-weight:700;color:var(--accent2)} .precos td:nth-child(2){grid-column:1 / -1;grid-row:2;color:var(--muted);font-size:13px}
+  .kp{grid-template-columns:1fr 1fr} .duo,.cats{grid-template-columns:1fr} ul.lista,ul.lista.c3{columns:1} }
 </style>
 </head>
 <body>
@@ -133,20 +134,24 @@
     <p>A inscrição e as cotas são pagas pelo <b>LiveClays</b>, na página de inscrição da Final.</p>
     <ol class="passos">
       <li>Abra a página de inscrição da Final<span id="inscFechada" class="muted"> (as inscrições ainda não abriram)</span><span id="inscAberta" style="display:none"> ou toque no seu nome nas listas abaixo, que já abre na sua situação</span>.</li>
-      <li>Escolha <b>“só a inscrição”</b> ou <b>“inscrição + prêmio em dinheiro”</b>.</li>
-      <li>Pague por <b>Pix</b> e anexe o comprovante.</li>
-      <li>A inscrição vale depois que a organização conferir o pagamento.</li>
+      <li>Escolha a prova (<b>só Copa São Paulo</b> ou <b>Copa Brasil</b>) e se concorre ao <b>prêmio em dinheiro</b>.</li>
+      <li>Pague por <b>Pix</b> (QR Code ou copia e cola, já no valor certo) e anexe o comprovante na mesma página.</li>
+      <li>A inscrição vale quando a organização conferir o pagamento. O nome passa a aparecer em destaque na lista.</li>
     </ol>
     <p id="inscBotao" style="display:none"><a class="btn" href="https://liveclays.com/c/cctsp/inscricao" target="_blank" rel="noopener">🏆 Inscrição da Final ↗</a></p>
-    <div class="tw"><table>
+    <div class="tw"><table class="precos">
       <thead><tr><th>Quanto fica</th><th>O que inclui</th><th style="text-align:right">Valor</th></tr></thead>
       <tbody>
         <tr><td>Só a Final</td><td>Inscrição. Disputa troféu e medalha.</td><td style="text-align:right;white-space:nowrap">R$ 200</td></tr>
         <tr><td>Final + prêmio em dinheiro</td><td>Inscrição (R$ 200) + fundo de premiação da Final (R$ 500). Para quem já tem as 11 cotas.</td><td style="text-align:right;white-space:nowrap">R$ 700</td></tr>
         <tr><td>Final + prêmio em dinheiro, completando as cotas</td><td>Os R$ 700 acima + R$ 150 por cota que falta para chegar às 11.</td><td style="text-align:right;white-space:nowrap">R$ 850 a R$ 1.450</td></tr>
+        <tr><td>Com a Copa Brasil <span class="muted">(mesmo dia, opcional)</span></td><td>Copa Brasil: R$ 150 de inscrição + R$ 150 de fundo de premiação, obrigatório. Quem se inscreve na Copa Brasil <b>não paga</b> os R$ 200 da inscrição da Copa São Paulo e pode atirar as duas.</td><td style="text-align:right;white-space:nowrap">R$ 300</td></tr>
+        <tr><td>Com a Copa Brasil + prêmio em dinheiro da Copa São Paulo</td><td>Os R$ 300 acima + fundo de premiação da Final (R$ 500). Quem tem cota faltando soma R$ 150 por cota.</td><td style="text-align:right;white-space:nowrap">R$ 800</td></tr>
       </tbody>
     </table></div>
-    <p>O fundo de premiação e as cotas são <b>opcionais</b>: só paga quem quer concorrer ao prêmio em dinheiro. <b>Prazo para pagar:</b> até o dia da Final, 28 de novembro.</p>
+    <p>O fundo de premiação e as cotas são <b>opcionais</b>: só paga quem quer concorrer ao prêmio em dinheiro. <b>Prazo:</b> a partir de 27 de novembro (véspera), as listas mostram só quem está com a inscrição confirmada. Quem acertar depois, inclusive no dia, entra assim que a organização conferir.</p>
+    <p class="muted">Dúvidas: fale com a organização pelo WhatsApp que aparece na página de inscrição. Quem não é classificado e quer atirar a Copa Brasil trata direto no clube.</p>
+    <p class="muted">No dia da Final, acompanhe os <a href="https://liveclays.com/c/cctsp/vivo" target="_blank" rel="noopener" style="color:inherit;font-weight:700">resultados ao vivo ↗</a></p>
   </section>
 
   <section>
@@ -177,6 +182,7 @@
 (function(){
   var INSC_LIGADA = true;   // false = esconde os links de inscrição mesmo com as inscrições abertas no sistema
   var INSC = 'https://liveclays.com/c/cctsp/inscricao';
+  var INSC_AT = 'https://liveclays.com/inscricao/mw2pnqq9e4ea6a?atirador=';   // abre direto na inscrição do atirador (número de 3 dígitos)
   var API = 'https://firestore.googleapis.com/v1/projects/resultados-esfah/databases/(default)/documents/eventos/mw2pnqq9e4ea6a';
   var MIN = 11, COTA = 150, BASE = 700;   // 11 cotas; R$ 150 por cota; R$ 200 de inscrição + R$ 500 do fundo da Final
   // retrato de 13/11/2026: [número, nome, categoria, etapas, cotas que faltam]; ao abrir a página é atualizado pelo sistema
@@ -186,7 +192,7 @@
   function limpa(t){ return (t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
   function txt(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
   function reais(n){ return 'R$ '+n.toLocaleString('pt-BR'); }
-  function nome(a){ return aberta ? '<a class="nm lk" href="'+INSC+'?atirador='+encodeURIComponent(a[0])+'" target="_blank" rel="noopener" title="Abrir a inscrição deste atirador no LiveClays">'+txt(a[1])+'</a>' : '<span class="nm">'+txt(a[1])+'</span>'; }
+  function nome(a){ return aberta ? '<a class="nm lk" href="'+INSC_AT+encodeURIComponent(a[0])+'" target="_blank" rel="noopener" title="Abrir a inscrição deste atirador no LiveClays">'+txt(a[1])+'</a>' : '<span class="nm">'+txt(a[1])+'</span>'; }
   function li(a, comCat){ return '<li><span class="n">'+txt(a[0])+'</span>'+nome(a)+(comCat ? '<span class="c c'+a[2]+'">'+a[2]+'</span>' : '')+'</li>'; }
   function mostra(){
     var q=limpa(g('busca').value).trim(), res=g('resBusca'); if(q.length<2){ res.innerHTML=''; return; }
@@ -197,7 +203,7 @@
         '<div class="rs">🏁 Classificado para a Final, com '+a[3]+' etapas. Disputa troféu e medalha.</div>'+
         '<div class="rs">'+(f ? '💰 Pode completar <b>'+f+' cota'+(f>1?'s':'')+' ('+reais(f*COTA)+')</b> para concorrer também ao prêmio em dinheiro. É opcional.' : '💰 Já tem as 11 cotas.')+'</div>'+
         '<div class="rs vals">Só a Final: <b>R$ 200</b> · Com prêmio em dinheiro: <b>'+reais(BASE+f*COTA)+'</b>'+(f ? ' <span class="muted">(R$ 700 + '+f+' cota'+(f>1?'s':'')+')</span>' : '')+'</div>'+
-        (aberta ? '<a class="btn" href="'+INSC+'?atirador='+encodeURIComponent(a[0])+'" target="_blank" rel="noopener">Abrir a minha inscrição ↗</a>' : '')+'</div>'; }).join('');
+        (aberta ? '<a class="btn" href="'+INSC_AT+encodeURIComponent(a[0])+'" target="_blank" rel="noopener">Abrir a minha inscrição ↗</a>' : '')+'</div>'; }).join('');
   }
   function desenha(){
     var tem=LISTA.filter(function(a){ return a[4]===0; }), pode=LISTA.filter(function(a){ return a[4]>0; });
