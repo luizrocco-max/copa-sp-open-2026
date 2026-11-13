@@ -45,6 +45,8 @@
   .finalnote{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(245,197,24,.12),var(--panel));border:1px solid var(--line);border-left:4px solid var(--yellow-strong);border-radius:12px;padding:13px 16px;margin:18px 0;font-size:14px;line-height:1.45;color:var(--txt)}
   .finalnote .ico{font-size:20px;flex:0 0 auto}
   .finalnote b{color:var(--accent2)}
+  .finalnote .clslink{color:var(--txt);font-weight:700;white-space:nowrap;text-decoration:underline;text-decoration-color:var(--yellow-strong);text-underline-offset:3px}
+  .finalnote .clslink:hover{color:var(--accent2)}
   /* aba Final ao vivo (classificação lida do sistema de resultados) */
   .fnv{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:10px}
   .fnhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
@@ -535,7 +537,7 @@
 
   <div class="finalnote">
     <span class="ico">🏁</span>
-    <span><span id="finalLead"><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.</span><span id="qualNote"></span></span>
+    <span><span id="finalLead"><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.</span><span id="qualNote"></span> <a class="clslink" href="classificados.html">Ver a lista dos classificados e como funciona o prêmio →</a></span>
   </div>
 
   <div class="inscbar" id="inscBar" style="display:none"></div>
@@ -699,7 +701,7 @@ const FS_KEY='copa_final_sys_v2', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_S
 // TRAVA DA INSCRIÇÃO. Enquanto for false, o site não mostra NADA de inscrição (faixa, links, contador de inscritos,
 // cotas quitadas), mesmo que as inscrições já estejam abertas no sistema, por exemplo durante os testes de lá.
 // Só passa a true com o ok do Luiz. A aba da Final ao vivo e o fechamento não dependem desta trava.
-const INSC_LIGADA = false;
+const INSC_LIGADA = true;   // ligada em 13/11/2026, com o ok do Luiz
 let fsTry = 0;   // última tentativa de leitura (evita repetir a cada troca de aba)
 let FS = null;   // {cfg:{aberta,valor,valorCota,cotasMinimas}, insc:[{id,atiradorId,status,querPremio}]|null, ats:[{id,nome,cotasPagas}]|null}
 function fsVal(v){
@@ -774,7 +776,7 @@ function renderFinalBanner(){
   const cf=(D.calendario||[]).find(x=>/final/i.test(x.n||''));
   const quando = cf ? [cf.data, cf.local].filter(Boolean).join(' · ') : '';
   const sub = c.aberta
-    ? [quando, (c.valor>0 ? 'taxa de '+money(c.valor) : ''), 'inscrição e Pix no sistema oficial da Final'].filter(Boolean).join(' · ')
+    ? [quando, (c.valor>0 ? 'inscrição de '+money(c.valor) : ''), 'pagamento por Pix no LiveClays'].filter(Boolean).join(' · ')
     : [quando, 'lista de inscritos no sistema oficial da Final'].filter(Boolean).join(' · ');
   const cnt = validas.length
     ? '<div class="cnt">Inscritos: <b>'+fmtBR(validas.length)+'</b>'+(D.qualCount? ' de '+fmtBR(D.qualCount) : '')+' · Confirmados: <b>'+fmtBR(conf.length)+'</b></div>'
@@ -782,6 +784,7 @@ function renderFinalBanner(){
   el.innerHTML = '<span class="ico">🏆</span>'+
     '<div class="tx"><div class="tt">'+(c.aberta ? 'Inscrição para a Final' : 'Inscrições para a Final encerradas')+'</div><div class="sb">'+sub+'</div>'+cnt+'</div>'+
     '<a class="inscbtn" href="'+FINAL_INSC_URL+'" target="_blank" rel="noopener">'+(c.aberta ? 'Fazer inscrição →' : 'Ver inscritos →')+'</a>';
+  const sbx=el.querySelector('.sb'); if(sbx) sbx.insertAdjacentHTML('beforeend',' · <a class="cotalink" href="classificados.html">valores e lista dos classificados</a>');
   el.style.display='flex';
 }
 function applyFinalSys(){

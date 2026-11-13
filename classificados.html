@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classificados para a Final — Copa São Paulo Open 2026</title>
+<meta name="description" content="Os 91 classificados para a Final da V Copa São Paulo Open de Tiro às Hélices, as categorias A e B e como funciona o prêmio em dinheiro.">
+<meta name="theme-color" content="#0f1115">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222c; --line:#2a2f3a;
+    --txt:#e8eaed; --muted:#9aa3b2; --accent:#d51e2b; --accent2:#ffd24a;
+    --yellow-strong:#f5c518; --good:#36c46f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,Arial,sans-serif;background:var(--bg);color:var(--txt);font-size:15px;line-height:1.6}
+  a{color:var(--accent2)}
+  .wrap{max-width:900px;margin:0 auto;padding:18px}
+  header.top{display:flex;align-items:center;gap:22px;flex-wrap:wrap;background:linear-gradient(135deg,#fff,#f2f2f2);border-radius:16px;padding:18px 24px;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+  header.top img{height:96px}
+  .htext h1{margin:6px 0 0;font-size:22px;color:#111}
+  .htext p{margin:4px 0 0;color:#444;font-size:13px}
+  .badge{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:11px;padding:3px 9px;border-radius:5px;letter-spacing:1px}
+  .voltar{display:inline-block;margin:16px 0 0;color:var(--muted);text-decoration:none;font-size:14px}
+  .voltar:hover{color:var(--txt)}
+  .resumo{background:linear-gradient(90deg,rgba(245,197,24,.12),var(--panel));border:1px solid var(--line);border-left:4px solid var(--yellow-strong);border-radius:12px;padding:14px 18px;margin:14px 0 18px}
+  .resumo h2{margin:0 0 6px;font-size:16px;color:var(--accent2)}
+  .resumo ul{margin:0;padding-left:20px}
+  .resumo li{margin:3px 0}
+  section{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+  section h2{margin:0 0 8px;font-size:17px}
+  section p{margin:8px 0}
+  section ul{margin:8px 0;padding-left:20px}
+  section li{margin:5px 0}
+  b,strong{color:#fff}
+  .tw{overflow-x:auto;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:8px;border-bottom:1px solid var(--line)}
+  td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  td:first-child{font-weight:600;color:#fff}
+  tr:last-child td{border-bottom:none}
+  .muted{color:var(--muted);font-size:13px}
+  .btn{display:inline-block;background:var(--accent);color:#fff;font-weight:700;padding:9px 14px;border-radius:9px;text-decoration:none;margin-top:4px}
+  .btn:hover{filter:brightness(1.12)}
+  /* trecho que ainda depende de confirmação da organização: não publicar enquanto houver algum */
+  mark.pend{background:#ffe69a;color:#3a2c00;border-radius:4px;padding:1px 6px;font-weight:700}
+  footer{color:var(--muted);font-size:11px;text-align:center;margin:18px 0}
+  footer a{color:inherit}
+  @media (max-width:640px){
+    header.top{flex-direction:column;align-items:flex-start;gap:12px;padding:14px 16px}
+    header.top img{height:56px}
+    .htext h1{font-size:18px}
+    .wrap{padding:12px}
+    section{padding:14px}
+  }
+  @media print{ body{background:#fff;color:#000} section,.resumo{border-color:#ccc;background:#fff} b,strong,td:first-child{color:#000} a{color:#000} .voltar,.btn{display:none} }
+
+  .wrap{max-width:980px}
+  .rasc{background:#ffe69a;color:#3a2c00;font-weight:700;text-align:center;padding:8px 12px;border-radius:10px;margin:0 0 12px;font-size:13px}
+  .achar input{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--txt);font-size:16px;padding:12px 14px;outline:none}
+  .achar input:focus{border-color:var(--accent2)}
+  .res{background:var(--panel2);border:1px solid var(--line);border-left:4px solid var(--good);border-radius:10px;padding:12px 14px;margin-top:10px}
+  .res.pode{border-left-color:var(--yellow-strong)}
+  .res .rn{font-size:16px;font-weight:700;color:#fff;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+  .res .rs{margin:6px 0 2px;font-size:14px}
+  .res .vals{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+  .res .btn{margin-top:8px}
+  .nada{color:var(--muted);margin-top:10px;font-size:14px}
+  .kp{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+  .kp div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .kp b{display:block;font-size:24px;color:var(--accent2)} .kp span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .box{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .box h3{margin:0 0 4px;font-size:15px} .box p{margin:4px 0;font-size:14px}
+  .box.ouro{border-left:4px solid var(--yellow-strong)} .box.verde{border-left:4px solid var(--good)}
+  ol.passos{margin:8px 0;padding-left:22px} ol.passos li{margin:5px 0}
+  ul.lista{list-style:none;margin:8px 0 0;padding:0;columns:2;column-gap:22px}
+  ul.lista.c3{columns:3}
+  ul.lista li{display:flex;align-items:baseline;gap:8px;padding:4px 0;border-bottom:1px solid var(--line);break-inside:avoid;font-size:14px;margin:0}
+  a.lk{text-decoration:underline;text-decoration-color:rgba(255,210,74,.55);text-underline-offset:3px} a.lk:hover{color:var(--accent2)}
+  .n{font-variant-numeric:tabular-nums;color:var(--muted);font-size:12px;flex:0 0 28px} .nm{flex:1 1 auto;color:#fff}
+  .c{flex:0 0 auto;font-size:11px;font-weight:700;border-radius:4px;padding:0 6px} .cA{background:rgba(245,197,24,.18);color:var(--accent2)} .cB{background:rgba(120,160,255,.18);color:#9cc3ff}
+  .grp{margin-top:14px} .grp h3{margin:0;font-size:15px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  .grp h3 .v{color:var(--accent2)} .grp h3 small{color:var(--muted);font-weight:400;font-size:12px}
+  .cats{display:grid;grid-template-columns:1fr 1fr;gap:18px} .cats h3{margin:0 0 2px;font-size:16px} .cats ul.lista{columns:1}
+  @media (max-width:640px){ .kp{grid-template-columns:1fr 1fr} .duo,.cats{grid-template-columns:1fr} ul.lista,ul.lista.c3{columns:1} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  
+  <header class="top">
+    <img src="icon-512.png" alt="Copa São Paulo Open">
+    <div class="htext">
+      <span class="badge">EDIÇÃO 2026</span>
+      <h1>Classificados para a Final</h1>
+      <p>V Copa São Paulo Open de Tiro às Hélices · 28 de novembro de 2026 · CCTSP</p>
+    </div>
+  </header>
+  <a class="voltar" href="./">← Voltar aos resultados</a>
+
+  <div class="resumo">
+    <h2>Parabéns aos 91 classificados!</h2>
+    <p style="margin:4px 0">Estão na Final todos os atiradores que disputaram <b>6 ou mais</b> das 13 etapas. São <b><span id="nA">45</span> na Categoria A</b> e <b><span id="nB">46</span> na Categoria B</b>.</p>
+  </div>
+
+  <section class="achar">
+    <h2>🔎 Encontre o seu nome</h2>
+    <input id="busca" type="search" placeholder="Digite o seu nome ou o seu número" autocomplete="off">
+    <div id="resBusca"></div>
+  </section>
+
+  <div class="kp">
+    <div><b id="kTot">91</b><span>classificados</span></div>
+    <div><b id="kCat">45 · 46</b><span>categoria A · B</span></div>
+    <div><b id="kTem">–</b><span>já têm as 11 cotas</span></div>
+    <div><b id="kPode">–</b><span>podem completar</span></div>
+  </div>
+
+  <section>
+    <h2>Como funciona a premiação</h2>
+    <div class="duo">
+      <div class="box ouro"><h3>🏆 Troféus e medalhas</h3><p><b>Todo classificado disputa</b>, sem precisar completar nada.</p></div>
+      <div class="box verde"><h3>💰 Prêmio em dinheiro</h3><p>Concorre quem tem <b>11 cotas</b> do fundo de premiação (cada etapa disputada vale 1 cota, de R$ 150) e contribui com o <b>fundo de premiação da Final</b>, de R$ 500.</p></div>
+    </div>
+    <p>Quem tem menos de 11 cotas <b>pode completar a diferença, se quiser</b>, e passa a concorrer também ao prêmio em dinheiro. Quem preferir não completar participa da Final normalmente; só não concorre ao dinheiro.</p>
+  </section>
+
+  <section>
+    <h2>Como se inscrever e completar as cotas</h2>
+    <p>A inscrição e as cotas são pagas pelo <b>LiveClays</b>, na página de inscrição da Final.</p>
+    <ol class="passos">
+      <li>Abra a página de inscrição da Final<span id="inscFechada" class="muted"> (as inscrições ainda não abriram)</span><span id="inscAberta" style="display:none"> ou toque no seu nome nas listas abaixo, que já abre na sua situação</span>.</li>
+      <li>Escolha <b>“só a inscrição”</b> ou <b>“inscrição + prêmio em dinheiro”</b>.</li>
+      <li>Pague por <b>Pix</b> e anexe o comprovante.</li>
+      <li>A inscrição vale depois que a organização conferir o pagamento.</li>
+    </ol>
+    <p id="inscBotao" style="display:none"><a class="btn" href="https://liveclays.com/c/cctsp/inscricao" target="_blank" rel="noopener">🏆 Inscrição da Final ↗</a></p>
+    <div class="tw"><table>
+      <thead><tr><th>Quanto fica</th><th>O que inclui</th><th style="text-align:right">Valor</th></tr></thead>
+      <tbody>
+        <tr><td>Só a Final</td><td>Inscrição. Disputa troféu e medalha.</td><td style="text-align:right;white-space:nowrap">R$ 200</td></tr>
+        <tr><td>Final + prêmio em dinheiro</td><td>Inscrição (R$ 200) + fundo de premiação da Final (R$ 500). Para quem já tem as 11 cotas.</td><td style="text-align:right;white-space:nowrap">R$ 700</td></tr>
+        <tr><td>Final + prêmio em dinheiro, completando as cotas</td><td>Os R$ 700 acima + R$ 150 por cota que falta para chegar às 11.</td><td style="text-align:right;white-space:nowrap">R$ 850 a R$ 1.450</td></tr>
+      </tbody>
+    </table></div>
+    <p>O fundo de premiação e as cotas são <b>opcionais</b>: só paga quem quer concorrer ao prêmio em dinheiro. <b>Prazo para pagar:</b> até o dia da Final, 28 de novembro.</p>
+  </section>
+
+  <section>
+    <h2>Já têm as 11 cotas <span class="muted">· <span id="nTem">–</span> atiradores</span></h2>
+    <p class="muted">Não precisam completar cotas. Para concorrer ao prêmio em dinheiro, basta a inscrição com o fundo de premiação da Final (R$ 700).</p>
+    <ul class="lista c3" id="lTem"></ul>
+  </section>
+
+  <section>
+    <h2>Podem completar as cotas <span class="muted">· <span id="nPode">–</span> atiradores</span></h2>
+    <p class="muted">Completar é opcional. Em cada grupo, o valor das cotas que faltam para chegar às 11 e o total para concorrer ao prêmio em dinheiro, já com a inscrição e o fundo da Final.</p>
+    <div id="lPode"></div>
+  </section>
+
+  <section>
+    <h2>Classificados por categoria</h2>
+    <p class="muted">O número ao lado do nome é o número do atirador na Final. As categorias seguem a média das 6 melhores etapas.</p>
+    <div class="cats">
+      <div><h3>Categoria A <span class="muted">· <span id="nA2">45</span></span></h3><ul class="lista" id="lA"></ul></div>
+      <div><h3>Categoria B <span class="muted">· <span id="nB2">46</span></span></h3><ul class="lista" id="lB"></ul></div>
+    </div>
+  </section>
+
+  <footer>Lista oficial da organização · <span id="atualizado">posição de 13/11/2026</span></footer>
+</div>
+<script>
+// Página dos classificados. O site só direciona para a inscrição no LiveClays: nada de pagamento passa por aqui.
+(function(){
+  var INSC_LIGADA = true;   // false = esconde os links de inscrição mesmo com as inscrições abertas no sistema
+  var INSC = 'https://liveclays.com/c/cctsp/inscricao';
+  var API = 'https://firestore.googleapis.com/v1/projects/resultados-esfah/databases/(default)/documents/eventos/mw2pnqq9e4ea6a';
+  var MIN = 11, COTA = 150, BASE = 700;   // 11 cotas; R$ 150 por cota; R$ 200 de inscrição + R$ 500 do fundo da Final
+  // retrato de 13/11/2026: [número, nome, categoria, etapas, cotas que faltam]; ao abrir a página é atualizado pelo sistema
+  var LISTA = [["001","Renato Da Costa Junior","A",12,0],["002","Thiago Bonet Mozena","A",13,0],["003","Farouk Muhieddine","A",12,0],["004","Gustavo Adolfo Schilling Neto","A",12,0],["005","Douglas Dorival Russo","A",13,0],["006","Paolo Brandizzi Neto","A",13,0],["007","Mauricio Antonio Piazzetta","A",12,0],["008","Luiz Jabbur Jr.","A",12,0],["009","Rogerio Balestrin","A",6,5],["010","Jamel Jamil Chukr","A",13,0],["011","Dener Augusto Diniz","A",13,0],["012","Jean Carlos Cazaroto","A",10,1],["013","Andre Luiz Tonial","A",10,1],["014","João Reinaldo Clasen (Fera)","A",10,1],["015","Daniel Boiko","A",6,5],["016","Guilherme Geo","A",13,0],["017","Raphael Bonet Mozena","A",13,0],["018","Bruno Hebach L Abbate","A",12,0],["019","Nelson Alfredo R. Bolduan","A",9,2],["020","Assis Ali Mohamad","A",7,4],["021","Luis R Vargas Jr","A",13,0],["022","Rodrigo Coutinho R. Cipriano","A",9,2],["023","Eduardo Peres Krum","A",9,2],["024","Luiz Antonio Farha Rocco","A",12,0],["025","Manuel Carlos Salemme","A",10,1],["026","Francisco Azevedo Figueiredo Neto","A",11,0],["027","Ricardo Chiarotto Penteado","A",11,0],["028","Lamberto Godoy Ramenzoni","A",12,0],["029","Sergio De Oliveira Barbosa","A",11,0],["030","Reinaldo Zani Baggio","A",12,0],["031","Marcos B. Gonsalez","A",8,3],["032","Assaad Malek","A",9,2],["033","Rodrigo Rebello","A",7,4],["034","Frederico Montefeltro","A",13,0],["035","João Paulo Pinheiro","A",13,0],["036","Pedro Cozza","A",10,1],["037","Romulo Mansur","A",11,0],["038","Luis Antonio Guideti","A",11,0],["039","Rafael Linne Netto","A",9,2],["040","Arthur Chiarotto Penteado","A",8,0],["041","Luciano Aardoon","A",12,0],["042","João Paulo Balaban","A",10,0],["043","Rubens Los Junior","A",7,4],["044","Rafael Pancan De Biaggi","A",6,5],["045","André Geo","A",6,5],["046","Andre Bizio","B",13,0],["047","Valter Fonseca","B",11,0],["048","Bruno Xavier Verciani","B",8,3],["049","Luciano André Fenker","B",10,1],["050","Luiz Pirani","B",10,1],["051","Marco Antônio Malzoni","B",9,2],["052","Otávio Peretti Iglesias","B",8,3],["053","Jose Otavio Junqueira","B",12,0],["054","Heuro Tortato","B",11,0],["055","Fabrício Dognani","B",11,0],["056","Ricardo Junqueira Meirelles","B",12,0],["057","Marcelo Augusto De Souza","B",6,5],["058","Tiago M Batista","B",6,5],["059","Walter Vitor Lança Jr","B",13,0],["060","Anamaria Marcondes M V Maciela Lima","B",13,0],["061","João Edward Soranz Filho","B",12,0],["062","José Carlos Mazer","B",11,0],["063","Gabriel Henrique Maciel","B",7,4],["064","Neimar Batista","B",7,4],["065","Valdair Ribeiro Da Silva","B",6,5],["066","Lorayne A R V Boogaard","B",12,0],["067","Eduardo Guilherme Alves De Oliveira","B",12,0],["068","Lucas Campos G. Vereza","B",10,1],["069","Olavo Ferraz Carrara","B",9,2],["070","Willian Richard Hamanue","B",8,3],["071","Guilherme Vallerini","B",7,4],["072","Carlos Eduardo Doll","B",9,2],["073","Fabio Lima Mourão","B",6,5],["074","Luiz Azzoni","B",8,3],["075","Scheila Menin","B",7,4],["076","Luis Henrique Neves","B",7,4],["077","Mauro Farah","B",6,5],["078","David Coury","B",8,3],["079","Felipe Sanguino","B",13,0],["080","Andre Ramos Nogueira","B",8,3],["081","Eduardo A C P De Lucena","B",9,2],["082","Jose Ivan Carvalho Rangel","B",7,4],["083","Renato Ribeiro F. Abucham","B",6,5],["084","Marcos Farah","B",6,5],["085","Marcelo Martignani","B",6,5],["086","Silvio Luis Paggiaro","B",7,4],["087","Jose Alfredo Gherardi","B",10,1],["088","Marcos Luciano Rodrigues Soares","B",6,5],["089","Odimir Jose De Moraes","B",6,5],["090","Marcelo Schun Diniz Junqueira","B",6,5],["091","Gabriel Russo","B",7,4]];
+  var aberta = false;
+  function g(id){ return document.getElementById(id); }
+  function limpa(t){ return (t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
+  function txt(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+  function reais(n){ return 'R$ '+n.toLocaleString('pt-BR'); }
+  function nome(a){ return aberta ? '<a class="nm lk" href="'+INSC+'?atirador='+encodeURIComponent(a[0])+'" target="_blank" rel="noopener" title="Abrir a inscrição deste atirador no LiveClays">'+txt(a[1])+'</a>' : '<span class="nm">'+txt(a[1])+'</span>'; }
+  function li(a, comCat){ return '<li><span class="n">'+txt(a[0])+'</span>'+nome(a)+(comCat ? '<span class="c c'+a[2]+'">'+a[2]+'</span>' : '')+'</li>'; }
+  function mostra(){
+    var q=limpa(g('busca').value).trim(), res=g('resBusca'); if(q.length<2){ res.innerHTML=''; return; }
+    var ac=LISTA.filter(function(a){ return limpa(a[1]).indexOf(q)>=0 || a[0].indexOf(q)>=0; }).slice(0,6);
+    if(!ac.length){ res.innerHTML='<div class="nada">Nenhum classificado com esse nome. Confira a grafia ou procure pelo número.</div>'; return; }
+    res.innerHTML=ac.map(function(a){ var f=a[4];
+      return '<div class="res'+(f?' pode':'')+'"><div class="rn"><span class="n">'+txt(a[0])+'</span>'+txt(a[1])+'<span class="c c'+a[2]+'">Categoria '+a[2]+'</span></div>'+
+        '<div class="rs">🏁 Classificado para a Final, com '+a[3]+' etapas. Disputa troféu e medalha.</div>'+
+        '<div class="rs">'+(f ? '💰 Pode completar <b>'+f+' cota'+(f>1?'s':'')+' ('+reais(f*COTA)+')</b> para concorrer também ao prêmio em dinheiro. É opcional.' : '💰 Já tem as 11 cotas.')+'</div>'+
+        '<div class="rs vals">Só a Final: <b>R$ 200</b> · Com prêmio em dinheiro: <b>'+reais(BASE+f*COTA)+'</b>'+(f ? ' <span class="muted">(R$ 700 + '+f+' cota'+(f>1?'s':'')+')</span>' : '')+'</div>'+
+        (aberta ? '<a class="btn" href="'+INSC+'?atirador='+encodeURIComponent(a[0])+'" target="_blank" rel="noopener">Abrir a minha inscrição ↗</a>' : '')+'</div>'; }).join('');
+  }
+  function desenha(){
+    var tem=LISTA.filter(function(a){ return a[4]===0; }), pode=LISTA.filter(function(a){ return a[4]>0; });
+    var A=LISTA.filter(function(a){ return a[2]==='A'; }), B=LISTA.filter(function(a){ return a[2]!=='A'; });
+    g('kTot').textContent=LISTA.length; g('kCat').textContent=A.length+' · '+B.length; g('kTem').textContent=tem.length; g('kPode').textContent=pode.length;
+    g('nA').textContent=A.length; g('nB').textContent=B.length; g('nA2').textContent=A.length; g('nB2').textContent=B.length; g('nTem').textContent=tem.length; g('nPode').textContent=pode.length;
+    g('lTem').innerHTML=tem.map(function(a){ return li(a,true); }).join('');
+    var grupos={}; pode.forEach(function(a){ (grupos[a[4]]=grupos[a[4]]||[]).push(a); });
+    g('lPode').innerHTML=Object.keys(grupos).map(Number).sort(function(x,y){ return x-y; }).map(function(f){ var l=grupos[f];
+      return '<div class="grp"><h3>Completando '+f+' cota'+(f>1?'s':'')+' <span class="v">'+reais(f*COTA)+'</span> <small>'+l.length+' atirador'+(l.length>1?'es':'')+' · têm '+(MIN-f)+' cotas · total com prêmio em dinheiro: '+reais(BASE+f*COTA)+'</small></h3><ul class="lista c3">'+l.map(function(a){ return li(a,true); }).join('')+'</ul></div>'; }).join('');
+    g('lA').innerHTML=A.map(function(a){ return li(a,false); }).join(''); g('lB').innerHTML=B.map(function(a){ return li(a,false); }).join('');
+    g('inscBotao').style.display = aberta ? '' : 'none'; g('inscFechada').style.display = aberta ? 'none' : ''; g('inscAberta').style.display = aberta ? '' : 'none';
+    mostra();
+  }
+  g('busca').addEventListener('input', mostra);
+  desenha();
+  
+  // ----- atualização pelo sistema (só leitura; se falhar, fica o retrato embutido) -----
+  function v(x){ if(!x||typeof x!=='object') return null; if('stringValue' in x) return x.stringValue; if('integerValue' in x) return Number(x.integerValue); if('doubleValue' in x) return Number(x.doubleValue); if('booleanValue' in x) return x.booleanValue; if('arrayValue' in x) return (x.arrayValue.values||[]).map(v); if('mapValue' in x){ var o={}, f=x.mapValue.fields||{}; for(var k in f) o[k]=v(f[k]); return o; } return null; }
+  function doc(d){ var o={}, f=(d&&d.fields)||{}; for(var k in f) o[k]=v(f[k]); o._id=(d.name||'').split('/').pop(); return o; }
+  function pega(url){ return fetch(url,{cache:'no-store'}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; }); }
+  function lista(col, campos){ var out=[], m=campos.map(function(c){ return '&mask.fieldPaths='+c; }).join('');
+    function pag(tok){ return pega(API+'/'+col+'?pageSize=300'+m+(tok?'&pageToken='+encodeURIComponent(tok):'')).then(function(j){ if(!j) return null; (j.documents||[]).forEach(function(d){ out.push(doc(d)); }); return j.nextPageToken ? pag(j.nextPageToken) : out; }); }
+    return pag(''); }
+  Promise.all([ pega(API+'?mask.fieldPaths=inscricao.aberta'), lista('atiradores',['numero','nome','categoriaIds','etapas','cotasPagas','ativo']), INSC_LIGADA ? lista('inscricoes',['atiradorId','status','querPremio']) : Promise.resolve(null) ]).then(function(r){
+    var ev=r[0], ats=r[1], ins=r[2];
+    if(ats && ats.length){
+      var quitou={}; (ins||[]).forEach(function(i){ if((i.status==='pago'||i.status==='isento') && i.querPremio===true) quitou[i.atiradorId||i._id]=1; });
+      LISTA=ats.filter(function(a){ return a.ativo!==false && a.nome; }).map(function(a){ var et=a.etapas||0, c=(typeof a.cotasPagas==='number') ? a.cotasPagas : et;
+        return [a.numero||'', a.nome, (a.categoriaIds||[]).indexOf('a')>=0 ? 'A' : 'B', et, quitou[a._id] ? 0 : Math.max(0, MIN-c)]; }).sort(function(x,y){ return x[0].localeCompare(y[0]); });
+      g('atualizado').textContent='situação das cotas atualizada pelo sistema da Final';
+    }
+    try{ aberta = INSC_LIGADA && !!ev && ev.fields.inscricao.mapValue.fields.aberta.booleanValue===true; }catch(e){ aberta=false; }
+    desenha();
+  });
+})();
+</script>
+</body>
+</html>
