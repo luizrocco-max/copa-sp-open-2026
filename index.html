@@ -725,11 +725,14 @@ async function fsList(col, mask){
 }
 // nome do atirador -> situação dele no sistema (cotas pagas lançadas lá e inscrição na Final)
 function finalSysIndex(){
-  const m=new Map(); if(!FS || !FS.ats) return m;
+  const m=new Map(); if(!FS) return m;
+  // cotas pagas lançadas pela organização no sistema (pagamento antecipado): valem mesmo com a inscrição travada
+  const comCotasPagas=()=>{ (FS.cp||[]).forEach(c=>{ const z=m.get(c.nome)||{numero:'', cotasPagas:null, confirmada:false, querPremio:false}; z.cotasPagas=c.cotasPagas; m.set(c.nome, z); }); return m; };
+  if(!FS.ats) return comCotasPagas();
   const ins=new Map(); (FS.insc||[]).forEach(i=>{ if(i.status!=='cancelada') ins.set(i.atiradorId||i.id, i); });
   FS.ats.forEach(s=>{ const i=ins.get(s.id);
     m.set(s.nome, {numero:s.numero||'', cotasPagas:s.cotasPagas, confirmada: !!i && (i.status==='pago'||i.status==='isento'), querPremio: !!(i && i.querPremio)}); });
-  return m;
+  return comCotasPagas();
 }
 // Cotas do fundo e aptos ao prêmio. Sem dados do sistema: 1 cota por etapa disputada.
 // Com dados do sistema: vale a cota paga lançada lá; e quem quitou as cotas na inscrição confirmada também fica apto.
@@ -974,6 +977,11 @@ function syncFinalTab(){
     LV.auto=true; LV.rolar=true; switchView('final');   // quem chega pela página inicial já cai na classificação
   }
 }
+// só os atiradores com "cotas pagas" lançadas no sistema (a consulta devolve apenas quem tem o campo; costuma ser um punhado)
+async function fsCotasPagas(){
+  const r=await fsPost('runQuery',{structuredQuery:{from:[{collectionId:'atiradores'}],select:{fields:[{fieldPath:'nome'},{fieldPath:'cotasPagas'}]},orderBy:[{field:{fieldPath:'cotasPagas'},direction:'ASCENDING'}]}});
+  return (r||[]).filter(x=>x.document).map(x=>fsDoc(x.document)).filter(d=>typeof d.cotasPagas==='number' && d.nome).map(d=>({nome:d.nome, cotasPagas:d.cotasPagas}));
+}
 async function loadFinalSys(force){
   let c=null; try{ c=JSON.parse(localStorage.getItem(FS_KEY)||'null'); }catch(e){}
   if(c && c.evt!==FINAL_EVT) c=null;
@@ -984,6 +992,7 @@ async function loadFinalSys(force){
     const cfg=fsDoc(ev).inscricao||{};
     // enquanto o sistema não publicar a leitura das inscrições, isto falha e o site segue sem contador
     let insc=null; if(INSC_LIGADA){ try{ insc=await fsList('inscricoes','&mask.fieldPaths=atiradorId&mask.fieldPaths=status&mask.fieldPaths=querPremio'); }catch(e){ insc=null; } }
+    let cp=null; try{ cp=await fsCotasPagas(); }catch(e){ cp=null; }
     let provas=null; try{ provas=(await fsList('provas','&mask.fieldPaths=nome&mask.fieldPaths=status&mask.fieldPaths=atiradorIds')).map(lvProva); }catch(e){ provas=null; }
     const finalOn = !!(provas && provas.some(p=>p.id===FINAL_PROVAS.final && p.status!=='preparada'));
     let ats=null, atsT=0;
@@ -994,7 +1003,7 @@ async function loadFinalSys(force){
     FS={evt:FINAL_EVT, t:now,
       cfg:{aberta:cfg.aberta===true, valor:+cfg.valor||0, valorCota:+cfg.valorCota||0, cotasMinimas:+cfg.cotasMinimas||0},
       insc: insc ? insc.map(i=>({id:i._id, atiradorId:i.atiradorId||'', status:i.status||'', querPremio:i.querPremio===true})) : null,
-      ats, atsT, provas};
+      ats, atsT, provas, cp};
     try{ localStorage.setItem(FS_KEY, JSON.stringify(FS)); }catch(e){}
   }catch(e){
     FS = (c && now-c.t<FS_STALE) ? c : null;   // sem rede / sistema fora do ar: último dado conhecido (até 24 h)
