@@ -19,7 +19,7 @@ A chave do GitHub fica em segredo no Cloudflare — nunca na página.
 ## 3) Definir as variáveis do Worker
 No Worker → **Settings → Variables and Secrets → Add**:
 - `GITHUB_TOKEN`  → tipo **Secret** → cole o token do passo 1.
-- `ADMIN_PASSWORD` → tipo **Secret** → `a6509j` (a mesma senha do login do painel).
+- `ADMIN_PASSWORD` → tipo **Secret** → a senha do painel. Não escreva a senha neste arquivo: o repositório é público.
 - `GH_REPO` → tipo **Text** → `luizrocco-max/copa-sp-open-2026`
 - `GH_BRANCH` → tipo **Text** → `main`
 - (opcional) `ALLOW_ORIGIN` → `https://copasaopaulodetiroahelice.com.br`
