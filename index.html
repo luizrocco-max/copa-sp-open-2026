@@ -675,6 +675,10 @@ const FINAL_API = 'https://firestore.googleapis.com/v1/projects/resultados-esfah
 const FINAL_INSC_URL = FINAL_SITE+'/inscricao/'+FINAL_EVT;
 const FINAL_VIVO_URL = FINAL_SITE+'/ao-vivo/'+FINAL_EVT;
 const FS_KEY='copa_final_sys_v2', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_STALE=24*60*60*1000;
+// TRAVA DA INSCRIÇÃO. Enquanto for false, o site não mostra NADA de inscrição (faixa, links, contador de inscritos,
+// cotas quitadas), mesmo que as inscrições já estejam abertas no sistema, por exemplo durante os testes de lá.
+// Só passa a true com o ok do Luiz. A aba da Final ao vivo e o fechamento não dependem desta trava.
+const INSC_LIGADA = false;
 let fsTry = 0;   // última tentativa de leitura (evita repetir a cada troca de aba)
 let FS = null;   // {cfg:{aberta,valor,valorCota,cotasMinimas}, insc:[{id,atiradorId,status,querPremio}]|null, ats:[{id,nome,cotasPagas}]|null}
 function fsVal(v){
@@ -756,6 +760,7 @@ function renderFinalBanner(){
   el.style.display='flex';
 }
 function applyFinalSys(){
+  if(FS && !INSC_LIGADA){ if(FS.cfg) FS.cfg.aberta=false; FS.insc=null; if(FS.ats) FS.ats.forEach(a=>{ a.cotasPagas=null; }); }   // inscrição travada: ignora tudo o que vier de lá sobre inscrição e pagamento
   calcCotas(); renderKpis(); renderFinalBanner(); syncFinalTab();
   if(typeof render==='function') render();
   if(openAthlete) openDetail(openAthlete, true);   // painel aberto: atualiza o quadro de cotas
@@ -956,11 +961,11 @@ async function loadFinalSys(force){
     const ev=await fsGet(FINAL_API+'?mask.fieldPaths=inscricao.aberta&mask.fieldPaths=inscricao.valor&mask.fieldPaths=inscricao.valorCota&mask.fieldPaths=inscricao.cotasMinimas');
     const cfg=fsDoc(ev).inscricao||{};
     // enquanto o sistema não publicar a leitura das inscrições, isto falha e o site segue sem contador
-    let insc=null; try{ insc=await fsList('inscricoes','&mask.fieldPaths=atiradorId&mask.fieldPaths=status&mask.fieldPaths=querPremio'); }catch(e){ insc=null; }
+    let insc=null; if(INSC_LIGADA){ try{ insc=await fsList('inscricoes','&mask.fieldPaths=atiradorId&mask.fieldPaths=status&mask.fieldPaths=querPremio'); }catch(e){ insc=null; } }
     let provas=null; try{ provas=(await fsList('provas','&mask.fieldPaths=nome&mask.fieldPaths=status&mask.fieldPaths=atiradorIds')).map(lvProva); }catch(e){ provas=null; }
     const finalOn = !!(provas && provas.some(p=>p.id===FINAL_PROVAS.final && p.status!=='preparada'));
     let ats=null, atsT=0;
-    if(cfg.aberta===true || (insc && insc.length) || finalOn){
+    if((INSC_LIGADA && (cfg.aberta===true || (insc && insc.length))) || finalOn){
       if(c && c.ats && now-(c.atsT||0)<FS_TTL_ATS){ ats=c.ats; atsT=c.atsT; }
       else { try{ ats=await fsAtiradores(); atsT=now; }catch(e){ ats=null; } }
     }
