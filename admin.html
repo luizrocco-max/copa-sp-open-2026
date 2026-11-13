@@ -765,7 +765,7 @@ async function boot(){
 boot();
 
 (function(){
-  const ADMIN_USER="vanessabressane", ADMIN_HASH="09fa87f8021d0c7b30287a07699d9912fa3b3a79592af21ad0c75ec70e3bfe3b", PUBLISH_URL="https://copa-publish.luiz-rocco.workers.dev";
+  const PUBLISH_URL="https://copa-publish.luiz-rocco.workers.dev";
   const ico=document.getElementById('adminIco'), loginOv=document.getElementById('loginOverlay'), adminOv=document.getElementById('adminOverlay');
   let parsed=null, worker=null, adminPass='';
   const authed=()=>sessionStorage.getItem('copa_admin')==='1';
@@ -774,14 +774,26 @@ boot();
   window.closeAdmin=()=>adminOv.classList.remove('open');
   window.logoutAdmin=()=>{ sessionStorage.removeItem('copa_admin'); adminOv.classList.remove('open'); };
   if(ico) ico.addEventListener('click', openLogin);
-  async function sha256hex(s){ const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
   const errEl=()=>document.getElementById('loginErr');
+  // A senha NÃO fica nesta página: quem confere é o serviço de publicação (Cloudflare), onde ela é trocada.
+  // A conferência vai SEM planilha: senha errada volta 401; senha certa volta 400 ("dataset inválido"), sem publicar nada.
+  async function confereSenha(p){
+    try{
+      const r=await fetch(PUBLISH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:p})});
+      return r.status===401 ? 'errada' : (r.status===400 ? 'ok' : 'falha');
+    }catch(e){ return 'falha'; }
+  }
+  let logando=false;
   async function doLogin(){
+    if(logando) return;
     const u=document.getElementById('admUser').value.trim(), p=document.getElementById('admPass').value;
-    if(!(window.crypto&&crypto.subtle)){ errEl().textContent='Login exige a versão online (https) do site.'; return; }
-    const h=await sha256hex(p);
-    if(u===ADMIN_USER && h===ADMIN_HASH){ sessionStorage.setItem('copa_admin','1'); adminPass=p; errEl().textContent=''; document.getElementById('admPass').value=''; openAdmin(); }
-    else errEl().textContent='Usuário ou senha incorretos.';
+    if(!u || !p){ errEl().textContent='Preencha usuário e senha.'; return; }
+    const btn=document.getElementById('loginBtn'); logando=true; btn.disabled=true; errEl().textContent='Conferindo…';
+    const res=await confereSenha(p);
+    logando=false; btn.disabled=false;
+    if(res==='errada'){ errEl().textContent='Senha incorreta.'; return; }
+    // 'falha' = serviço sem resposta agora: entra assim mesmo; a senha é conferida de novo na hora de publicar
+    sessionStorage.setItem('copa_admin','1'); adminPass=p; errEl().textContent=''; document.getElementById('admPass').value=''; openAdmin();
   }
   document.getElementById('loginBtn').addEventListener('click', doLogin);
   document.getElementById('admPass').addEventListener('keydown',e=>{ if(e.key==='Enter') doLogin(); });
@@ -845,7 +857,9 @@ boot();
     try{
       const r=await fetch(PUBLISH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pass, dataset:parsed})});
       const j=await r.json().catch(()=>({}));
+      if(r.status===401){ adminPass=''; throw new Error('Senha incorreta. Clique em “Publicar” de novo e digite a senha.'); }
       if(!r.ok || !j.ok) throw new Error(j.error||('HTTP '+r.status));
+      adminPass=pass;
       statusEl().className='adminstatus ok';
       statusEl().innerHTML='🚀 Publicado com sucesso! O site atualiza para todos em ~1 minuto (GitHub reconstruindo). Recarregue a página depois para confirmar.';
     }catch(err){ statusEl().className='adminstatus err'; statusEl().innerHTML='❌ Falha ao publicar: '+(err&&err.message?err.message:err); }
