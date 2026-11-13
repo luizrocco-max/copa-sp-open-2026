@@ -45,6 +45,8 @@
   .finalnote{display:flex;align-items:center;gap:12px;background:linear-gradient(90deg,rgba(245,197,24,.12),var(--panel));border:1px solid var(--line);border-left:4px solid var(--yellow-strong);border-radius:12px;padding:13px 16px;margin:18px 0;font-size:14px;line-height:1.45;color:var(--txt)}
   .finalnote .ico{font-size:20px;flex:0 0 auto}
   .finalnote b{color:var(--accent2)}
+  .finalnote .clslink{color:var(--txt);font-weight:700;white-space:nowrap;text-decoration:underline;text-decoration-color:var(--yellow-strong);text-underline-offset:3px}
+  .finalnote .clslink:hover{color:var(--accent2)}
   /* aba Final ao vivo (classificação lida do sistema de resultados) */
   .fnv{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:10px}
   .fnhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
@@ -92,6 +94,9 @@
   .inscbtn{flex:0 0 auto;background:var(--accent);color:#fff;font-weight:700;font-size:15px;padding:11px 18px;border-radius:10px;text-decoration:none;white-space:nowrap}
   .inscbtn:hover{filter:brightness(1.12)}
   .cotalink{color:var(--accent2);font-weight:700;white-space:nowrap}
+  .inscath{display:block;background:rgba(213,30,43,.16);border:1px solid var(--accent);border-radius:8px;padding:9px 12px;margin:-6px 0 16px;color:var(--txt);text-decoration:none;font-size:13px;line-height:1.4}
+  .inscath:hover{background:rgba(213,30,43,.26)}
+  .inscath b{color:#fff}
   @media (max-width:640px){ .inscbtn{flex:1 1 100%;text-align:center} }
 
   .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:18px 0}
@@ -532,7 +537,7 @@
 
   <div class="finalnote">
     <span class="ico">🏁</span>
-    <span><span id="finalLead"><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.</span><span id="qualNote"></span></span>
+    <span><span id="finalLead"><b>Classificação para a Final:</b> todo atirador que já disputou — ou ainda vier a disputar — <b>6 etapas</b> (presenciais ou on-line) tem direito de participar da Final.</span><span id="qualNote"></span> <a class="clslink" href="classificados.html">Ver a lista dos classificados e como funciona o prêmio →</a></span>
   </div>
 
   <div class="inscbar" id="inscBar" style="display:none"></div>
@@ -684,17 +689,19 @@ let COTAS_MIN = 11;
 // ---------- Final: leitura do sistema de resultados ao vivo ----------
 // O site da Copa só LÊ (API pública do sistema, sem chave). Inscrição e Pix ficam no sistema; nada é gravado daqui.
 // Endereço do sistema (LiveClays) num lugar só: para trocar de domínio, basta mudar FINAL_SITE.
-const FINAL_SITE = 'https://resultados-esfah.web.app';   // também responderá em https://liveclays.com
+const FINAL_SITE = 'https://liveclays.com';   // endereço antigo, que continua valendo: https://resultados-esfah.web.app
 const FINAL_EVT = 'mw2pnqq9e4ea6a';                       // evento oficial da Final no sistema
 const FINAL_PROVAS = {final:'final', majoranca:'majoranca', topgun:'topgun'};   // códigos das provas no sistema
 const FINAL_API = 'https://firestore.googleapis.com/v1/projects/resultados-esfah/databases/(default)/documents/eventos/'+FINAL_EVT;
-const FINAL_INSC_URL = FINAL_SITE+'/inscricao/'+FINAL_EVT;
+const FINAL_INSC_URL = FINAL_SITE+'/c/cctsp/inscricao';   // atalho do clube: abre a inscrição da Final
+// inscrição já aberta na situação do atirador (número dele na Final). O site só direciona: nada de pagamento passa por aqui.
+const finalInscUrl = num => FINAL_INSC_URL + (num ? '?atirador='+encodeURIComponent(num) : '');
 const FINAL_VIVO_URL = FINAL_SITE+'/ao-vivo/'+FINAL_EVT;
 const FS_KEY='copa_final_sys_v2', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_STALE=24*60*60*1000;
 // TRAVA DA INSCRIÇÃO. Enquanto for false, o site não mostra NADA de inscrição (faixa, links, contador de inscritos,
 // cotas quitadas), mesmo que as inscrições já estejam abertas no sistema, por exemplo durante os testes de lá.
 // Só passa a true com o ok do Luiz. A aba da Final ao vivo e o fechamento não dependem desta trava.
-const INSC_LIGADA = false;
+const INSC_LIGADA = true;   // ligada em 13/11/2026, com o ok do Luiz
 let fsTry = 0;   // última tentativa de leitura (evita repetir a cada troca de aba)
 let FS = null;   // {cfg:{aberta,valor,valorCota,cotasMinimas}, insc:[{id,atiradorId,status,querPremio}]|null, ats:[{id,nome,cotasPagas}]|null}
 function fsVal(v){
@@ -722,11 +729,11 @@ async function fsList(col, mask){
 function finalSysIndex(){
   const m=new Map(); if(!FS) return m;
   // cotas pagas lançadas pela organização no sistema (pagamento antecipado): valem mesmo com a inscrição travada
-  const comCotasPagas=()=>{ (FS.cp||[]).forEach(c=>{ const z=m.get(c.nome)||{cotasPagas:null, confirmada:false, querPremio:false}; z.cotasPagas=c.cotasPagas; m.set(c.nome, z); }); return m; };
+  const comCotasPagas=()=>{ (FS.cp||[]).forEach(c=>{ const z=m.get(c.nome)||{numero:'', cotasPagas:null, confirmada:false, querPremio:false}; z.cotasPagas=c.cotasPagas; m.set(c.nome, z); }); return m; };
   if(!FS.ats) return comCotasPagas();
   const ins=new Map(); (FS.insc||[]).forEach(i=>{ if(i.status!=='cancelada') ins.set(i.atiradorId||i.id, i); });
   FS.ats.forEach(s=>{ const i=ins.get(s.id);
-    m.set(s.nome, {cotasPagas:s.cotasPagas, confirmada: !!i && (i.status==='pago'||i.status==='isento'), querPremio: !!(i && i.querPremio)}); });
+    m.set(s.nome, {numero:s.numero||'', cotasPagas:s.cotasPagas, confirmada: !!i && (i.status==='pago'||i.status==='isento'), querPremio: !!(i && i.querPremio)}); });
   return comCotasPagas();
 }
 // Cotas do fundo e aptos ao prêmio. Sem dados do sistema: 1 cota por etapa disputada.
@@ -736,6 +743,7 @@ function calcCotas(){
   const idx=finalSysIndex();
   D.athletes.forEach(a=>{
     const z=idx.get(a.name)||null;
+    a.finalNum = z && z.numero ? z.numero : '';   // número do atirador na Final (vem do sistema)
     a.cotas = (z && z.cotasPagas!=null) ? z.cotasPagas : a.count;
     a.cotasFalta = Math.max(0, COTAS_MIN - a.cotas);
     a.quitouInsc = !!(z && z.confirmada && z.querPremio && a.cotasFalta>0);
@@ -768,7 +776,7 @@ function renderFinalBanner(){
   const cf=(D.calendario||[]).find(x=>/final/i.test(x.n||''));
   const quando = cf ? [cf.data, cf.local].filter(Boolean).join(' · ') : '';
   const sub = c.aberta
-    ? [quando, (c.valor>0 ? 'taxa de '+money(c.valor) : ''), 'inscrição e Pix no sistema oficial da Final'].filter(Boolean).join(' · ')
+    ? [quando, (c.valor>0 ? 'inscrição de '+money(c.valor) : ''), 'pagamento por Pix no LiveClays'].filter(Boolean).join(' · ')
     : [quando, 'lista de inscritos no sistema oficial da Final'].filter(Boolean).join(' · ');
   const cnt = validas.length
     ? '<div class="cnt">Inscritos: <b>'+fmtBR(validas.length)+'</b>'+(D.qualCount? ' de '+fmtBR(D.qualCount) : '')+' · Confirmados: <b>'+fmtBR(conf.length)+'</b></div>'
@@ -776,6 +784,7 @@ function renderFinalBanner(){
   el.innerHTML = '<span class="ico">🏆</span>'+
     '<div class="tx"><div class="tt">'+(c.aberta ? 'Inscrição para a Final' : 'Inscrições para a Final encerradas')+'</div><div class="sb">'+sub+'</div>'+cnt+'</div>'+
     '<a class="inscbtn" href="'+FINAL_INSC_URL+'" target="_blank" rel="noopener">'+(c.aberta ? 'Fazer inscrição →' : 'Ver inscritos →')+'</a>';
+  const sbx=el.querySelector('.sb'); if(sbx) sbx.insertAdjacentHTML('beforeend',' · <a class="cotalink" href="classificados.html">valores e lista dos classificados</a>');
   el.style.display='flex';
 }
 function applyFinalSys(){
@@ -1867,6 +1876,7 @@ function openDetail(name, fromUrl){
     '</div>'+
     '<div class="mbody">'+
       '<div class="pkpis">'+pkpis.map(k=>'<div class="pkpi'+(k.accent?' accent':'')+'"><div class="v">'+k.v+'</div><div class="l">'+k.l+'</div></div>').join('')+'</div>'+
+      (a.count>=6 && FS && FS.cfg && FS.cfg.aberta ? '<a class="inscath" href="'+finalInscUrl(a.finalNum)+'" target="_blank" rel="noopener">🏆 <b>Inscrição da Final</b> — abrir a inscrição de '+a.name.replace(/&/g,'&amp;').replace(/</g,'&lt;')+' no LiveClays ↗</a>' : '')+
       (a.count>=6 ? '' : (a.podeClassificar
         ? '<div class="cotanote" style="border-left-color:var(--yellow-strong)">🏁 <b>Ainda pode se classificar</b> — tem '+a.count+' de 6 etapas. Falta'+(a.faltamEtapas>1?'m':'')+' <b>'+a.faltamEtapas+'</b> e resta'+(D.etapasRestantes>1?'m':'')+' <b>'+D.etapasRestantes+'</b> no calendário.</div>'
         : (D.faseEncerrada
@@ -1878,7 +1888,7 @@ function openDetail(name, fromUrl){
         const insAberta = !!(FS && FS.cfg && FS.cfg.aberta);
         return a.aptoPremio
           ? '<div class="cotanote">💰 <b>Apto ao prêmio em dinheiro</b> — '+a.cotas+' cotas do fundo ('+COTAS_MIN+' é o mínimo exigido).</div>'
-          : '<div class="cotanote pend">💰 <b>'+a.cotas+' de '+COTAS_MIN+' cotas</b> do fundo. Para concorrer ao prêmio em dinheiro, falta'+(a.cotasFalta>1?'m':'')+' <b>'+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b> — <span class="vl">'+money(a.cotasFalta*v)+'</span>, que pode'+(a.cotasFalta>1?'m ser quitadas ':' ser quitada ')+(insAberta ? 'na inscrição da Final. <a class="cotalink" href="'+FINAL_INSC_URL+'" target="_blank" rel="noopener">Quitar na inscrição →</a>' : 'antes da Final.')+'</div>'; })()+
+          : '<div class="cotanote pend">💰 <b>'+a.cotas+' de '+COTAS_MIN+' cotas</b> do fundo. Para concorrer ao prêmio em dinheiro, falta'+(a.cotasFalta>1?'m':'')+' <b>'+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b> — <span class="vl">'+money(a.cotasFalta*v)+'</span>, que pode'+(a.cotasFalta>1?'m ser quitadas ':' ser quitada ')+(insAberta ? 'na inscrição da Final. <a class="cotalink" href="'+finalInscUrl(a.finalNum)+'" target="_blank" rel="noopener">Quitar na inscrição →</a>' : 'antes da Final.')+'</div>'; })()+
       (a.presCount>=4? '<div class="majnote">Majorança = soma das 4 melhores notas presenciais'+(a.presScores.length>4?' (de '+a.presScores.length+' presenciais)':'')+': <b>'+a.majorTop.join(' + ')+' = '+a.major+'</b></div>' : '<div class="majnote">Majorança ainda não disponível — exige <b>no mínimo 4 etapas presenciais</b> (este atirador tem '+a.presCount+').'+(D.faseEncerrada?'':' Será calculada conforme as próximas etapas forem registradas.')+'</div>')+
       '<div class="charttitle">Evolução por etapa</div>'+
       '<div class="chartwrap">'+chartSVG(a)+
