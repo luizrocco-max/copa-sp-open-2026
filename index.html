@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="Copa São Paulo Open 2026">
 <meta property="og:url" content="https://copasaopaulodetiroahelice.com.br/">
 <meta property="og:title" content="Copa São Paulo Open de Tiro às Hélices — 2026">
-<meta property="og:description" content="Resultados, ranking e fundo de premiação da V Copa São Paulo Open. Veja as notas de cada etapa e quem já está classificado para a Final.">
+<meta property="og:description" content="Resultados, ranking e fundo de premiação da V Copa São Paulo Open. Inscrições abertas para a Final de 28 de novembro, no CCTSP.">
 <meta property="og:image" content="https://copasaopaulodetiroahelice.com.br/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -781,7 +781,7 @@ function renderFinalBanner(){
     ? [quando, (c.valor>0 ? 'inscrição de '+money(c.valor) : ''), 'pagamento por Pix no LiveClays'].filter(Boolean).join(' · ')
     : [quando, 'lista de inscritos no sistema oficial da Final'].filter(Boolean).join(' · ');
   const cnt = validas.length
-    ? '<div class="cnt">Inscritos: <b>'+fmtBR(validas.length)+'</b>'+(D.qualCount? ' de '+fmtBR(D.qualCount) : '')+' · Confirmados: <b>'+fmtBR(conf.length)+'</b></div>'
+    ? '<div class="cnt">Inscrições confirmadas: <b>'+fmtBR(conf.length)+'</b>'+(D.qualCount? ' de '+fmtBR(D.qualCount) : '')+(validas.length>conf.length ? ' · aguardando conferência: <b>'+fmtBR(validas.length-conf.length)+'</b>' : '')+'</div>'
     : '';
   el.innerHTML = '<span class="ico">🏆</span>'+
     '<div class="tx"><div class="tt">'+(c.aberta ? 'Inscrições abertas para a Final' : 'Inscrições para a Final encerradas')+'</div><div class="sb">'+sub+'</div>'+cnt+'</div>'+
