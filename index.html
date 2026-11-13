@@ -699,7 +699,8 @@ const FINAL_INSC_URL = FINAL_SITE+'/c/cctsp/inscricao';   // atalho do clube: ab
 // inscrição já aberta na situação do atirador (número dele na Final). O site só direciona: nada de pagamento passa por aqui.
 const finalInscUrl = num => num ? FINAL_SITE+'/inscricao/'+FINAL_EVT+'?atirador='+encodeURIComponent(num) : FINAL_INSC_URL;   // com número: já abre na inscrição do atirador
 const FINAL_VIVO_URL = FINAL_SITE+'/c/cctsp/vivo';
-const FS_KEY='copa_final_sys_v2', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_STALE=24*60*60*1000;
+try{ localStorage.removeItem('copa_final_sys_v2'); }catch(e){}
+const FS_KEY='copa_final_sys_v3', FS_TTL=10*60*1000, FS_TTL_ATS=60*60*1000, FS_STALE=24*60*60*1000;
 // TRAVA DA INSCRIÇÃO. Enquanto for false, o site não mostra NADA de inscrição (faixa, links, contador de inscritos,
 // cotas quitadas), mesmo que as inscrições já estejam abertas no sistema, por exemplo durante os testes de lá.
 // Só passa a true com o ok do Luiz. A aba da Final ao vivo e o fechamento não dependem desta trava.
@@ -739,7 +740,9 @@ function finalSysIndex(){
   return comCotasPagas();
 }
 // Cotas do fundo e aptos ao prêmio. Sem dados do sistema: 1 cota por etapa disputada.
-// Com dados do sistema: vale a cota paga lançada lá; e quem quitou as cotas na inscrição confirmada também fica apto.
+// Com dados do sistema: vale a cota paga lançada lá; quem quitou as cotas na inscrição confirmada fica com as cotas em dia.
+// APTO AO PRÊMIO (regra do sistema da Final): inscrição confirmada (paga ou isenta) E concorrendo ao prêmio (querPremio).
+// Ter as 11 cotas, sozinho, NÃO deixa apto: antes da inscrição confirmada o site mostra só a situação das cotas.
 function calcCotas(){
   COTAS_MIN = (FS && FS.cfg && FS.cfg.cotasMinimas>0) ? FS.cfg.cotasMinimas : 11;
   const idx=finalSysIndex();
@@ -749,7 +752,8 @@ function calcCotas(){
     a.cotas = (z && z.cotasPagas!=null) ? z.cotasPagas : a.count;
     a.cotasFalta = Math.max(0, COTAS_MIN - a.cotas);
     a.quitouInsc = !!(z && z.confirmada && z.querPremio && a.cotasFalta>0);
-    a.aptoPremio = a.cotasFalta===0 || a.quitouInsc;
+    a.cotasOk = a.cotasFalta===0 || a.quitouInsc;                 // situação das cotas (11 exigidas)
+    a.aptoPremio = !!(z && z.confirmada && z.querPremio);         // apto = inscrição confirmada, concorrendo ao prêmio
   });
 }
 function renderKpis(){
@@ -760,7 +764,7 @@ function renderKpis(){
     {l:'Patrocínio', v: money(D.patrocinio)},
     {l:'Participantes', v: fmtBR(D.athletes.length)},
     {l: D.faseEncerrada ? 'Classificados para a Final' : 'Classificados até a '+D.stages.length+'ª', v: fmtBR(qualified), flag:true, action:'final'},
-    {l:'Aptos ao prêmio ('+COTAS_MIN+' cotas)', v: fmtBR(D.athletes.filter(a=>a.aptoPremio).length), action:'cotas'},
+    {l:'Já têm as '+COTAS_MIN+' cotas do fundo', v: fmtBR(D.athletes.filter(a=>a.cotasOk).length), action:'cotas'},
     {l:'Etapas', v: D.stages.length},
     {l:'Participações presenciais', v: fmtBR(totalPres), accent:true},
   ];
@@ -781,7 +785,7 @@ function renderFinalBanner(){
     ? [quando, (c.valor>0 ? 'inscrição de '+money(c.valor) : ''), 'pagamento por Pix no LiveClays'].filter(Boolean).join(' · ')
     : [quando, 'lista de inscritos no sistema oficial da Final'].filter(Boolean).join(' · ');
   const cnt = validas.length
-    ? '<div class="cnt">Inscrições confirmadas: <b>'+fmtBR(conf.length)+'</b>'+(D.qualCount? ' de '+fmtBR(D.qualCount) : '')+(validas.length>conf.length ? ' · aguardando conferência: <b>'+fmtBR(validas.length-conf.length)+'</b>' : '')+'</div>'
+    ? '<div class="cnt">Inscrições confirmadas: <b>'+fmtBR(conf.length)+'</b>'+(D.qualCount? ' de '+fmtBR(D.qualCount) : '')+(conf.length ? ' · no prêmio em dinheiro: <b>'+fmtBR(conf.filter(i=>i.querPremio).length)+'</b>' : '')+(validas.length>conf.length ? ' · aguardando conferência: <b>'+fmtBR(validas.length-conf.length)+'</b>' : '')+'</div>'
     : '';
   el.innerHTML = '<span class="ico">🏆</span>'+
     '<div class="tx"><div class="tt">'+(c.aberta ? 'Inscrições abertas para a Final' : 'Inscrições para a Final encerradas')+'</div><div class="sb">'+sub+'</div>'+cnt+'</div>'+
@@ -799,13 +803,13 @@ function applyFinalSys(){
 // Enquanto a aba está aberta e a prova está ao vivo, confere a cada 25 s. Para gastar pouco do sistema:
 // 1 leitura de contagem/soma por ciclo; só busca lançamentos quando algo mudou (e só os que mudaram).
 const LIVE_MS = 25000, LV_PASSADAS = 6, LV_HELICES = 18;
-const LV = {provas:null, ats:null, lanc:new Map(), descl:[], maxUpd:0, loaded:false, t:0, cat:'geral', timer:null, busy:false, err:false, st:'', auto:false};
+const LV = {provas:null, ats:null, lanc:new Map(), descl:[], maxUpd:0, loaded:false, t:0, cat:'geral', timer:null, busy:false, err:false, st:'', auto:false, insc:null, inscN:-1, inscT:0, ev:null};
 const LV_MASK_L = ['provaId','atiradorId','serie','passada','pratos','total','concluida','atualizadoEm'];
 async function fsPost(metodo, body){
   const r=await fetch(FINAL_API+':'+metodo,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   if(!r.ok) throw new Error('fs '+r.status); return r.json();
 }
-const lvProva = d => ({id:d._id, nome:d.nome||d._id, status:d.status||'', atiradorIds:d.atiradorIds||[]});
+const lvProva = d => ({id:d._id, nome:d.nome||d._id, status:d.status||'', atiradorIds:d.atiradorIds||[], soInscritos:(typeof d.soInscritos==='boolean' ? d.soInscritos : null)});
 const lvLanc = d => ({id:d._id, provaId:d.provaId, atiradorId:d.atiradorId, passada:(typeof d.passada==='number' ? d.passada : null), pratos:d.pratos||[], total:+d.total||0, concluida:d.concluida===true, upd:+d.atualizadoEm||0});
 const fsAtMap = a => ({id:a._id, nome:a.nome, numero:a.numero||'', cats:a.categoriaIds||[], ativo:a.ativo!==false, cotasPagas:(typeof a.cotasPagas==='number' ? a.cotasPagas : null)});
 async function fsAtiradores(){ return (await fsList('atiradores','&mask.fieldPaths=nome&mask.fieldPaths=numero&mask.fieldPaths=categoriaIds&mask.fieldPaths=ativo&mask.fieldPaths=cotasPagas')).map(fsAtMap); }
@@ -831,12 +835,30 @@ async function lvAgg(){
   const f=(r && r[0] && r[0].result && r[0].result.aggregateFields)||{};
   return {n:fsVal(f.n)||0, s:fsVal(f.s)||0};
 }
+// Inscrições confirmadas: definem quem aparece na lista da Final a partir da véspera. Para gastar pouco do sistema:
+// 1 leitura de contagem por ciclo; a lista só é buscada de novo quando a contagem muda ou a cada 5 minutos.
+const LV_INSC_MS = 5*60*1000;
+async function lvInscSync(){
+  try{
+    const now=Date.now(); let n=-1;
+    if(LV.insc){ try{ const r=await fsPost('runAggregationQuery',{structuredAggregationQuery:{structuredQuery:{from:[{collectionId:'inscricoes'}],
+        where:{fieldFilter:{field:{fieldPath:'status'},op:'IN',value:{arrayValue:{values:[{stringValue:'pago'},{stringValue:'isento'}]}}}}},aggregations:[{alias:'n',count:{}}]}});
+      n=fsVal(((r && r[0] && r[0].result && r[0].result.aggregateFields)||{}).n)||0; }catch(e){ n=-1; } }
+    if(LV.insc && n===LV.inscN && now-LV.inscT<LV_INSC_MS) return;
+    const ev=fsDoc(await fsGet(FINAL_API+'?mask.fieldPaths=inscricao.aberta&mask.fieldPaths=dataInicio'));
+    const l=await fsList('inscricoes','&mask.fieldPaths=atiradorId&mask.fieldPaths=status');
+    LV.ev={aberta: !!(ev.inscricao && ev.inscricao.aberta===true), ini: ev.dataInicio||''};
+    LV.insc=l.map(i=>({atiradorId:i.atiradorId||i._id, status:i.status||''}));
+    LV.inscN=LV.insc.filter(i=>i.status==='pago'||i.status==='isento').length; LV.inscT=now;
+  }catch(e){ /* sem as inscrições agora: a lista segue com o último dado (ou com todos os atiradores) */ }
+}
 async function lvTick(){
   if(LV.busy) return; LV.busy=true;
   try{
     LV.provas=(await fsList('provas')).map(lvProva);
     if(!LV.ats) LV.ats = (FS && FS.ats && FS.ats.length && FS.ats[0].cats) ? FS.ats : await fsAtiradores();
     const pf=LV.provas.find(p=>p.id===FINAL_PROVAS.final), st=pf ? pf.status : '';
+    if(!LV.insc || st==='ao_vivo' || st!==LV.st || Date.now()-LV.inscT>LV_INSC_MS) await lvInscSync();
     if(!LV.loaded){ await lvFull(); LV.descl=await fsList('desclassificacoes','&mask.fieldPaths=provaId&mask.fieldPaths=atiradorId'); }
     else if(st==='ao_vivo' || st!==LV.st){
       const ag=await lvAgg();
@@ -857,11 +879,28 @@ function lvSync(){
   if(on && !LV.timer){ LV.timer=setInterval(lvTick, LIVE_MS); lvTick(); }
   else if(!on && LV.timer){ clearInterval(LV.timer); LV.timer=null; }
 }
+// Quem entra na lista de uma prova: a mesma regra do sistema da Final.
+//  1) lista gravada na prova (atiradorIds), se houver; 2) soInscritos = false: todos os atiradores ativos;
+//  3) com inscrição no evento: até a véspera (prova ainda preparada), todos os ativos; da véspera (00:00) em diante,
+//     ou com a prova ao vivo/encerrada, só quem tem inscrição confirmada (paga ou isenta) e quem já tem lançamento na prova.
+function lvCorte(){ const m=/^(\d{4})-(\d{2})-(\d{2})/.exec((LV.ev && LV.ev.ini)||''); return m ? new Date(+m[1], +m[2]-1, +m[3]-1, 0, 0, 0).getTime() : 0; }
+function lvRoster(p, agora){
+  const ativos=LV.ats.filter(a=>a.ativo);
+  if(p.atiradorIds && p.atiradorIds.length) return LV.ats.filter(a=>p.atiradorIds.includes(a.id));
+  if(p.soInscritos===false || !LV.insc) return ativos;
+  if(!((LV.ev && LV.ev.aberta) || LV.insc.length)) return ativos;
+  const corte=lvCorte();
+  const soConfirmados = p.soInscritos===true || p.status==='ao_vivo' || p.status==='encerrada' || (corte>0 && (agora||Date.now())>=corte);
+  if(!soConfirmados) return ativos;
+  const conf=new Set(LV.insc.filter(i=>i.status==='pago'||i.status==='isento').map(i=>i.atiradorId));
+  const comLanc=new Set(); LV.lanc.forEach(l=>{ if(l.provaId===p.id) comLanc.add(l.atiradorId); });
+  return LV.ats.filter(a=> comLanc.has(a.id) || (a.ativo && conf.has(a.id)));
+}
 // classificação de uma prova: soma das passadas; empate fica na mesma posição (o desempate é no tiro)
 function lvClass(provaId, cat){
   const p=(LV.provas||[]).find(x=>x.id===provaId); if(!p || !LV.ats) return [];
   const fora=new Set(LV.descl.filter(d=>d.provaId===provaId).map(d=>d.atiradorId));
-  const insc=(p.atiradorIds && p.atiradorIds.length) ? LV.ats.filter(a=>p.atiradorIds.includes(a.id)) : LV.ats.filter(a=>a.ativo);
+  const insc=lvRoster(p);
   const by=new Map(); LV.lanc.forEach(l=>{ if(l.provaId!==provaId) return; if(!by.has(l.atiradorId)) by.set(l.atiradorId,[]); by.get(l.atiradorId).push(l); });
   const rows=insc.filter(a=>!fora.has(a.id) && (cat==='geral' || a.cats.includes(cat))).map(a=>{
     const ls=by.get(a.id)||[], pas=Array(LV_PASSADAS).fill(null); let total=0, lanc=0;
@@ -994,12 +1033,12 @@ async function loadFinalSys(force){
   const now=Date.now(); fsTry=now;
   if(c && !force && now-c.t<FS_TTL){ FS=c; applyFinalSys(); return; }
   try{
-    const ev=await fsGet(FINAL_API+'?mask.fieldPaths=inscricao.aberta&mask.fieldPaths=inscricao.valor&mask.fieldPaths=inscricao.valorCota&mask.fieldPaths=inscricao.cotasMinimas');
+    const ev=await fsGet(FINAL_API+'?mask.fieldPaths=inscricao.aberta&mask.fieldPaths=inscricao.valor&mask.fieldPaths=inscricao.valorFundo&mask.fieldPaths=inscricao.valorCota&mask.fieldPaths=inscricao.cotasMinimas');
     const cfg=fsDoc(ev).inscricao||{};
     // enquanto o sistema não publicar a leitura das inscrições, isto falha e o site segue sem contador
     let insc=null; if(INSC_LIGADA){ try{ insc=await fsList('inscricoes','&mask.fieldPaths=atiradorId&mask.fieldPaths=status&mask.fieldPaths=querPremio'); }catch(e){ insc=null; } }
     let cp=null; try{ cp=await fsCotasPagas(); }catch(e){ cp=null; }
-    let provas=null; try{ provas=(await fsList('provas','&mask.fieldPaths=nome&mask.fieldPaths=status&mask.fieldPaths=atiradorIds')).map(lvProva); }catch(e){ provas=null; }
+    let provas=null; try{ provas=(await fsList('provas','&mask.fieldPaths=nome&mask.fieldPaths=status&mask.fieldPaths=atiradorIds&mask.fieldPaths=soInscritos')).map(lvProva); }catch(e){ provas=null; }
     const finalOn = !!(provas && provas.some(p=>p.id===FINAL_PROVAS.final && p.status!=='preparada'));
     let ats=null, atsT=0;
     if((INSC_LIGADA && (cfg.aberta===true || (insc && insc.length))) || finalOn){
@@ -1007,7 +1046,7 @@ async function loadFinalSys(force){
       else { try{ ats=await fsAtiradores(); atsT=now; }catch(e){ ats=null; } }
     }
     FS={evt:FINAL_EVT, t:now,
-      cfg:{aberta:cfg.aberta===true, valor:+cfg.valor||0, valorCota:+cfg.valorCota||0, cotasMinimas:+cfg.cotasMinimas||0},
+      cfg:{aberta:cfg.aberta===true, valor:+cfg.valor||0, valorFundo:+cfg.valorFundo||0, valorCota:+cfg.valorCota||0, cotasMinimas:+cfg.cotasMinimas||0},
       insc: insc ? insc.map(i=>({id:i._id, atiradorId:i.atiradorId||'', status:i.status||'', querPremio:i.querPremio===true})) : null,
       ats, atsT, provas, cp};
     try{ localStorage.setItem(FS_KEY, JSON.stringify(FS)); }catch(e){}
@@ -1040,7 +1079,7 @@ function renderCards(rows){
     const main = single ? ((a.etapas[state.stage].score??'—')+' <small>'+D.stages[state.stage].n+'</small>') : (a.topgun+' <small>Top Gun</small>');
     return '<div class="acard'+(a.count>=6?' qual':'')+(a.name===fav?' fav':'')+'" data-name="'+escAttr(a.name)+'">'+
       '<div class="ah"><span class="apos">'+(medal||(pos?'#'+pos:'—'))+'</span><span class="anm">'+(a.name===fav?'⭐ ':'')+finalFlag(a)+a.name+'</span><span class="atot">'+main+'</span></div>'+
-      '<div class="as">média '+a.avg.toFixed(1)+' · '+a.count+' etapa'+(a.count===1?'':'s')+' · '+a.presCount+' presencia'+(a.presCount===1?'l':'is')+(a.count>=6&&!a.aptoPremio?' · <b class="mj" style="color:var(--accent)">falta '+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b>':'')+maj+'</div>'+
+      '<div class="as">média '+a.avg.toFixed(1)+' · '+a.count+' etapa'+(a.count===1?'':'s')+' · '+a.presCount+' presencia'+(a.presCount===1?'l':'is')+(a.count>=6&&!a.cotasOk?' · <b class="mj" style="color:var(--accent)">falta '+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b>':'')+maj+'</div>'+
       '<div class="achips">'+chips+'</div></div>';
   }).join('');
 }
@@ -1150,7 +1189,7 @@ function loadDataset(){
     a.faltamEtapas = Math.max(0, 6 - a.count);
     a.podeClassificar = a.count>=6 || (a.count + D.etapasRestantes >= 6);
     a.cotasFalta = Math.max(0, COTAS_MIN - a.cotas);
-    a.aptoPremio = a.cotasFalta === 0;
+    a.cotasOk = a.cotasFalta === 0; a.aptoPremio = false;   // calcCotas() ajusta com os dados do sistema da Final
     // Majorança: soma das 4 melhores notas presenciais
     a.presScores = a.etapas.filter(e=>e.presencial && e.score!==null).map(e=>e.score).sort((x,y)=>y-x);
     a.majorTop = a.presScores.slice(0,4);
@@ -1205,7 +1244,7 @@ function filtered(){
     if(state.finalOnly && a.count<6) return false;
     // Top Gun geral: a Final e obrigatoria, entao so quem esta classificado disputa
     if(state.view==='rank' && state.stage<0 && a.count<6) return false;
-    if(state.cotaOnly && !(a.count>=6 && !a.aptoPremio)) return false;
+    if(state.cotaOnly && !(a.count>=6 && !a.cotasOk)) return false;
     if(state.q && !a.name.toLowerCase().includes(state.q.toLowerCase())) return false;
     if(state.stage>=0){
       const e = a.etapas[state.stage];
@@ -1887,11 +1926,11 @@ function openDetail(name, fromUrl){
           : '<div class="cotanote pend">🏁 <b>Não alcança mais as 6 etapas</b> nesta edição — tem '+a.count+' e resta'+(D.etapasRestantes>1?'m':'')+' apenas <b>'+D.etapasRestantes+'</b> etapa'+(D.etapasRestantes>1?'s':'')+' no calendário.</div>')))+
       (function(){ const v=cotaValor();
         if(!a.podeClassificar) return '';   // sem chance de Final: cobrar cotas nao faz sentido
-        if(a.quitouInsc) return '<div class="cotanote">💰 <b>Apto ao prêmio em dinheiro</b> — a'+(a.cotasFalta>1?'s '+a.cotasFalta+' cotas que faltavam foram quitadas':' cota que faltava foi quitada')+' na inscrição da Final.</div>';
-        const insAberta = !!(FS && FS.cfg && FS.cfg.aberta);
-        return a.aptoPremio
-          ? '<div class="cotanote">💰 <b>Apto ao prêmio em dinheiro</b> — '+a.cotas+' cotas do fundo ('+COTAS_MIN+' é o mínimo exigido).</div>'
-          : '<div class="cotanote pend">💰 <b>'+a.cotas+' de '+COTAS_MIN+' cotas</b> do fundo. Para concorrer ao prêmio em dinheiro, falta'+(a.cotasFalta>1?'m':'')+' <b>'+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b> — <span class="vl">'+money(a.cotasFalta*v)+'</span>, que pode'+(a.cotasFalta>1?'m ser quitadas ':' ser quitada ')+(insAberta ? 'na inscrição da Final. <a class="cotalink" href="'+finalInscUrl(a.finalNum)+'" target="_blank" rel="noopener">Quitar na inscrição →</a>' : 'antes da Final.')+'</div>'; })()+
+        const insAberta = !!(FS && FS.cfg && FS.cfg.aberta), vf = (FS && FS.cfg && FS.cfg.valorFundo>0) ? ' ('+money(FS.cfg.valorFundo)+')' : '';
+        if(a.aptoPremio) return '<div class="cotanote">💰 <b>Apto ao prêmio em dinheiro</b> — inscrição da Final confirmada, concorrendo ao prêmio.'+(a.quitouInsc ? ' A'+(a.cotasFalta>1?'s '+a.cotasFalta+' cotas que faltavam foram quitadas':' cota que faltava foi quitada')+' na inscrição.' : '')+'</div>';
+        return a.cotasOk
+          ? '<div class="cotanote">💰 <b>Tem as '+COTAS_MIN+' cotas do fundo</b> — '+a.cotas+' cotas ('+COTAS_MIN+' é o mínimo exigido). Para concorrer ao prêmio em dinheiro, é preciso a inscrição da Final com o fundo de premiação'+vf+', confirmada pela organização.'+(insAberta ? ' <a class="cotalink" href="'+finalInscUrl(a.finalNum)+'" target="_blank" rel="noopener">Fazer a inscrição →</a>' : '')+'</div>'
+          : '<div class="cotanote pend">💰 <b>'+a.cotas+' de '+COTAS_MIN+' cotas</b> do fundo. Para concorrer ao prêmio em dinheiro, falta'+(a.cotasFalta>1?'m':'')+' <b>'+a.cotasFalta+' cota'+(a.cotasFalta>1?'s':'')+'</b> — <span class="vl">'+money(a.cotasFalta*v)+'</span>, que pode'+(a.cotasFalta>1?'m ser quitadas ':' ser quitada ')+(insAberta ? 'na inscrição da Final, junto com o fundo de premiação'+vf+'. <a class="cotalink" href="'+finalInscUrl(a.finalNum)+'" target="_blank" rel="noopener">Quitar na inscrição →</a>' : 'antes da Final.')+'</div>'; })()+
       (a.presCount>=4? '<div class="majnote">Majorança = soma das 4 melhores notas presenciais'+(a.presScores.length>4?' (de '+a.presScores.length+' presenciais)':'')+': <b>'+a.majorTop.join(' + ')+' = '+a.major+'</b></div>' : '<div class="majnote">Majorança ainda não disponível — exige <b>no mínimo 4 etapas presenciais</b> (este atirador tem '+a.presCount+').'+(D.faseEncerrada?'':' Será calculada conforme as próximas etapas forem registradas.')+'</div>')+
       '<div class="charttitle">Evolução por etapa</div>'+
       '<div class="chartwrap">'+chartSVG(a)+
