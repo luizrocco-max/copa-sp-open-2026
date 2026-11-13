@@ -5,7 +5,7 @@
 //
 // Variáveis (definir no painel do Cloudflare em Settings > Variables):
 //   GITHUB_TOKEN    (Secret)  -> token fine-grained com Contents: Read and write no repo
-//   ADMIN_PASSWORD  (Secret)  -> mesma senha do login do painel (ex.: a6509j)
+//   ADMIN_PASSWORD  (Secret)  -> mesma senha do login do painel (não escreva a senha aqui: o repositório é público)
 //   GH_REPO         (Text)    -> "luizrocco-max/copa-sp-open-2026"
 //   GH_BRANCH       (Text)    -> "main"   (opcional; default main)
 //   ALLOW_ORIGIN    (Text)    -> "https://copasaopaulodetiroahelice.com.br" (opcional)
