@@ -136,7 +136,7 @@
     <h2>Como funciona a premiação</h2>
     <div class="duo">
       <div class="box ouro"><h3>🏆 Troféus e medalhas</h3><p><b>Todo classificado disputa</b>, sem precisar completar nada.</p></div>
-      <div class="box verde"><h3>💰 Prêmio em dinheiro</h3><p>Concorre quem tem <b>11 cotas</b> do fundo de premiação (cada etapa disputada vale 1 cota, de R$ 150) e contribui com o <b>fundo de premiação da Final</b>, de R$ 500.</p></div>
+      <div class="box verde"><h3>💰 Prêmio em dinheiro</h3><p>Concorre quem tem <b>11 cotas</b> do fundo de premiação (cada etapa disputada vale 1 cota, de R$ 150) <b>e</b> faz a inscrição da Final com o <b>fundo de premiação da Final</b>, de R$ 500. Só as cotas não bastam: vale quando a organização confirma a inscrição.</p></div>
     </div>
     <p>Quem tem menos de 11 cotas <b>pode completar a diferença, se quiser</b>, e passa a concorrer também ao prêmio em dinheiro. Quem preferir não completar participa da Final normalmente; só não concorre ao dinheiro.</p>
   </section>
@@ -179,7 +179,7 @@
 
   <section>
     <h2>Já têm as 11 cotas <span class="muted">· <span id="nTem">–</span> atiradores</span></h2>
-    <p class="muted">Não precisam completar cotas. Para concorrer ao prêmio em dinheiro, basta a inscrição com o fundo de premiação da Final (R$ 700).</p>
+    <p class="muted">Não precisam completar cotas. Para concorrer ao prêmio em dinheiro, falta a inscrição com o fundo de premiação da Final (R$ 700 no total), confirmada pela organização.</p>
     <ul class="lista c3" id="lTem"></ul>
   </section>
 
@@ -208,7 +208,8 @@
   var INSC_AT = 'https://liveclays.com/inscricao/mw2pnqq9e4ea6a?atirador=';   // abre direto na inscrição do atirador (número de 3 dígitos)
   var API = 'https://firestore.googleapis.com/v1/projects/resultados-esfah/databases/(default)/documents/eventos/mw2pnqq9e4ea6a';
   var MIN = 11, COTA = 150, BASE = 700;   // 11 cotas; R$ 150 por cota; R$ 200 de inscrição + R$ 500 do fundo da Final
-  // retrato de 13/11/2026: [número, nome, categoria, etapas, cotas que faltam]; ao abrir a página é atualizado pelo sistema
+  // retrato de 13/11/2026: [número, nome, categoria, etapas, cotas que faltam]; ao abrir a página é atualizado pelo sistema,
+  // que acrescenta um 6º item: 1 = concorre ao prêmio (inscrição confirmada, paga ou isenta, com querPremio)
   var LISTA = [["001","Renato Da Costa Junior","A",12,0],["002","Thiago Bonet Mozena","A",13,0],["003","Farouk Muhieddine","A",12,0],["004","Gustavo Adolfo Schilling Neto","A",12,0],["005","Douglas Dorival Russo","A",13,0],["006","Paolo Brandizzi Neto","A",13,0],["007","Mauricio Antonio Piazzetta","A",12,0],["008","Luiz Jabbur Jr.","A",12,0],["009","Rogerio Balestrin","A",6,5],["010","Jamel Jamil Chukr","A",13,0],["011","Dener Augusto Diniz","A",13,0],["012","Jean Carlos Cazaroto","A",10,1],["013","Andre Luiz Tonial","A",10,1],["014","João Reinaldo Clasen (Fera)","A",10,1],["015","Daniel Boiko","A",6,5],["016","Guilherme Geo","A",13,0],["017","Raphael Bonet Mozena","A",13,0],["018","Bruno Hebach L Abbate","A",12,0],["019","Nelson Alfredo R. Bolduan","A",9,2],["020","Assis Ali Mohamad","A",7,4],["021","Luis R Vargas Jr","A",13,0],["022","Rodrigo Coutinho R. Cipriano","A",9,2],["023","Eduardo Peres Krum","A",9,2],["024","Luiz Antonio Farha Rocco","A",12,0],["025","Manuel Carlos Salemme","A",10,1],["026","Francisco Azevedo Figueiredo Neto","A",11,0],["027","Ricardo Chiarotto Penteado","A",11,0],["028","Lamberto Godoy Ramenzoni","A",12,0],["029","Sergio De Oliveira Barbosa","A",11,0],["030","Reinaldo Zani Baggio","A",12,0],["031","Marcos B. Gonsalez","A",8,3],["032","Assaad Malek","A",9,2],["033","Rodrigo Rebello","A",7,4],["034","Frederico Montefeltro","A",13,0],["035","João Paulo Pinheiro","A",13,0],["036","Pedro Cozza","A",10,1],["037","Romulo Mansur","A",11,0],["038","Luis Antonio Guideti","A",11,0],["039","Rafael Linne Netto","A",9,2],["040","Arthur Chiarotto Penteado","A",8,0],["041","Luciano Aardoon","A",12,0],["042","João Paulo Balaban","A",10,0],["043","Rubens Los Junior","A",7,4],["044","Rafael Pancan De Biaggi","A",6,5],["045","André Geo","A",6,5],["046","Andre Bizio","B",13,0],["047","Valter Fonseca","B",11,0],["048","Bruno Xavier Verciani","B",8,3],["049","Luciano André Fenker","B",10,1],["050","Luiz Pirani","B",10,1],["051","Marco Antônio Malzoni","B",9,2],["052","Otávio Peretti Iglesias","B",8,3],["053","Jose Otavio Junqueira","B",12,0],["054","Heuro Tortato","B",11,0],["055","Fabrício Dognani","B",11,0],["056","Ricardo Junqueira Meirelles","B",12,0],["057","Marcelo Augusto De Souza","B",6,5],["058","Tiago M Batista","B",6,5],["059","Walter Vitor Lança Jr","B",13,0],["060","Anamaria Marcondes M V Maciela Lima","B",13,0],["061","João Edward Soranz Filho","B",12,0],["062","José Carlos Mazer","B",11,0],["063","Gabriel Henrique Maciel","B",7,4],["064","Neimar Batista","B",7,4],["065","Valdair Ribeiro Da Silva","B",6,5],["066","Lorayne A R V Boogaard","B",12,0],["067","Eduardo Guilherme Alves De Oliveira","B",12,0],["068","Lucas Campos G. Vereza","B",10,1],["069","Olavo Ferraz Carrara","B",9,2],["070","Willian Richard Hamanue","B",8,3],["071","Guilherme Vallerini","B",7,4],["072","Carlos Eduardo Doll","B",9,2],["073","Fabio Lima Mourão","B",6,5],["074","Luiz Azzoni","B",8,3],["075","Scheila Menin","B",7,4],["076","Luis Henrique Neves","B",7,4],["077","Mauro Farah","B",6,5],["078","David Coury","B",8,3],["079","Felipe Sanguino","B",13,0],["080","Andre Ramos Nogueira","B",8,3],["081","Eduardo A C P De Lucena","B",9,2],["082","Jose Ivan Carvalho Rangel","B",7,4],["083","Renato Ribeiro F. Abucham","B",6,5],["084","Marcos Farah","B",6,5],["085","Marcelo Martignani","B",6,5],["086","Silvio Luis Paggiaro","B",7,4],["087","Jose Alfredo Gherardi","B",10,1],["088","Marcos Luciano Rodrigues Soares","B",6,5],["089","Odimir Jose De Moraes","B",6,5],["090","Marcelo Schun Diniz Junqueira","B",6,5],["091","Gabriel Russo","B",7,4]];
   var aberta = false;
   function g(id){ return document.getElementById(id); }
@@ -224,8 +225,8 @@
     res.innerHTML=ac.map(function(a){ var f=a[4];
       return '<div class="res'+(f?' pode':'')+'"><div class="rn"><span class="n">'+txt(a[0])+'</span>'+txt(a[1])+'<span class="c c'+a[2]+'">Categoria '+a[2]+'</span></div>'+
         '<div class="rs">🏁 Classificado para a Final, com '+a[3]+' etapas. Disputa troféu e medalha.</div>'+
-        '<div class="rs">'+(f ? '💰 Pode completar <b>'+f+' cota'+(f>1?'s':'')+' ('+reais(f*COTA)+')</b> para concorrer também ao prêmio em dinheiro. É opcional.' : '💰 Já tem as 11 cotas.')+'</div>'+
-        '<div class="rs vals">Só a Final: <b>R$ 200</b> · Com prêmio em dinheiro: <b>'+reais(BASE+f*COTA)+'</b>'+(f ? ' <span class="muted">(R$ 700 + '+f+' cota'+(f>1?'s':'')+')</span>' : '')+'</div>'+
+        '<div class="rs">'+(a[5] ? '✅ <b>Concorre ao prêmio em dinheiro</b>: inscrição confirmada pela organização.' : f ? '💰 Pode completar <b>'+f+' cota'+(f>1?'s':'')+' ('+reais(f*COTA)+')</b> para concorrer também ao prêmio em dinheiro. É opcional.' : '💰 Já tem as 11 cotas. Para concorrer ao prêmio em dinheiro, falta a inscrição com o fundo de premiação da Final.')+'</div>'+
+        (a[5] ? '' : '<div class="rs vals">Só a Final: <b>R$ 200</b> · Com prêmio em dinheiro: <b>'+reais(BASE+f*COTA)+'</b>'+(f ? ' <span class="muted">(R$ 700 + '+f+' cota'+(f>1?'s':'')+')</span>' : '')+'</div>')+
         (aberta ? '<a class="btn" href="'+INSC_AT+encodeURIComponent(a[0])+'" target="_blank" rel="noopener">Abrir a minha inscrição ↗</a>' : '')+'</div>'; }).join('');
   }
   function desenha(){
@@ -256,7 +257,7 @@
     if(ats && ats.length){
       var quitou={}; (ins||[]).forEach(function(i){ if((i.status==='pago'||i.status==='isento') && i.querPremio===true) quitou[i.atiradorId||i._id]=1; });
       LISTA=ats.filter(function(a){ return a.ativo!==false && a.nome; }).map(function(a){ var et=a.etapas||0, c=(typeof a.cotasPagas==='number') ? a.cotasPagas : et;
-        return [a.numero||'', a.nome, (a.categoriaIds||[]).indexOf('a')>=0 ? 'A' : 'B', et, quitou[a._id] ? 0 : Math.max(0, MIN-c)]; }).sort(function(x,y){ return x[0].localeCompare(y[0]); });
+        return [a.numero||'', a.nome, (a.categoriaIds||[]).indexOf('a')>=0 ? 'A' : 'B', et, quitou[a._id] ? 0 : Math.max(0, MIN-c), quitou[a._id] ? 1 : 0]; }).sort(function(x,y){ return x[0].localeCompare(y[0]); });
       g('atualizado').textContent='situação das cotas atualizada pelo sistema da Final';
     }
     try{ aberta = INSC_LIGADA && !!ev && ev.fields.inscricao.mapValue.fields.aberta.booleanValue===true; }catch(e){ aberta=false; }
