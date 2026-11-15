@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Classificados para a Final — Copa São Paulo Open 2026</title>
-<meta name="description" content="Os 91 classificados para a Final da V Copa São Paulo Open de Tiro às Hélices, as categorias A e B e como funciona o prêmio em dinheiro.">
+<meta name="description" content="Os classificados para a Final da V Copa São Paulo Open de Tiro às Hélices, as categorias A e B e como funciona o prêmio em dinheiro.">
 <meta name="theme-color" content="#0f1115">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Copa São Paulo Open 2026">
 <meta property="og:url" content="https://copasaopaulodetiroahelice.com.br/classificados.html">
 <meta property="og:title" content="Final da Copa São Paulo Open 2026 — classificados e inscrição">
-<meta property="og:description" content="Os 91 classificados para a Final de 28 de novembro, no CCTSP: como se inscrever, valores e como funciona o prêmio em dinheiro.">
+<meta property="og:description" content="Os classificados para a Final de 28 de novembro, no CCTSP: como se inscrever, valores e como funciona o prêmio em dinheiro.">
 <meta property="og:image" content="https://copasaopaulodetiroahelice.com.br/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -115,8 +115,8 @@
   <a class="voltar" href="./">← Voltar aos resultados</a>
 
   <div class="resumo">
-    <h2>Parabéns aos 91 classificados!</h2>
-    <p style="margin:4px 0">Estão na Final todos os atiradores que disputaram <b>6 ou mais</b> das 13 etapas. São <b><span id="nA">45</span> na Categoria A</b> e <b><span id="nB">46</span> na Categoria B</b>.</p>
+    <h2>Parabéns aos <span id="nTot">91</span> classificados!</h2>
+    <p style="margin:4px 0">Estão na Final todos os atiradores que disputaram <b>6 ou mais</b> das 13 etapas. São <b><span id="nA">45</span> na Categoria A</b> e <b><span id="nB">46</span> na Categoria B</b>.<span id="nNovos"></span></p>
   </div>
 
   <section class="achar">
@@ -196,6 +196,7 @@
       <div><h3>Categoria A <span class="muted">· <span id="nA2">45</span></span></h3><ul class="lista" id="lA"></ul></div>
       <div><h3>Categoria B <span class="muted">· <span id="nB2">46</span></span></h3><ul class="lista" id="lB"></ul></div>
     </div>
+    <div id="boxN" style="display:none;margin-top:12px"><h3>Número e categoria a confirmar <span class="muted">· <span id="nN">0</span></span></h3><p class="muted">Classificação recente, pela planilha de resultados. O número, a categoria e a inscrição aparecem assim que a organização incluir o nome no sistema da Final.</p><ul class="lista" id="lN"></ul></div>
   </section>
 
   <footer>Lista oficial da organização · <span id="atualizado">posição de 13/11/2026</span> · <a href="privacidade.html">Privacidade e dados pessoais</a></footer>
@@ -216,22 +217,24 @@
   function limpa(t){ return (t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
   function txt(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
   function reais(n){ return 'R$ '+n.toLocaleString('pt-BR'); }
-  function nome(a){ return aberta ? '<a class="nm lk" href="'+INSC_AT+encodeURIComponent(a[0])+'" target="_blank" rel="noopener" title="Abrir a inscrição deste atirador no LiveClays">'+txt(a[1])+'</a>' : '<span class="nm">'+txt(a[1])+'</span>'; }
-  function li(a, comCat){ return '<li><span class="n">'+txt(a[0])+'</span>'+nome(a)+(comCat ? '<span class="c c'+a[2]+'">'+a[2]+'</span>' : '')+'</li>'; }
+  function nome(a){ return aberta && a[0] ? '<a class="nm lk" href="'+INSC_AT+encodeURIComponent(a[0])+'" target="_blank" rel="noopener" title="Abrir a inscrição deste atirador no LiveClays">'+txt(a[1])+'</a>' : '<span class="nm">'+txt(a[1])+'</span>'; }
+  function li(a, comCat){ return '<li><span class="n">'+txt(a[0]||'—')+'</span>'+nome(a)+(comCat && a[2] ? '<span class="c c'+a[2]+'">'+a[2]+'</span>' : '')+'</li>'; }
   function mostra(){
     var q=limpa(g('busca').value).trim(), res=g('resBusca'); if(q.length<2){ res.innerHTML=''; return; }
     var ac=LISTA.filter(function(a){ return limpa(a[1]).indexOf(q)>=0 || a[0].indexOf(q)>=0; }).slice(0,6);
     if(!ac.length){ res.innerHTML='<div class="nada">Nenhum classificado com esse nome. Confira a grafia ou procure pelo número.</div>'; return; }
     res.innerHTML=ac.map(function(a){ var f=a[4];
-      return '<div class="res'+(f?' pode':'')+'"><div class="rn"><span class="n">'+txt(a[0])+'</span>'+txt(a[1])+'<span class="c c'+a[2]+'">Categoria '+a[2]+'</span></div>'+
+      return '<div class="res'+(f?' pode':'')+'"><div class="rn"><span class="n">'+txt(a[0]||'—')+'</span>'+txt(a[1])+(a[2] ? '<span class="c c'+a[2]+'">Categoria '+a[2]+'</span>' : '')+'</div>'+
         '<div class="rs">🏁 Classificado para a Final, com '+a[3]+' etapas. Disputa troféu e medalha.</div>'+
         '<div class="rs">'+(a[5] ? '✅ <b>Concorre ao prêmio em dinheiro</b>: inscrição confirmada pela organização.' : f ? '💰 Pode completar <b>'+f+' cota'+(f>1?'s':'')+' ('+reais(f*COTA)+')</b> para concorrer também ao prêmio em dinheiro. É opcional.' : '💰 Já tem as 11 cotas. Para concorrer ao prêmio em dinheiro, falta a inscrição com o fundo de premiação da Final.')+'</div>'+
         (a[5] ? '' : '<div class="rs vals">Só a Final: <b>R$ 200</b> · Com prêmio em dinheiro: <b>'+reais(BASE+f*COTA)+'</b>'+(f ? ' <span class="muted">(R$ 700 + '+f+' cota'+(f>1?'s':'')+')</span>' : '')+'</div>')+
-        (aberta ? '<a class="btn" href="'+INSC_AT+encodeURIComponent(a[0])+'" target="_blank" rel="noopener">Abrir a minha inscrição ↗</a>' : '')+'</div>'; }).join('');
+        (!a[0] ? '<div class="rs muted">Classificação recente: o número, a categoria e a inscrição aparecem aqui assim que a organização incluir o nome no sistema da Final.</div>' : aberta ? '<a class="btn" href="'+INSC_AT+encodeURIComponent(a[0])+'" target="_blank" rel="noopener">Abrir a minha inscrição ↗</a>' : '')+'</div>'; }).join('');
   }
   function desenha(){
     var tem=LISTA.filter(function(a){ return a[4]===0; }), pode=LISTA.filter(function(a){ return a[4]>0; });
-    var A=LISTA.filter(function(a){ return a[2]==='A'; }), B=LISTA.filter(function(a){ return a[2]!=='A'; });
+    var A=LISTA.filter(function(a){ return a[2]==='A'; }), B=LISTA.filter(function(a){ return a[2]==='B'; }), N=LISTA.filter(function(a){ return !a[2]; });
+    g('nTot').textContent=LISTA.length; g('nNovos').innerHTML = N.length ? ' Mais <b>'+N.length+'</b> classificado'+(N.length>1?'s':'')+' aguardando número e categoria.' : '';
+    g('boxN').style.display = N.length ? '' : 'none'; g('nN').textContent=N.length; g('lN').innerHTML=N.map(function(a){ return li(a,false); }).join('');
     g('kTot').textContent=LISTA.length; g('kCat').textContent=A.length+' · '+B.length; g('kTem').textContent=tem.length; g('kPode').textContent=pode.length;
     g('nA').textContent=A.length; g('nB').textContent=B.length; g('nA2').textContent=A.length; g('nB2').textContent=B.length; g('nTem').textContent=tem.length; g('nPode').textContent=pode.length;
     g('lTem').innerHTML=tem.map(function(a){ return li(a,true); }).join('');
@@ -252,13 +255,22 @@
   function lista(col, campos){ var out=[], m=campos.map(function(c){ return '&mask.fieldPaths='+c; }).join('');
     function pag(tok){ return pega(API+'/'+col+'?pageSize=300'+m+(tok?'&pageToken='+encodeURIComponent(tok):'')).then(function(j){ if(!j) return null; (j.documents||[]).forEach(function(d){ out.push(doc(d)); }); return j.nextPageToken ? pag(j.nextPageToken) : out; }); }
     return pag(''); }
-  Promise.all([ pega(API+'?mask.fieldPaths=inscricao.aberta'), lista('atiradores',['numero','nome','categoriaIds','etapas','cotasPagas','ativo']), INSC_LIGADA ? lista('inscricoes',['atiradorId','status','querPremio']) : Promise.resolve(null) ]).then(function(r){
-    var ev=r[0], ats=r[1], ins=r[2];
+  Promise.all([ pega(API+'?mask.fieldPaths=inscricao.aberta'), lista('atiradores',['numero','nome','categoriaIds','etapas','cotasPagas','ativo']), INSC_LIGADA ? lista('inscricoes',['atiradorId','status','querPremio']) : Promise.resolve(null), pega('dataset.json') ]).then(function(r){
+    var ev=r[0], ats=r[1], ins=r[2], ds=r[3];
     if(ats && ats.length){
       var quitou={}; (ins||[]).forEach(function(i){ if((i.status==='pago'||i.status==='isento') && i.querPremio===true) quitou[i.atiradorId||i._id]=1; });
       LISTA=ats.filter(function(a){ return a.ativo!==false && a.nome; }).map(function(a){ var et=a.etapas||0, c=(typeof a.cotasPagas==='number') ? a.cotasPagas : et;
         return [a.numero||'', a.nome, (a.categoriaIds||[]).indexOf('a')>=0 ? 'A' : 'B', et, quitou[a._id] ? 0 : Math.max(0, MIN-c), quitou[a._id] ? 1 : 0]; }).sort(function(x,y){ return x[0].localeCompare(y[0]); });
       g('atualizado').textContent='situação das cotas atualizada pelo sistema da Final';
+    }
+    // Planilha de resultados do site (dataset.json): se ela estiver mais nova que o sistema da Final, vale a planilha para o
+    // número de etapas, e quem se classificou depois entra na lista mesmo antes de ter número e categoria no sistema.
+    if(ds && ds.athletes && ds.athletes.length){
+      var chave=function(t){ return limpa(t).replace(/\s+/g,' ').trim(); }, conta={}, tem={};
+      ds.athletes.forEach(function(a){ var n=0; (a.etapas||[]).forEach(function(e){ if(e && e.score!==null && e.score!==undefined) n++; }); conta[chave(a.name)]={n:n, nome:a.name}; });
+      LISTA.forEach(function(a){ var k=chave(a[1]), z=conta[k]; tem[k]=1; if(z && z.n>a[3]){ a[4]=Math.max(0, a[4]-(z.n-a[3])); a[3]=z.n; } });
+      Object.keys(conta).forEach(function(k){ var z=conta[k]; if(z.n>=6 && !tem[k]) LISTA.push(['', z.nome, '', z.n, Math.max(0, MIN-z.n), 0]); });
+      LISTA.sort(function(x,y){ return (x[0]||'zzz').localeCompare(y[0]||'zzz') || x[1].localeCompare(y[1]); });
     }
     try{ aberta = INSC_LIGADA && !!ev && ev.fields.inscricao.mapValue.fields.aberta.booleanValue===true; }catch(e){ aberta=false; }
     desenha();
