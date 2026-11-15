@@ -1,5 +1,5 @@
 {
- "fundoAcumulado": 309150,
+ "fundoAcumulado": 309450,
  "patrocinio": 135000,
  "totalParticipantes": 220,
  "etapasComResultado": 13,
@@ -17,7 +17,7 @@
   {
    "n": "3ª Etapa",
    "local": "Boituva",
-   "date": "24/02 a 1/03/2026"
+   "date": "24 a 1/03/2026"
   },
   {
    "n": "4ª Etapa",
@@ -82,8 +82,8 @@
   9000,
   10500,
   10200,
-  7350,
-  8250
+  7500,
+  8400
  ],
  "stageParticipants": [
   134,
@@ -97,8 +97,8 @@
   60,
   70,
   68,
-  49,
-  55
+  50,
+  56
  ],
  "athletes": [
   {
@@ -4513,11 +4513,11 @@
      "score": 17
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 17,
+     "presencial": true
     },
     {
-     "score": 12
+     "score": 17
     }
    ]
   },
@@ -6719,13 +6719,13 @@
      "presencial": true
     },
     {
-     "score": 17
+     "score": 15
     },
     {
      "score": 15
     },
     {
-     "score": 17
+     "score": 14
     },
     {
      "score": 17
@@ -6905,8 +6905,8 @@
      "presencial": true
     },
     {
-     "score": null,
-     "presencial": false
+     "score": 15,
+     "presencial": true
     }
    ]
   },
