@@ -1165,7 +1165,11 @@ let stageAvg = [];
 const stageSel = document.getElementById('stageSel');
 
 // (re)computa métricas derivadas e renderiza KPIs/cards/seletor a partir do D atual
+// Patrocínio: vale o mínimo do regulamento (R$ 130.000), por decisão da organização em 16/11/2026, mesmo que a planilha
+// enviada ainda traga outro valor. O fundo acumulado é sempre patrocínio + fundo das etapas.
+const PATROCINIO_OFICIAL = 130000;
 function loadDataset(){
+  if(PATROCINIO_OFICIAL && Array.isArray(D.fundoEtapa)){ D.patrocinio=PATROCINIO_OFICIAL; D.fundoAcumulado=PATROCINIO_OFICIAL+D.fundoEtapa.reduce((s,x)=>s+(+x||0),0); }
   // etapas que ainda faltam disputar (calendário sem a Final, menos as já publicadas)
   D.etapasRestantes = Math.max(0, (D.calendario||[]).filter(c=>!/final/i.test(c.n||'')).length - D.stages.length);
   // todas as etapas do calendário já publicadas: só falta a Final (os textos deixam de falar em "próximas etapas")
