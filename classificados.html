@@ -145,10 +145,11 @@
     <h2>O que está em disputa na Final</h2>
     <p>A Final é uma série de <b>18 hélices</b>, e todos começam com a pontuação zerada. O prêmio em dinheiro é dividido em três disputas:</p>
     <div class="trio">
-      <div class="box ouro"><h3>🏆 Grande Final <span class="muted">· 50% do prêmio</span></h3><p>O resultado da Final, nas categorias <b>A</b> e <b>B</b>, com finais e premiações independentes.</p></div>
-      <div class="box"><h3>🎯 Top Gun <span class="muted">· 25%</span></h3><p>Soma das <b>10 melhores etapas</b> + a Final com peso dobrado. Empate: desempate no tiro, a “um zero elimina”.</p></div>
-      <div class="box"><h3>⭐ Majorança <span class="muted">· 25%</span></h3><p>Soma das <b>4 melhores etapas presenciais</b> + a Final com peso dobrado. Os 10 melhores (e os empatados) disputam uma final adicional de 18 hélices, também com peso dobrado.</p></div>
+      <div class="box ouro"><h3>🏆 Grande Final <span class="muted">· 50% do prêmio</span></h3><p>O resultado da Final, nas categorias <b>A</b> e <b>B</b>, com finais e premiações independentes. O prêmio é dividido meio a meio: <b>25% do total para cada categoria</b>.</p><p id="gfPremia"><b>Premia os 8 primeiros de cada categoria:</b> 23, 19, 15, 12, 10, 8, 7 e 6%.</p></div>
+      <div class="box"><h3>🎯 Top Gun <span class="muted">· 25%</span></h3><p>Soma das <b>10 melhores etapas</b> + a Final com peso dobrado. Empate: desempate no tiro, a “um zero elimina”.</p><p><b>Premia os 15 primeiros:</b> 15, 11, 9, 8, 7, 6, 6, 5, 5, 5, 5, 5, 5, 4 e 4%.</p></div>
+      <div class="box"><h3>⭐ Majorança <span class="muted">· 25%</span></h3><p>Soma das <b>4 melhores etapas presenciais</b> + a Final com peso dobrado. Os 10 melhores (e os empatados) disputam uma final adicional de 18 hélices, também com peso dobrado.</p><p><b>Premia os 10 primeiros:</b> 20, 16, 13, 11, 9, 8, 7, 6, 5 e 5%.</p></div>
     </div>
+    <p class="muted">Os percentuais são os do regulamento (item 15 e Anexo I); no Top Gun e na Majorança não há divisão por categoria. Na Grande Final, o número de premiados segue o número de classificados de cada categoria. Os valores em reais dependem do total arrecadado até a Final.</p>
     <p class="muted">Troféus aos 3 primeiros das categorias A e B, ao campeão da Majorança e ao campeão do Top Gun. Medalhas aos campeões Damas, Veteranos e Júnior. O regulamento completo está na <a href="./" style="color:inherit;font-weight:700">página de resultados</a>, no botão “Regulamento &amp; Calendário”.</p>
   </section>
 
@@ -233,6 +234,10 @@
   function desenha(){
     var tem=LISTA.filter(function(a){ return a[4]===0; }), pode=LISTA.filter(function(a){ return a[4]>0; });
     var A=LISTA.filter(function(a){ return a[2]==='A'; }), B=LISTA.filter(function(a){ return a[2]==='B'; }), N=LISTA.filter(function(a){ return !a[2]; });
+    var ANEXO=[[36,[28,21,17,14,11,9]],[42,null],[48,[23,19,15,12,10,8,7,6]],[54,[21,17,14,12,10,8,7,6,5]],[60,[20,16,13,11,9,8,7,6,5,5]],[66,[19,15,13,11,9,8,7,6,5,4,3]]];
+    var faixa=function(n){ for(var i=0;i<ANEXO.length;i++){ if(n<=ANEXO[i][0]) return ANEXO[i][1]; } return null; };
+    var pcts=function(v){ return v.slice(0,-1).join(', ')+' e '+v[v.length-1]+'%'; }, fA=faixa(A.length), fB=faixa(B.length);
+    g('gfPremia').innerHTML = (fA && fB) ? (fA.length===fB.length ? '<b>Premia os '+fA.length+' primeiros de cada categoria:</b> '+pcts(fA)+'.' : '<b>Categoria A, os '+fA.length+' primeiros:</b> '+pcts(fA)+'. <b>Categoria B, os '+fB.length+' primeiros:</b> '+pcts(fB)+'.') : 'O número de premiados de cada categoria segue o quadro do Anexo I do regulamento, pelo número de classificados.';
     g('nTot').textContent=LISTA.length; g('nNovos').innerHTML = N.length ? ' Mais <b>'+N.length+'</b> classificado'+(N.length>1?'s':'')+' aguardando número e categoria.' : '';
     g('boxN').style.display = N.length ? '' : 'none'; g('nN').textContent=N.length; g('lN').innerHTML=N.map(function(a){ return li(a,false); }).join('');
     g('kTot').textContent=LISTA.length; g('kCat').textContent=A.length+' · '+B.length; g('kTem').textContent=tem.length; g('kPode').textContent=pode.length;
