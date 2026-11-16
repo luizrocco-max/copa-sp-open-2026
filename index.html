@@ -356,7 +356,7 @@
     .mhead .favbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
     .favcard .fst{margin-left:0;width:100%}
     .podhead{flex-wrap:wrap}
-    .mhead .dlbtn{order:4;width:100%;margin:8px 0 0;text-align:center}
+    .mhead .dlbtn{order:4;width:100%;margin:8px 0 0;text-align:center} #regModal .dlbtn.pri{margin-left:0}
     .mbody{padding:14px 16px}
     .pkpis{grid-template-columns:repeat(2,1fr)}
     .estable{font-size:11px}
@@ -434,6 +434,7 @@
   .rule p{margin:0;font-size:13px;color:var(--txt);line-height:1.45}
   .secttl{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 10px;border-top:1px solid var(--line);padding-top:14px}
   .dlbtn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:10px 16px;border-radius:9px;font-weight:700;font-size:13px;margin-top:6px}
+.dlbtn.alt{background:var(--panel2);border:1px solid var(--line);color:var(--txt)} .mhead .dlbtn.pri{margin-left:8px}
 
   /* ---------- PRINT / PDF: imprime SOMENTE o painel do atirador, em tema CLARO ----------
      (o site na tela continua preto; só a exportação do painel individual sai em branco)  */
@@ -1968,7 +1969,8 @@ function openReg(){
   document.getElementById('regModal').innerHTML =
     '<div class="mhead">'+
       '<div class="mtitle"><h2>Regulamento Oficial &amp; Calendário</h2><div class="sub">V Copa São Paulo Open de Tiro às Hélices · 2026</div></div>'+
-      '<a class="dlbtn" href="'+REG_PDF+'" download="Regulamento-V-Copa-SP-Open-2026.pdf" style="margin-left:auto">⬇ Baixar PDF oficial</a>'+
+      '<a class="dlbtn alt" href="resumo-regulamento.pdf" target="_blank" rel="noopener" style="margin-left:auto">📘 Resumo em PDF</a>'+
+      '<a class="dlbtn pri" href="'+REG_PDF+'" download="Regulamento-V-Copa-SP-Open-2026.pdf">⬇ Baixar PDF oficial</a>'+
       '<button class="close" onclick="closeReg()" style="margin-left:8px">✕</button>'+
     '</div>'+
     '<div class="mbody">'+
@@ -1976,6 +1978,7 @@ function openReg(){
       '<div class="calt-wrap"><table class="calt"><thead><tr><th>Etapa</th><th>Data</th><th>Local</th><th>Formato</th></tr></thead><tbody>'+cal+'</tbody></table></div>'+
       '<div class="secttl">Regras principais</div>'+
       rules+
+      '<p style="color:var(--muted);font-size:12px;margin:14px 0 0">Resumo atualizado em 16/11/2026 com as decisões da organização sobre a premiação. Em caso de dúvida, vale o texto completo do regulamento oficial.</p>'+
     '</div>';
   document.getElementById('regOverlay').classList.add('open');
 }

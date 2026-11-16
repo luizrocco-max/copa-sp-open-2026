@@ -12114,7 +12114,15 @@
   },
   {
    "t": "Premiação",
-   "c": "Mínimo garantido de R$ 130.000 + 100% do fundo arrecadado. Divisão: 50% Grande Final, 25% Majorança, 25% Top Gun. Sem premiação financeira nas etapas (tudo vai para a final)."
+   "c": "Mínimo garantido de R$ 130.000 + 100% do fundo arrecadado. Divisão: 50% Grande Final, 25% Majorança, 25% Top Gun. Sem premiação financeira nas etapas (tudo vai para a final). O valor exato do prêmio é divulgado no dia da Final."
+  },
+  {
+   "t": "Premiação da Grande Final (A e B)",
+   "c": "Os 50% são divididos igualmente: 25% do prêmio para a Categoria A e 25% para a Categoria B. O número de premiados segue o Anexo I do regulamento, pelo número de classificados de cada categoria: hoje, com 45 na A e 47 na B, são os 8 primeiros de cada uma (23, 19, 15, 12, 10, 8, 7 e 6%)."
+  },
+  {
+   "t": "Premiação do Top Gun e da Majorança",
+   "c": "Top Gun: premia os 15 primeiros (15, 11, 9, 8, 7, 6, 6, 5, 5, 5, 5, 5, 5, 4 e 4%). Majorança: premia os 10 primeiros (20, 16, 13, 11, 9, 8, 7, 6, 5 e 5%). Sem divisão por categoria."
   },
   {
    "t": "Troféus e medalhas",
