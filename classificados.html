@@ -86,6 +86,11 @@
   .box{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
   .box h3{margin:0 0 4px;font-size:15px} .box p{margin:4px 0;font-size:14px}
   .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+  .prem{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;align-items:start}
+  .prem .pt{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel2)}
+  .prem .pt h3{margin:0;padding:9px 12px;font-size:15px;display:block;border-bottom:1px solid var(--line)} .prem .pt h3 small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:1px}
+  .prem table{min-width:0;font-size:14px} .prem th{padding:6px 12px} .prem td{padding:6px 12px;font-weight:400;color:var(--txt);white-space:nowrap} .prem td:first-child{font-weight:400;color:var(--txt)}
+  .prem .r{text-align:right;font-variant-numeric:tabular-nums} .prem td.v{font-weight:700;color:var(--accent2)} .prem tfoot td{font-weight:700;border-bottom:none;border-top:1px solid var(--line)}
   .box.ouro{border-left:4px solid var(--yellow-strong)} .box.verde{border-left:4px solid var(--good)}
   ol.passos{margin:8px 0;padding-left:22px} ol.passos li{margin:5px 0}
   ul.lista{list-style:none;margin:8px 0 0;padding:0;columns:2;column-gap:22px}
@@ -98,7 +103,7 @@
   .grp h3 .v{color:var(--accent2)} .grp h3 small{color:var(--muted);font-weight:400;font-size:12px}
   .cats{display:grid;grid-template-columns:1fr 1fr;gap:18px} .cats h3{margin:0 0 2px;font-size:16px} .cats ul.lista{columns:1}
   @media (max-width:640px){ .precos thead{display:none} .precos,.precos tbody{display:block;min-width:0} .precos tr{display:grid;grid-template-columns:1fr auto;gap:3px 12px;padding:11px 0;border-bottom:1px solid var(--line)} .precos td{padding:0;border:0} .precos td:nth-child(1){grid-column:1;grid-row:1} .precos td:nth-child(3){grid-column:2;grid-row:1;font-weight:700;color:var(--accent2)} .precos td:nth-child(2){grid-column:1 / -1;grid-row:2;color:var(--muted);font-size:13px}
-  .kp{grid-template-columns:1fr 1fr} .duo,.cats,.trio{grid-template-columns:1fr} ul.lista,ul.lista.c3{columns:1} }
+  .kp{grid-template-columns:1fr 1fr} .duo,.cats,.trio,.prem{grid-template-columns:1fr} ul.lista,ul.lista.c3{columns:1} }
 </style>
 </head>
 <body>
@@ -117,6 +122,7 @@
   <div class="resumo">
     <h2>Parabéns aos <span id="nTot">91</span> classificados!</h2>
     <p style="margin:4px 0">Estão na Final todos os atiradores que disputaram <b>6 ou mais</b> das 13 etapas. São <b><span id="nA">45</span> na Categoria A</b> e <b><span id="nB">46</span> na Categoria B</b>.<span id="nNovos"></span></p>
+    <p class="muted" style="margin:6px 0 0">Os resultados podem ter ajustes à medida que os clubes lançam os resultados das etapas. Por isso ainda pode haver uma ou outra mudança até a Final.</p>
   </div>
 
   <section class="achar">
@@ -149,8 +155,15 @@
       <div class="box"><h3>🎯 Top Gun <span class="muted">· 25%</span></h3><p>Soma das <b>10 melhores etapas</b> + a Final com peso dobrado. Empate: desempate no tiro, a “um zero elimina”.</p><p><b>Premia os 15 primeiros:</b> 15, 11, 9, 8, 7, 6, 6, 5, 5, 5, 5, 5, 5, 4 e 4%.</p></div>
       <div class="box"><h3>⭐ Majorança <span class="muted">· 25%</span></h3><p>Soma das <b>4 melhores etapas presenciais</b> + a Final com peso dobrado. Os 10 melhores (e os empatados) disputam uma final adicional de 18 hélices, também com peso dobrado.</p><p><b>Premia os 10 primeiros:</b> 20, 16, 13, 11, 9, 8, 7, 6, 5 e 5%.</p></div>
     </div>
-    <p class="muted">Os percentuais são os do regulamento (item 15 e Anexo I); no Top Gun e na Majorança não há divisão por categoria. Na Grande Final, o número de premiados segue o número de classificados de cada categoria. Os valores em reais dependem do total arrecadado até a Final.</p>
+    <p class="muted">Os percentuais são os do regulamento (item 15 e Anexo I); no Top Gun e na Majorança não há divisão por categoria. Na Grande Final, o número de premiados segue o número de classificados de cada categoria. Os valores em reais dependem do total arrecadado até a Final; veja abaixo o que já está garantido.</p>
     <p class="muted">Troféus aos 3 primeiros das categorias A e B, ao campeão da Majorança e ao campeão do Top Gun. Medalhas aos campeões Damas, Veteranos e Júnior. O regulamento completo está na <a href="./" style="color:inherit;font-weight:700">página de resultados</a>, no botão “Regulamento &amp; Calendário”.</p>
+  </section>
+
+  <section id="premiacao" style="display:none">
+    <h2>💰 Premiação já garantida <span class="muted">· <span id="pgData"></span></span></h2>
+    <p><b id="pgTotal"></b> já garantidos: <span id="pgComp"></span>. <b>O prêmio final será maior:</b> ainda entram as cotas que os finalistas completarem e o fundo de premiação da Final. O valor exato será divulgado no dia da Final.</p>
+    <div class="prem" id="pgTabs"></div>
+    <p class="muted">A Grande Final fica com 50% do prêmio, metade para cada categoria: o 1º da A e o 1º da B recebem o mesmo valor. Top Gun e Majorança ficam com 25% cada, sem divisão por categoria.</p>
   </section>
 
   <section>
@@ -214,6 +227,8 @@
   // que acrescenta um 6º item: 1 = concorre ao prêmio (inscrição confirmada, paga ou isenta, com querPremio)
   var LISTA = [["001","Renato Da Costa Junior","A",12,0],["002","Thiago Bonet Mozena","A",13,0],["003","Farouk Muhieddine","A",12,0],["004","Gustavo Adolfo Schilling Neto","A",12,0],["005","Douglas Dorival Russo","A",13,0],["006","Paolo Brandizzi Neto","A",13,0],["007","Mauricio Antonio Piazzetta","A",12,0],["008","Luiz Jabbur Jr.","A",12,0],["009","Rogerio Balestrin","A",6,5],["010","Jamel Jamil Chukr","A",13,0],["011","Dener Augusto Diniz","A",13,0],["012","Jean Carlos Cazaroto","A",10,1],["013","Andre Luiz Tonial","A",10,1],["014","João Reinaldo Clasen (Fera)","A",10,1],["015","Daniel Boiko","A",6,5],["016","Guilherme Geo","A",13,0],["017","Raphael Bonet Mozena","A",13,0],["018","Bruno Hebach L Abbate","A",12,0],["019","Nelson Alfredo R. Bolduan","A",9,2],["020","Assis Ali Mohamad","A",7,4],["021","Luis R Vargas Jr","A",13,0],["022","Rodrigo Coutinho R. Cipriano","A",9,2],["023","Eduardo Peres Krum","A",9,2],["024","Luiz Antonio Farha Rocco","A",12,0],["025","Manuel Carlos Salemme","A",10,1],["026","Francisco Azevedo Figueiredo Neto","A",11,0],["027","Ricardo Chiarotto Penteado","A",11,0],["028","Lamberto Godoy Ramenzoni","A",12,0],["029","Sergio De Oliveira Barbosa","A",11,0],["030","Reinaldo Zani Baggio","A",12,0],["031","Marcos B. Gonsalez","A",8,3],["032","Assaad Malek","A",9,2],["033","Rodrigo Rebello","A",7,4],["034","Frederico Montefeltro","A",13,0],["035","João Paulo Pinheiro","A",13,0],["036","Pedro Cozza","A",10,1],["037","Romulo Mansur","A",11,0],["038","Luis Antonio Guideti","A",11,0],["039","Rafael Linne Netto","A",9,2],["040","Arthur Chiarotto Penteado","A",8,0],["041","Luciano Aardoon","A",12,0],["042","João Paulo Balaban","A",10,0],["043","Rubens Los Junior","A",7,4],["044","Rafael Pancan De Biaggi","A",6,5],["045","André Geo","A",6,5],["046","Andre Bizio","B",13,0],["047","Valter Fonseca","B",11,0],["048","Bruno Xavier Verciani","B",8,3],["049","Luciano André Fenker","B",10,1],["050","Luiz Pirani","B",10,1],["051","Marco Antônio Malzoni","B",9,2],["052","Otávio Peretti Iglesias","B",8,3],["053","Jose Otavio Junqueira","B",12,0],["054","Heuro Tortato","B",11,0],["055","Fabrício Dognani","B",11,0],["056","Ricardo Junqueira Meirelles","B",12,0],["057","Marcelo Augusto De Souza","B",6,5],["058","Tiago M Batista","B",6,5],["059","Walter Vitor Lança Jr","B",13,0],["060","Anamaria Marcondes M V Maciela Lima","B",13,0],["061","João Edward Soranz Filho","B",12,0],["062","José Carlos Mazer","B",11,0],["063","Gabriel Henrique Maciel","B",7,4],["064","Neimar Batista","B",7,4],["065","Valdair Ribeiro Da Silva","B",6,5],["066","Lorayne A R V Boogaard","B",12,0],["067","Eduardo Guilherme Alves De Oliveira","B",12,0],["068","Lucas Campos G. Vereza","B",10,1],["069","Olavo Ferraz Carrara","B",9,2],["070","Willian Richard Hamanue","B",8,3],["071","Guilherme Vallerini","B",7,4],["072","Carlos Eduardo Doll","B",9,2],["073","Fabio Lima Mourão","B",6,5],["074","Luiz Azzoni","B",8,3],["075","Scheila Menin","B",7,4],["076","Luis Henrique Neves","B",7,4],["077","Mauro Farah","B",6,5],["078","David Coury","B",8,3],["079","Felipe Sanguino","B",13,0],["080","Andre Ramos Nogueira","B",8,3],["081","Eduardo A C P De Lucena","B",9,2],["082","Jose Ivan Carvalho Rangel","B",7,4],["083","Renato Ribeiro F. Abucham","B",6,5],["084","Marcos Farah","B",6,5],["085","Marcelo Martignani","B",6,5],["086","Silvio Luis Paggiaro","B",7,4],["087","Jose Alfredo Gherardi","B",10,1],["088","Marcos Luciano Rodrigues Soares","B",6,5],["089","Odimir Jose De Moraes","B",6,5],["090","Marcelo Schun Diniz Junqueira","B",6,5],["091","Gabriel Russo","B",7,4]];
   var aberta = false;
+  // premiação já garantida = patrocínio oficial (R$ 130.000, decisão da organização em 16/11/2026) + fundo das etapas publicado na planilha
+  var PATROCINIO_OFICIAL = 130000, GAR = null;
   function g(id){ return document.getElementById(id); }
   function limpa(t){ return (t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase(); }
   function txt(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
@@ -238,6 +253,12 @@
     var faixa=function(n){ for(var i=0;i<ANEXO.length;i++){ if(n<=ANEXO[i][0]) return ANEXO[i][1]; } return null; };
     var pcts=function(v){ return v.slice(0,-1).join(', ')+' e '+v[v.length-1]+'%'; }, fA=faixa(A.length), fB=faixa(B.length);
     g('gfPremia').innerHTML = (fA && fB) ? (fA.length===fB.length ? '<b>Premia os '+fA.length+' primeiros de cada categoria:</b> '+pcts(fA)+'.' : '<b>Categoria A, os '+fA.length+' primeiros:</b> '+pcts(fA)+'. <b>Categoria B, os '+fB.length+' primeiros:</b> '+pcts(fB)+'.') : 'O número de premiados de cada categoria segue o quadro do Anexo I do regulamento, pelo número de classificados.';
+    if(GAR){ var real=function(n){ return 'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }, real0=function(n){ return 'R$ '+n.toLocaleString('pt-BR'); }, quarto=GAR.total*0.25;
+      var tab=function(tit,sub,p){ return '<div class="pt"><h3>'+tit+'<small>'+sub+'</small></h3><table><thead><tr><th>Pos.</th><th class="r">%</th><th class="r">Já garantido</th></tr></thead><tbody>'+p.map(function(x,i){ return '<tr><td>'+(i+1)+'º</td><td class="r">'+x+'%</td><td class="r v">'+real(quarto*x/100)+'</td></tr>'; }).join('')+'</tbody><tfoot><tr><td>Total</td><td class="r">100%</td><td class="r v">'+real(quarto)+'</td></tr></tfoot></table></div>'; };
+      g('pgTotal').textContent=real0(GAR.total); g('pgComp').textContent=real0(GAR.pat)+' de patrocínio mais '+real0(GAR.etapas)+' do fundo acumulado nas '+GAR.n+' etapas'; g('pgData').textContent='hoje';
+      g('pgTabs').innerHTML=(fA ? tab('Grande Final · Categoria A','25% do prêmio · '+A.length+' classificados · '+fA.length+' premiados',fA) : '')+(fB ? tab('Grande Final · Categoria B','25% do prêmio · '+B.length+' classificados · '+fB.length+' premiados',fB) : '')+
+        tab('Top Gun','25% do prêmio · 15 premiados',[15,11,9,8,7,6,6,5,5,5,5,5,5,4,4])+tab('Majorança','25% do prêmio · 10 premiados',[20,16,13,11,9,8,7,6,5,5]);
+      g('premiacao').style.display=''; }
     g('nTot').textContent=LISTA.length; g('nNovos').innerHTML = N.length ? ' Mais <b>'+N.length+'</b> classificado'+(N.length>1?'s':'')+' aguardando número e categoria.' : '';
     g('boxN').style.display = N.length ? '' : 'none'; g('nN').textContent=N.length; g('lN').innerHTML=N.map(function(a){ return li(a,false); }).join('');
     g('kTot').textContent=LISTA.length; g('kCat').textContent=A.length+' · '+B.length; g('kTem').textContent=tem.length; g('kPode').textContent=pode.length;
@@ -270,6 +291,7 @@
     }
     // Planilha de resultados do site (dataset.json): se ela estiver mais nova que o sistema da Final, vale a planilha para o
     // número de etapas, e quem se classificou depois entra na lista mesmo antes de ter número e categoria no sistema.
+    if(ds && Array.isArray(ds.fundoEtapa) && ds.fundoEtapa.length){ var soma=0; ds.fundoEtapa.forEach(function(x){ soma+=(+x||0); }); if(soma>0) GAR={pat:PATROCINIO_OFICIAL, etapas:soma, n:ds.fundoEtapa.length, total:PATROCINIO_OFICIAL+soma}; }
     if(ds && ds.athletes && ds.athletes.length){
       var chave=function(t){ return limpa(t).replace(/\s+/g,' ').trim(); }, conta={}, tem={};
       ds.athletes.forEach(function(a){ var n=0; (a.etapas||[]).forEach(function(e){ if(e && e.score!==null && e.score!==undefined) n++; }); conta[chave(a.name)]={n:n, nome:a.name}; });
