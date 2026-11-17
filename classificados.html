@@ -90,7 +90,10 @@
   .prem .pt{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel2)}
   .prem .pt h3{margin:0;padding:9px 12px;font-size:15px;display:block;border-bottom:1px solid var(--line)} .prem .pt h3 small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:1px}
   .prem table{min-width:0;font-size:14px} .prem th{padding:6px 12px} .prem td{padding:6px 12px;font-weight:400;color:var(--txt);white-space:nowrap} .prem td:first-child{font-weight:400;color:var(--txt)}
-  .prem .r{text-align:right;font-variant-numeric:tabular-nums} .prem td.v{font-weight:700;color:var(--accent2)} .prem tfoot td{font-weight:700;border-bottom:none;border-top:1px solid var(--line)}
+  .prem .r{text-align:right;font-variant-numeric:tabular-nums} .prem td.v{font-weight:700;color:var(--accent2)} .prem td.e{font-weight:700;color:var(--txt)} .prem tfoot td{font-weight:700;border-bottom:none;border-top:1px solid var(--line)}
+  .prem th{white-space:normal;line-height:1.2;vertical-align:bottom}
+  @media (max-width:900px){ .prem{grid-template-columns:1fr} }
+  @media (max-width:520px){ .prem .pc{display:none} .prem table{font-size:13px} .prem th,.prem td{padding:6px 8px} .prem .pt h3{padding:9px 8px} }
   .box.ouro{border-left:4px solid var(--yellow-strong)} .box.verde{border-left:4px solid var(--good)}
   ol.passos{margin:8px 0;padding-left:22px} ol.passos li{margin:5px 0}
   ul.lista{list-style:none;margin:8px 0 0;padding:0;columns:2;column-gap:22px}
@@ -155,13 +158,13 @@
       <div class="box"><h3>🎯 Top Gun <span class="muted">· 25%</span></h3><p>Soma das <b>10 melhores etapas</b> + a Final com peso dobrado. Empate: desempate no tiro, a “um zero elimina”.</p><p><b>Premia os 15 primeiros:</b> 15, 11, 9, 8, 7, 6, 6, 5, 5, 5, 5, 5, 5, 4 e 4%.</p></div>
       <div class="box"><h3>⭐ Majorança <span class="muted">· 25%</span></h3><p>Soma das <b>4 melhores etapas presenciais</b> + a Final com peso dobrado. Os 10 melhores (e os empatados) disputam uma final adicional de 18 hélices, também com peso dobrado.</p><p><b>Premia os 10 primeiros:</b> 20, 16, 13, 11, 9, 8, 7, 6, 5 e 5%.</p></div>
     </div>
-    <p class="muted">Os percentuais são os do regulamento (item 15 e Anexo I); no Top Gun e na Majorança não há divisão por categoria. Na Grande Final, o número de premiados segue o número de classificados de cada categoria. Os valores em reais dependem do total arrecadado até a Final; veja abaixo o que já está garantido.</p>
+    <p class="muted">Os percentuais são os do regulamento (item 15 e Anexo I); no Top Gun e na Majorança não há divisão por categoria. Na Grande Final, o número de premiados segue o número de classificados de cada categoria. Os valores em reais dependem do total arrecadado até a Final; veja abaixo o que já está garantido e a estimativa com todos os finalistas.</p>
     <p class="muted">Troféus aos 3 primeiros das categorias A e B, ao campeão da Majorança e ao campeão do Top Gun. Medalhas aos campeões Damas, Veteranos e Júnior. O regulamento completo está na <a href="./" style="color:inherit;font-weight:700">página de resultados</a>, no botão “Regulamento &amp; Calendário”.</p>
   </section>
 
   <section id="premiacao" style="display:none">
-    <h2>💰 Premiação já garantida <span class="muted">· <span id="pgData"></span></span></h2>
-    <p><b id="pgTotal"></b> já garantidos: <span id="pgComp"></span>. <b>O prêmio final será maior:</b> ainda entram as cotas que os finalistas completarem e o fundo de premiação da Final. O valor exato será divulgado no dia da Final.</p>
+    <h2>💰 Premiação da Final <span class="muted">· o que já temos e o que pode chegar</span></h2>
+    <p><b>Hoje já temos <span id="pgTotal"></span> garantidos</b>: <span id="pgComp"></span>. <b>Se todos os <span id="pgN"></span> finalistas participarem da Final</b>, completando as cotas e contribuindo com o fundo de premiação, <b>teremos um prêmio estimado de <span id="pgTodos"></span></b>. O valor exato depende da presença e será divulgado no dia da Final.</p>
     <div class="prem" id="pgTabs"></div>
     <p class="muted">A Grande Final fica com 50% do prêmio, metade para cada categoria: o 1º da A e o 1º da B recebem o mesmo valor. Top Gun e Majorança ficam com 25% cada, sem divisão por categoria.</p>
   </section>
@@ -254,8 +257,10 @@
     var pcts=function(v){ return v.slice(0,-1).join(', ')+' e '+v[v.length-1]+'%'; }, fA=faixa(A.length), fB=faixa(B.length);
     g('gfPremia').innerHTML = (fA && fB) ? (fA.length===fB.length ? '<b>Premia os '+fA.length+' primeiros de cada categoria:</b> '+pcts(fA)+'.' : '<b>Categoria A, os '+fA.length+' primeiros:</b> '+pcts(fA)+'. <b>Categoria B, os '+fB.length+' primeiros:</b> '+pcts(fB)+'.') : 'O número de premiados de cada categoria segue o quadro do Anexo I do regulamento, pelo número de classificados.';
     if(GAR){ var real=function(n){ return 'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }, real0=function(n){ return 'R$ '+n.toLocaleString('pt-BR'); }, quarto=GAR.total*0.25;
-      var tab=function(tit,sub,p){ return '<div class="pt"><h3>'+tit+'<small>'+sub+'</small></h3><table><thead><tr><th>Pos.</th><th class="r">%</th><th class="r">Já garantido</th></tr></thead><tbody>'+p.map(function(x,i){ return '<tr><td>'+(i+1)+'º</td><td class="r">'+x+'%</td><td class="r v">'+real(quarto*x/100)+'</td></tr>'; }).join('')+'</tbody><tfoot><tr><td>Total</td><td class="r">100%</td><td class="r v">'+real(quarto)+'</td></tr></tfoot></table></div>'; };
-      g('pgTotal').textContent=real0(GAR.total); g('pgComp').textContent=real0(GAR.pat)+' de patrocínio mais '+real0(GAR.etapas)+' do fundo acumulado nas '+GAR.n+' etapas'; g('pgData').textContent='hoje';
+      var cotasTodos=0; LISTA.forEach(function(a){ cotasTodos+=Math.max(0, MIN-a[3]); });
+      var todos=GAR.total+cotasTodos*COTA+LISTA.length*500, quartoT=todos*0.25;   // estimativa: todos os finalistas, com as cotas completas e o fundo da Final
+      var tab=function(tit,sub,p){ return '<div class="pt"><h3>'+tit+'<small>'+sub+'</small></h3><table><thead><tr><th>Pos.</th><th class="r pc">%</th><th class="r">Já garantido</th><th class="r">Se todos participarem</th></tr></thead><tbody>'+p.map(function(x,i){ return '<tr><td>'+(i+1)+'º</td><td class="r pc">'+x+'%</td><td class="r v">'+real(quarto*x/100)+'</td><td class="r e">'+real(quartoT*x/100)+'</td></tr>'; }).join('')+'</tbody><tfoot><tr><td>Total</td><td class="r pc">100%</td><td class="r v">'+real(quarto)+'</td><td class="r e">'+real(quartoT)+'</td></tr></tfoot></table></div>'; };
+      g('pgTotal').textContent=real0(GAR.total); g('pgComp').textContent=real0(GAR.pat)+' de patrocínio mais '+real0(GAR.etapas)+' do fundo acumulado nas '+GAR.n+' etapas'; g('pgN').textContent=LISTA.length; g('pgTodos').textContent=real0(todos);
       g('pgTabs').innerHTML=(fA ? tab('Grande Final · Categoria A','25% do prêmio · '+A.length+' classificados · '+fA.length+' premiados',fA) : '')+(fB ? tab('Grande Final · Categoria B','25% do prêmio · '+B.length+' classificados · '+fB.length+' premiados',fB) : '')+
         tab('Top Gun','25% do prêmio · 15 premiados',[15,11,9,8,7,6,6,5,5,5,5,5,5,4,4])+tab('Majorança','25% do prêmio · 10 premiados',[20,16,13,11,9,8,7,6,5,5]);
       g('premiacao').style.display=''; }
